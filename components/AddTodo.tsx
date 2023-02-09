@@ -14,7 +14,7 @@ function AddTodo() {
     await addDoc(collection(db, "users", session?.user?.email!, "todos"), {
       todo: formData,
       createdAt: serverTimestamp(),
-      done: true,
+      done: false,
     });
     setFormData("");
   };
