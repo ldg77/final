@@ -11,8 +11,8 @@ type props = {
 function page() {
   const formInfo: props = {
     fields: {
-      "background color": "color",
-      "text color": "color",
+      backgroundColor: "color",
+      textColor: "color",
     },
     slogan: "background color / text color ",
     userpath: "maincolors",

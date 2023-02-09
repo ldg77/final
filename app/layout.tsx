@@ -1,3 +1,4 @@
+import ClientPrivider from "@/components/ClientPrivider";
 import "./globals.css";
 
 export default async function RootLayout({
@@ -8,7 +9,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body className="flex flex-col h-screen">{children}</body>
+
+      <body className="flex flex-col h-screen">
+        <ClientPrivider />
+        <div>{children}</div>
+      </body>
     </html>
   );
 }

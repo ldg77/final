@@ -5,6 +5,9 @@ import storeData from "@/lib/storeData";
 import { useSession } from "next-auth/react";
 import { FormEvent, useState } from "react";
 import Input from "./Input";
+import { toast } from "react-hot-toast";
+import { log } from "console";
+import CustomToast from "../CustomToast";
 
 type params = {
   formInfo: {
@@ -17,17 +20,25 @@ type params = {
 function Form(props: params) {
   const { data: session } = useSession();
   const { fields, userpath, slogan } = props.formInfo;
-  type T = keyof typeof fields;
-  const [data, setData] = useState(
-    Object.keys(fields).reduce((acc, el) => {
-      acc[el] = "";
-      return acc;
-    }, {})
-  );
+
+  const INITIAL = Object.keys(fields).reduce((acc, el) => {
+    acc[el] = "";
+    return acc;
+  }, {});
+  const [data, setData] = useState(INITIAL);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const notification = CustomToast({
+      url: session?.user?.image!,
+      name: session?.user?.name!,
+    });
     const res = await storeData(userpath, data, session);
+    // set Timeout so see bether the Toast
+    setTimeout(() => {
+      toast.success("allready stored", { id: notification });
+      setData(INITIAL);
+    }, 2000);
   };
 
   return (
@@ -42,7 +53,7 @@ function Form(props: params) {
         {Object.keys(fields).map((el) => (
           <Input
             key={el}
-            data={{ name: el, type: fields[el] }}
+            state={{ name: el, type: fields[el] }}
             setData={setData}
           />
         ))}
