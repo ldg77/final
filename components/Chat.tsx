@@ -7,7 +7,7 @@ type Props = {
 
 function Chat({ setShowChat }: Props) {
   return (
-    <div className="absolute inset-36 bg-amber-700/10 z-10">
+    <div className="absolute inset-16 bg-slate-100 z-10">
       <div
         className="absolute right-0 top-0 hover:cursor-pointer "
         onClick={() => {

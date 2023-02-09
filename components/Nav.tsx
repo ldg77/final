@@ -11,9 +11,10 @@ function Nav() {
   const [showChat, setShowChat] = useState(false);
 
   return (
-    <div className="text-xl bg-amber-800/20 p-3 flex justify-between items-center">
+    <div className="text-xl bg-slate-800/20 p-3 flex justify-between items-center">
       <div className="menu flex  gap-3">
         <Link href="/">Main</Link>
+        <Link href="/page">Page</Link>
       </div>
       <div className="flex justify-center items-center gap-2 ">
         {showChat && <Chat setShowChat={setShowChat} />}
@@ -25,7 +26,7 @@ function Nav() {
             setShowChat((prev) => (prev = !prev));
           }}
         >
-          <ChatBubbleBottomCenterIcon className="h-8 w-8 animate-pulse text-amber-700/50 hover:cursor-pointer" />
+          <ChatBubbleBottomCenterIcon className="h-8 w-8 animate-pulse text-green-900/30 hover:cursor-pointer" />
         </div>
         <div
           className="logout flex justify-center items-center gap-3"

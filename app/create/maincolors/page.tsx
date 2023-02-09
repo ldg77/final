@@ -1,12 +1,9 @@
 import Footer from "@/components/Footer";
 import Form from "@/components/Form/Form";
+import React from "react";
 
 type props = {
-  fields: {
-    pagename: string;
-    slogan: string;
-    avatar: string;
-  };
+  fields: object;
   userpath: string;
   slogan: string;
 };
@@ -14,17 +11,15 @@ type props = {
 function page() {
   const formInfo: props = {
     fields: {
-      pagename: "text",
-      slogan: "text",
-      avatar: "file",
+      "background color": "color",
+      "text color": "color",
     },
-    slogan: "pagename / slogan / avatar",
-    userpath: "pagename",
+    slogan: "background color / text color ",
+    userpath: "maincolors",
   };
-
   return (
     <div className="h-full flex flex-col">
-      <div className="pagename-avatar flex-1 md:flex md:w-full md:mx-auto">
+      <div className="maincolors flex-1 md:flex md:w-full md:mx-auto">
         <div className="res bg-black text-white h-1/2 md:my-auto md:w-1/2">
           bla
         </div>
@@ -32,7 +27,7 @@ function page() {
           <Form formInfo={formInfo} />
         </div>
       </div>
-      <Footer prev={""} next={"maincolors"} />
+      <Footer prev={"home"} next={"layout"} />
     </div>
   );
 }

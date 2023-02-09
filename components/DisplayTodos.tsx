@@ -22,8 +22,6 @@ function DisplayTodos() {
     )
   );
 
-  console.log(value);
-
   return (
     <div className="flex-1">
       {value?.docs.map((el: DocumentData) => {
