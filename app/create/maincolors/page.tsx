@@ -19,7 +19,7 @@ function page() {
   };
   return (
     <div className="h-full flex flex-col">
-      <div className="maincolors flex-1 md:flex md:w-full md:mx-auto">
+      <div className="maincolors flex-1 md:flex md:w-full lg:w-2/3 lg:mx-auto">
         <div className="res bg-black text-white h-1/2 md:my-auto md:w-1/2">
           bla
         </div>

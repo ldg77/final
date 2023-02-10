@@ -19,7 +19,7 @@ function Input({ state, setData }: props) {
               (prev = {
                 ...prev,
                 [e.target.name]:
-                  state.name === "avatar" ? e.target.files[0] : e.target.value,
+                  state.name === "avatar" ? e.target.files![0] : e.target.value,
               })
           )
         }

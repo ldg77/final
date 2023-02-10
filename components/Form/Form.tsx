@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { FormEvent, useState } from "react";
 import Input from "./Input";
 import { toast } from "react-hot-toast";
-import { log } from "console";
+
 import CustomToast from "../CustomToast";
 
 type params = {
@@ -21,7 +21,7 @@ function Form(props: params) {
   const { data: session } = useSession();
   const { fields, userpath, slogan } = props.formInfo;
 
-  const INITIAL = Object.keys(fields).reduce((acc, el) => {
+  const INITIAL = Object.keys(fields).reduce((acc: any, el) => {
     acc[el] = "";
     return acc;
   }, {});
@@ -34,11 +34,9 @@ function Form(props: params) {
       name: session?.user?.name!,
     });
     const res = await storeData(userpath, data, session);
-    // set Timeout so see bether the Toast
-    setTimeout(() => {
-      toast.success("allready stored", { id: notification });
-      setData(INITIAL);
-    }, 2000);
+
+    toast.success("allready stored", { id: notification });
+    setData(INITIAL);
   };
 
   return (
@@ -53,7 +51,7 @@ function Form(props: params) {
         {Object.keys(fields).map((el) => (
           <Input
             key={el}
-            state={{ name: el, type: fields[el] }}
+            state={{ name: el, type: (fields as any)[el] }}
             setData={setData}
           />
         ))}
