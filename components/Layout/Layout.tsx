@@ -35,7 +35,7 @@ function Layout() {
     toast.success("Uploading done ....", { id: info });
   };
   return (
-    <div>
+    <div className="flex-1 h">
       <div className="nav">
         <button className="border px-3 py-1 rounded bg-blue-400 text-white capitalize">
           reset
