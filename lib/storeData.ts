@@ -11,14 +11,10 @@ async function storeData(
   session: Session | null
 ) {
   if (!data.avatar) {
-    const info = toast.loading(
-      `${session?.user?.name} we upload the data in ${userpath}`
-    );
     await addDoc(collection(db, "users", session?.user?.email!, userpath), {
       data: data,
       createdAt: serverTimestamp(),
     });
-    toast.success("Upload done!", { id: info });
   } else {
     const imageRef = ref(
       storage,
@@ -27,7 +23,7 @@ async function storeData(
     const info = toast.loading(
       `${session?.user?.name} we upload the file in ${userpath}`
     );
-    const res = await uploadBytes(imageRef, data.avatar);
+    await uploadBytes(imageRef, data.avatar);
     const url = await getDownloadURL(imageRef);
     await addDoc(collection(db, "users", session?.user?.email!, userpath), {
       data: { ...data, avatar: url },

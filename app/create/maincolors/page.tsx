@@ -29,7 +29,7 @@ function page() {
     <div className="h-full flex flex-col">
       <div className="maincolors flex-1 md:flex md:w-full lg:w-2/3 lg:mx-auto">
         <div className="res  bg-black text-white h-1/2 md:my-auto md:w-1/2 flex flex-col justify-center items-center gap-4 font-extrabold md:rounded-l-2xl">
-          <h1>You chouse these colors</h1>
+          <h1>Selected colors</h1>
           <div className="bg w-1/4 text-center">
             <p>Background</p>
             <div

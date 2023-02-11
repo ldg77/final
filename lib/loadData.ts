@@ -12,7 +12,6 @@ import { useCollection } from "react-firebase-hooks/firestore";
 
 function useLoadData(path: string): QuerySnapshot<DocumentData> | undefined {
   const { data: session } = useSession();
-  console.log(path);
 
   const [firedata] = useCollection(
     session &&
