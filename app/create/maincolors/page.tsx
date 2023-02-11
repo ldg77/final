@@ -24,7 +24,7 @@ function page() {
 
   const pagename = loadData(formInfo.userpath);
   const lastOne = pagename?.docs[pagename.docs.length - 1]?.data();
-  console.log(lastOne);
+
   return (
     <div className="h-full flex flex-col">
       <div className="maincolors flex-1 md:flex md:w-full lg:w-2/3 lg:mx-auto">

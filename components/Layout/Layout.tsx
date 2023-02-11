@@ -1,13 +1,10 @@
 "use client";
 import useLoadData from "@/lib/loadData";
 import storeData from "@/lib/storeData";
-import { log } from "console";
-
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import { toast } from "react-hot-toast";
-import LayoutItem from "./LayoutItem";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 
