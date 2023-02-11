@@ -4,7 +4,7 @@ import React from "react";
 
 function page() {
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col ">
       <Layout />
       <Footer prev={"maincolors"} next={"layout"} />
     </div>

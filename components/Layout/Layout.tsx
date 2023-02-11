@@ -64,7 +64,7 @@ function Layout() {
           <div
             key={el.i}
             data-grid={el}
-            className="flex justify-between border border-black relative overflow-hidden"
+            className="flex justify-between border border-black relative overflow-hidden bg-slate-300/50"
           >
             bla
           </div>
