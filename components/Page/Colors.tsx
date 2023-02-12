@@ -1,15 +1,18 @@
 "use client";
 import useLoadData from "@/lib/loadData";
+import { log } from "console";
 
 function Colors({ children }: any) {
-  const pagename = useLoadData("maincolors");
-  const lastOne = pagename?.docs[pagename.docs.length - 1]?.data()!;
+  const mainColors = useLoadData("maincolors");
+  const lastOne = mainColors?.docs[mainColors.docs.length - 1]?.data()!;
+
   return (
     <div
       style={{
-        backgroundColor: lastOne.backgroundColor,
-        color: lastOne.textColor,
+        backgroundColor: lastOne?.data.backgroundColor,
+        color: lastOne?.data.textColor,
       }}
+      className="h-full"
     >
       {children}
     </div>

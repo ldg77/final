@@ -7,7 +7,7 @@ export default async function RootLayout({
 }) {
   return (
     <section className="flex flex-col h-screen">
-      {/* <Colors>{children}</Colors> */}
+      <Colors>{children}</Colors>
     </section>
   );
 }
