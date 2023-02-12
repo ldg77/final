@@ -14,7 +14,7 @@ function getWindowDimention() {
 
 function DrawLayout() {
   const layout = useLoadData("layout");
-  const lastOne = layout?.docs[layout.docs.length - 1]?.data();
+  const lastOne: any = layout?.docs[layout.docs.length - 1]?.data();
 
   const cols = { lg: 12, md: 10, sm: 6, xs: 4, xxs: 1 };
   const breakpoints = { 1200: "lg", 996: "md", 768: "sm", 480: "xs", 0: "xxs" };
