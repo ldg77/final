@@ -32,10 +32,9 @@ function DrawLayout() {
     function handleResize() {
       setWindowDimentions(getWindowDimention());
     }
-    setLayoutObj((prev) => (prev = JSON.parse(lastOne.data)));
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [lastOne.data]);
+  });
   const getSize: string = Object.keys(breakpoints)
     .sort((a: any, b: any) => b - a)
     .find((el) => getWindowDimention().width >= +el)!;
