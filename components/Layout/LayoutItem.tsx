@@ -7,9 +7,10 @@ import { Session } from "next-auth";
 type Prop = {
   id: string;
   session: Session | null;
+  handleLoad: () => void;
 };
 
-function LayoutItem({ id, session }: Prop) {
+function LayoutItem({ id, session, handleLoad }: Prop) {
   const data = useLoadData("layout");
   const handleDelete = () => {
     const dataParsed = data?.docs[data?.docs.length - 1].data().data;
@@ -21,6 +22,7 @@ function LayoutItem({ id, session }: Prop) {
     }, {});
     console.log(filteredData);
     storeData("layout", filteredData, session);
+    handleLoad();
   };
   return (
     <div className="relative w-full">

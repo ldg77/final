@@ -23,7 +23,7 @@ function getWindowDimention() {
 function Layout() {
   const { data: session } = useSession();
   const pagename = useLoadData("layout");
-  const last = pagename?.docs[pagename.docs.length - 1]?.data();
+  const last = pagename?.docs[pagename?.docs.length - 1]?.data();
   const [layouts, setLayouts] = useState(last?.data);
   const [windowDimentions, setWindowDimentions] = useState(
     getWindowDimention()
@@ -40,12 +40,22 @@ function Layout() {
     .sort((a: any, b: any) => b - a)
     .find((el) => windowDimentions.width >= +el)!;
 
+  const deleteUndefined = (obj: any) => {
+    return Object.keys(obj).reduce((acc: any, el) => {
+      acc[el] = (layouts as any)[el].map((item: any) => {
+        const { i, x, y, h, w } = item;
+        return { i, x, y, h, w };
+      });
+      return acc;
+    }, {});
+  };
   // handler to check if any changes on layout
   const onLayoutChange = (
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
   ) => {
     setLayouts(layouts);
+    layout.length && handleSave(deleteUndefined(layouts));
   };
 
   // Use Effect to call listener on resize
@@ -56,6 +66,24 @@ function Layout() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   });
+
+  const handleLoad = () => {
+    if (!last) {
+      toast.error("No layouts found", { duration: 1000 });
+    } else {
+      const actualItems = last?.data[breakpoints[getSize]];
+      !actualItems
+        ? toast.error("No layout found on this screensize. Create new!")
+        : setItems(actualItems);
+
+      setLayouts(last.data);
+    }
+  };
+
+  const handleSave = (obj: any) => {
+    storeData(`layout`, obj, session);
+    toast.success("layout stored...", { duration: 1000 });
+  };
 
   return (
     <div className="flex-1 h">
@@ -81,36 +109,14 @@ function Layout() {
         </button>
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
-          onClick={() => {
-            if (!last) {
-              toast.error("No layouts found", { duration: 1000 });
-            } else {
-              const actualItems = last.data[breakpoints[getSize]];
-              !actualItems
-                ? toast.error("No layout found on this screensize. Create new!")
-                : setItems(actualItems);
-
-              setLayouts(last.data);
-            }
-          }}
+          onClick={handleLoad}
         >
           load layout
         </button>
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={() => {
-            const modifiedForFirebase = Object.keys(layouts).reduce(
-              (acc: any, el) => {
-                acc[el] = (layouts as any)[el].map((item: any) => {
-                  const { i, x, y, h, w } = item;
-                  return { i, x, y, h, w };
-                });
-                return acc;
-              },
-              {}
-            );
-            storeData(`layout`, modifiedForFirebase, session);
-            toast.success("layout stored...", { duration: 1000 });
+            handleSave(deleteUndefined(layouts));
           }}
         >
           save layout
@@ -133,7 +139,7 @@ function Layout() {
             data-grid={el}
             className="flex justify-between border border-black relative overflow-hidden bg-slate-300/50"
           >
-            <LayoutItem id={el.i} session={session} />
+            <LayoutItem id={el.i} session={session} handleLoad={handleLoad} />
           </div>
         ))}
       </ResponsiveReactGridLayout>
