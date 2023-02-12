@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import { toast } from "react-hot-toast";
 import LayoutItem from "./LayoutItem";
+import LayoutItemInfo from "./LayoutItemInfo";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 
@@ -21,6 +22,7 @@ function getWindowDimention() {
   };
 }
 function Layout() {
+  const [showEdit, setShowEdit] = useState({ show: false, id: "" });
   const { data: session } = useSession();
   const pagename = useLoadData("layout");
   const last = pagename?.docs[pagename?.docs.length - 1]?.data();
@@ -137,12 +139,18 @@ function Layout() {
           <div
             key={el.i}
             data-grid={el}
-            className="flex justify-between border border-black relative overflow-hidden bg-slate-300/50"
+            onDoubleClick={() =>
+              setShowEdit((prev) => (prev = { show: !prev.show, id: el.i }))
+            }
+            className="flex justify-between border border-black overflow-hidden bg-slate-300/50"
           >
             <LayoutItem id={el.i} session={session} handleLoad={handleLoad} />
           </div>
         ))}
       </ResponsiveReactGridLayout>
+      {showEdit.show && (
+        <LayoutItemInfo id={showEdit.id} setShowEdit={setShowEdit} />
+      )}
     </div>
   );
 }

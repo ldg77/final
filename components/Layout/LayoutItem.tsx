@@ -1,8 +1,9 @@
 "use client";
 import useLoadData from "@/lib/loadData";
 import storeData from "@/lib/storeData";
-import { XCircleIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { Session } from "next-auth";
+import { useState } from "react";
 
 type Prop = {
   id: string;
@@ -14,21 +15,17 @@ function LayoutItem({ id, session, handleLoad }: Prop) {
   const data = useLoadData("layout");
   const handleDelete = () => {
     const dataParsed = data?.docs[data?.docs.length - 1].data().data;
-    console.log(dataParsed);
-
     const filteredData = Object.keys(dataParsed).reduce((acc: any, el) => {
       acc[el] = dataParsed[el].filter((item: any) => item.i !== id);
       return acc;
     }, {});
-    console.log(filteredData);
     storeData("layout", filteredData, session);
     handleLoad();
   };
+
   return (
-    <div className="relative w-full">
-      <button className="delete flex w-full justify-end" onClick={handleDelete}>
-        <XCircleIcon className="w-6 h-6 text-slate-500/80 hover:opacity-50 transition" />
-      </button>
+    <div className="w-full">
+      <p>Click me to edit</p>
     </div>
   );
 }

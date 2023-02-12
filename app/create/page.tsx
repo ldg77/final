@@ -2,7 +2,6 @@
 import Footer from "@/components/Footer";
 import Form from "@/components/Form/Form";
 import loadData from "@/lib/loadData";
-import { log } from "console";
 
 type props = {
   fields: {
