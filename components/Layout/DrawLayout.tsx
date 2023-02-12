@@ -16,8 +16,14 @@ function DrawLayout() {
   const layout = useLoadData("layout");
   const lastOne: any = layout?.docs[layout.docs.length - 1]?.data();
 
-  const cols = { lg: 12, md: 10, sm: 6, xs: 4, xxs: 1 };
-  const breakpoints = { 1200: "lg", 996: "md", 768: "sm", 480: "xs", 0: "xxs" };
+  const cols: any = { lg: 12, md: 10, sm: 6, xs: 4, xxs: 1 };
+  const breakpoints: any = {
+    1200: "lg",
+    996: "md",
+    768: "sm",
+    480: "xs",
+    0: "xxs",
+  };
   const [windowDimentions, setWindowDimentions] = useState(
     getWindowDimention()
   );
@@ -31,9 +37,9 @@ function DrawLayout() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [lastOne.data]);
-  const getSize = Object.keys(breakpoints)
+  const getSize: string = Object.keys(breakpoints)
     .sort((a: any, b: any) => b - a)
-    .find((el) => getWindowDimention().width >= +el);
+    .find((el) => getWindowDimention().width >= +el)!;
 
   return (
     <div
@@ -46,7 +52,7 @@ function DrawLayout() {
         gap: "2px",
       }}
     >
-      {layoutObj[breakpoints[getSize]]?.map((el: any) => {
+      {(layoutObj as any)[breakpoints[getSize]]?.map((el: any) => {
         return <DrawLayoutItem key={el.i} data={el} />;
       })}
     </div>
