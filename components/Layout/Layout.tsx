@@ -3,6 +3,7 @@
 import useLoadData from "@/lib/loadData";
 import storeData from "@/lib/storeData";
 import { uuidv4 } from "@firebase/util";
+import { log } from "console";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
@@ -23,25 +24,32 @@ function getWindowDimention() {
 
 function Layout() {
   const { data: session } = useSession();
-  const [items, setItems] = useState([]);
-  const [layouts, setLayouts] = useState({});
-  const pagename = useLoadData("layout");
+  const layout = useLoadData("layout");
+
+  const [layouts, setLayouts] = useState(
+    layout?.docs[layout.docs.length - 1]?.data().data
+  );
   const [windowDimentions, setWindowDimentions] = useState(
     getWindowDimention()
   );
-  const onLayoutChange = (
-    layout: ReactGridLayout.Layout[],
-    layouts: ReactGridLayout.Layouts
-  ) => {
-    setLayouts(layouts);
-  };
-
   const breakpoints: any = {
     1200: "lg",
     996: "md",
     768: "sm",
     480: "xs",
     0: "xxs",
+  };
+  const getSize: string = Object.keys(breakpoints)
+    .sort((a: any, b: any) => b - a)
+    .find((el) => windowDimentions.width >= +el)!;
+
+  const lastOne = layout?.docs[layout.docs.length - 1]?.data();
+  const [items, setItems] = useState(lastOne?.data[breakpoints[getSize]]);
+  const onLayoutChange = (
+    layout: ReactGridLayout.Layout[],
+    layouts: ReactGridLayout.Layouts
+  ) => {
+    setLayouts(layouts);
   };
 
   // Use Effect to call listener on resize
@@ -52,10 +60,17 @@ function Layout() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   });
-  const getSize: string = Object.keys(breakpoints)
-    .sort((a: any, b: any) => b - a)
-    .find((el) => windowDimentions.width >= +el)!;
 
+  useEffect(() => {
+    if (!lastOne) {
+      toast.error("No layouts found", { duration: 1000 });
+    } else {
+      const actualItems = lastOne.data[breakpoints[getSize]];
+      !actualItems
+        ? toast.error("No layout found on this screensize. Create new!")
+        : setItems(actualItems);
+    }
+  }, []);
   return (
     <div className="flex-1 h">
       <div className="nav">
@@ -80,18 +95,7 @@ function Layout() {
         </button>
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
-          onClick={() => {
-            const lastOne = pagename?.docs[pagename.docs.length - 1]?.data();
-
-            if (!lastOne) {
-              toast.error("No layouts found", { duration: 1000 });
-            } else {
-              const actualItems = lastOne.data[breakpoints[getSize]];
-              !actualItems
-                ? toast.error("No layout found on this screensize. Create new!")
-                : setItems(actualItems);
-            }
-          }}
+          onClick={() => {}}
         >
           load layout
         </button>
@@ -129,7 +133,7 @@ function Layout() {
         margin={[2, 2]}
         compactType={null}
       >
-        {items.map((el: any) => (
+        {items?.map((el: any) => (
           <div
             key={el.i}
             data-grid={el}

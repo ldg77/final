@@ -12,10 +12,7 @@ type Prop = {
 function LayoutItem({ id, session }: Prop) {
   const data = useLoadData("layout");
   const handleDelete = () => {
-    console.log("bin da ");
-    const dataParsed = JSON.parse(
-      data?.docs[data?.docs.length - 1].data().data
-    );
+    const dataParsed = data?.docs[data?.docs.length - 1].data().data;
     console.log(dataParsed);
 
     const filteredData = Object.keys(dataParsed).reduce((acc: any, el) => {
