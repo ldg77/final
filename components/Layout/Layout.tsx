@@ -4,9 +4,10 @@ import useLoadData from "@/lib/loadData";
 import storeData from "@/lib/storeData";
 import { uuidv4 } from "@firebase/util";
 import { useSession } from "next-auth/react";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import { toast } from "react-hot-toast";
+import LayoutItem from "./LayoutItem";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 
@@ -19,14 +20,6 @@ function getWindowDimention() {
     height,
   };
 }
-
-type Items = {
-  i: string | "";
-  w: number;
-  h: number;
-  x: number;
-  y: number;
-};
 
 function Layout() {
   const { data: session } = useSession();
@@ -61,7 +54,7 @@ function Layout() {
   });
   const getSize: string = Object.keys(breakpoints)
     .sort((a: any, b: any) => b - a)
-    .find((el) => getWindowDimention().width >= +el)!;
+    .find((el) => windowDimentions.width >= +el)!;
 
   return (
     <div className="flex-1 h">
@@ -89,21 +82,13 @@ function Layout() {
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={() => {
             const lastOne = pagename?.docs[pagename.docs.length - 1]?.data();
+
             if (!lastOne) {
               toast.error("No layouts found", { duration: 1000 });
             } else {
-              toast.success("Layouts loaded", { duration: 1000 });
-
-              const actualItems = JSON.parse(lastOne.data)[
-                breakpoints[getSize]
-              ];
-
+              const actualItems = lastOne.data[breakpoints[getSize]];
               !actualItems
-                ? setItems(
-                    JSON.parse(lastOne.data)[
-                      Object.keys(JSON.parse(lastOne.data))[0]
-                    ]
-                  )
+                ? toast.error("No layout found on this screensize. Create new!")
                 : setItems(actualItems);
             }
           }}
@@ -113,7 +98,20 @@ function Layout() {
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={() => {
-            storeData(`layout`, JSON.stringify(layouts), session);
+            console.log(layouts);
+            const modifiedForFirebase = Object.keys(layouts).reduce(
+              (acc: any, el) => {
+                acc[el] = (layouts as any)[el].map((item: any) => {
+                  const { i, x, y, h, w } = item;
+                  return { i, x, y, h, w };
+                });
+                return acc;
+              },
+              {}
+            );
+            console.log(modifiedForFirebase);
+
+            storeData(`layout`, modifiedForFirebase, session);
             toast.success("layout stored...", { duration: 1000 });
           }}
         >
@@ -137,7 +135,7 @@ function Layout() {
             data-grid={el}
             className="flex justify-between border border-black relative overflow-hidden bg-slate-300/50"
           >
-            bla
+            <LayoutItem id={el.i} session={session} />
           </div>
         ))}
       </ResponsiveReactGridLayout>

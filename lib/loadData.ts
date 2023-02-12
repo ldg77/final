@@ -10,7 +10,7 @@ import {
 import { useSession } from "next-auth/react";
 import { useCollection } from "react-firebase-hooks/firestore";
 
-function useLoadData(path: string): QuerySnapshot<DocumentData> | undefined {
+function loadData(path: string): QuerySnapshot<DocumentData> | undefined {
   const { data: session } = useSession();
 
   const [firedata] = useCollection(
@@ -24,4 +24,4 @@ function useLoadData(path: string): QuerySnapshot<DocumentData> | undefined {
   return firedata;
 }
 
-export default useLoadData;
+export default loadData;
