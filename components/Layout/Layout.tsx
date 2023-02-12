@@ -2,8 +2,9 @@
 
 import useLoadData from "@/lib/loadData";
 import storeData from "@/lib/storeData";
+import { uuidv4 } from "@firebase/util";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import { toast } from "react-hot-toast";
 import "/node_modules/react-grid-layout/css/styles.css";
@@ -18,6 +19,14 @@ function getWindowDimention() {
     height,
   };
 }
+
+type Items = {
+  i: string | "";
+  w: number;
+  h: number;
+  x: number;
+  y: number;
+};
 
 function Layout() {
   const { data: session } = useSession();
@@ -68,7 +77,10 @@ function Layout() {
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={() =>
-            setItems([{ i: Date.now(), w: 2, h: 2, x: 0, y: 0 }, ...items])
+            setItems([
+              { i: uuidv4(), w: 2, h: 2, x: 0, y: 0 } as never,
+              ...items,
+            ])
           }
         >
           Add
