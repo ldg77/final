@@ -30,7 +30,7 @@ function DrawLayout() {
     setLayoutObj((prev) => (prev = JSON.parse(lastOne.data)));
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [getWindowDimention().width]);
+  }, [lastOne.data]);
   const getSize = Object.keys(breakpoints)
     .sort((a: any, b: any) => b - a)
     .find((el) => getWindowDimention().width >= +el);
