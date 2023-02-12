@@ -33,7 +33,7 @@ function Nav() {
           className="logout flex justify-center items-center gap-3"
           onClick={() => signOut()}
         >
-          <Image
+          <img
             src={session?.user?.image!}
             alt=""
             className="w-10 aspect-square rounded-full"
