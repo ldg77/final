@@ -8,6 +8,8 @@ type Props = {
 };
 
 function DrawLayoutItem({ data }: Props) {
+  console.log(data);
+
   return (
     data && (
       <div
@@ -18,9 +20,7 @@ function DrawLayoutItem({ data }: Props) {
           gridRowEnd: data.y + 1 + data.h,
         }}
         className="border"
-      >
-        bla
-      </div>
+      ></div>
     )
   );
 }

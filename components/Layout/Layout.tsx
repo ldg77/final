@@ -1,8 +1,9 @@
 "use client";
 
+import useLoadData from "@/lib/loadData";
 import storeData from "@/lib/storeData";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import { toast } from "react-hot-toast";
 import "/node_modules/react-grid-layout/css/styles.css";
@@ -10,27 +11,49 @@ import "/node_modules/react-resizable/css/styles.css";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
+function getWindowDimention() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+}
+
 function Layout() {
   const { data: session } = useSession();
-  const [items, setItems] = useState(
-    JSON.parse(localStorage.getItem("layout")!).lg || []
+  const [items, setItems] = useState([]);
+  const [layouts, setLayouts] = useState({});
+  const pagename = useLoadData("layout");
+  const [windowDimentions, setWindowDimentions] = useState(
+    getWindowDimention()
   );
-  const [layouts, setLayouts] = useState(
-    JSON.parse(localStorage.getItem("layout")!) || {}
-  );
-
   const onLayoutChange = (
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
   ) => {
-    const info = toast.loading(
-      `${session?.user?.name} we upload the data in layouts`
-    );
-    storeData(`layout`, JSON.stringify(layouts), session);
     setLayouts(layouts);
-    localStorage.setItem("layout", JSON.stringify(layouts));
-    toast.success("Uploading done ....", { id: info });
   };
+
+  const breakpoints: any = {
+    1200: "lg",
+    996: "md",
+    768: "sm",
+    480: "xs",
+    0: "xxs",
+  };
+
+  // Use Effect to call listener on resize
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimentions(getWindowDimention());
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  });
+  const getSize: string = Object.keys(breakpoints)
+    .sort((a: any, b: any) => b - a)
+    .find((el) => getWindowDimention().width >= +el)!;
+
   return (
     <div className="flex-1 h">
       <div className="nav">
@@ -49,6 +72,30 @@ function Layout() {
           }
         >
           Add
+        </button>
+        <button
+          className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
+          onClick={() => {
+            const lastOne = pagename?.docs[pagename.docs.length - 1]?.data();
+            if (!lastOne) {
+              toast.error("No layouts found", { duration: 1000 });
+            } else {
+              toast.success("Layouts loaded", { duration: 1000 });
+              setLayouts(JSON.parse(lastOne.data));
+              setItems(JSON.parse(lastOne.data)[breakpoints[getSize]]);
+            }
+          }}
+        >
+          load layout
+        </button>
+        <button
+          className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
+          onClick={() => {
+            storeData(`layout`, JSON.stringify(layouts), session);
+            toast.success("layout stored...", { duration: 1000 });
+          }}
+        >
+          save layout
         </button>
       </div>
       <ResponsiveReactGridLayout
