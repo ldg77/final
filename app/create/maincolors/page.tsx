@@ -27,25 +27,27 @@ function page() {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="maincolors flex-1 md:flex md:w-full lg:w-2/3 lg:mx-auto">
-        <div className="res  bg-black text-white h-1/2 md:my-auto md:w-1/2 flex flex-col justify-center items-center gap-4 font-extrabold md:rounded-l-2xl">
+      <div className="maincolors flex-1 md:flex md:w-full lg:mx-auto">
+        <div className="res  bg-black text-white h-1/2 lg:h-5/6 md:my-auto md:w-1/2 flex flex-col justify-center items-center gap-4 font-extrabold md:rounded-l-2xl">
           <h1>Selected colors</h1>
-          <div className="bg w-1/4 text-center">
-            <p>Background</p>
-            <div
-              className="w-full aspect-square rounded"
-              style={{ backgroundColor: lastOne?.data.backgroundColor }}
-            ></div>
-          </div>
-          <div className="text w-1/4 text-center">
-            <p>Text color</p>
-            <div
-              className="w-full aspect-square rounded"
-              style={{ backgroundColor: lastOne?.data.textColor }}
-            ></div>
+          <div className="flex justify-center items-center gap-5 w-full">
+            <div className="bg w-1/5 lg:w-1/4 text-center">
+              <p>Background</p>
+              <div
+                className="w-full aspect-square rounded"
+                style={{ backgroundColor: lastOne?.data.backgroundColor }}
+              ></div>
+            </div>
+            <div className="text w-1/5 lg:w-1/4 text-center">
+              <p>Text color</p>
+              <div
+                className="w-full aspect-square rounded"
+                style={{ backgroundColor: lastOne?.data.textColor }}
+              ></div>
+            </div>
           </div>
         </div>
-        <div className="input flex-1 h-1/2 grid place-content-center md:my-auto md:w-1/2 border md:rounded-r-2xl">
+        <div className="input flex-1 h-1/2 grid place-content-center md:my-auto md:w-1/2 border md:rounded-r-2xl lg:h-5/6">
           <Form formInfo={formInfo} />
         </div>
       </div>

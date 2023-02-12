@@ -13,7 +13,7 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 function Layout() {
   const { data: session } = useSession();
   const [items, setItems] = useState(
-    JSON.parse(localStorage.getItem("layout")!).xxs || []
+    JSON.parse(localStorage.getItem("layout")!).lg || []
   );
   const [layouts, setLayouts] = useState(
     JSON.parse(localStorage.getItem("layout")!) || {}
@@ -34,7 +34,12 @@ function Layout() {
   return (
     <div className="flex-1 h">
       <div className="nav">
-        <button className="border px-3 py-1 rounded bg-blue-400 text-white capitalize">
+        <button
+          className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
+          onClick={() => {
+            setLayouts({});
+          }}
+        >
           reset
         </button>
         <button
