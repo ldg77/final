@@ -3,7 +3,6 @@
 import useLoadData from "@/lib/loadData";
 import storeData from "@/lib/storeData";
 import { uuidv4 } from "@firebase/util";
-import { log } from "console";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
@@ -21,17 +20,15 @@ function getWindowDimention() {
     height,
   };
 }
-
 function Layout() {
   const { data: session } = useSession();
-  const layout = useLoadData("layout");
-
-  const [layouts, setLayouts] = useState(
-    layout?.docs[layout.docs.length - 1]?.data().data
-  );
+  const pagename = useLoadData("layout");
+  const last = pagename?.docs[pagename.docs.length - 1]?.data();
+  const [layouts, setLayouts] = useState(last?.data);
   const [windowDimentions, setWindowDimentions] = useState(
     getWindowDimention()
   );
+  const [items, setItems] = useState([]);
   const breakpoints: any = {
     1200: "lg",
     996: "md",
@@ -43,8 +40,7 @@ function Layout() {
     .sort((a: any, b: any) => b - a)
     .find((el) => windowDimentions.width >= +el)!;
 
-  const lastOne = layout?.docs[layout.docs.length - 1]?.data();
-  const [items, setItems] = useState(lastOne?.data[breakpoints[getSize]]);
+  // handler to check if any changes on layout
   const onLayoutChange = (
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
@@ -61,16 +57,6 @@ function Layout() {
     return () => window.removeEventListener("resize", handleResize);
   });
 
-  useEffect(() => {
-    if (!lastOne) {
-      toast.error("No layouts found", { duration: 1000 });
-    } else {
-      const actualItems = lastOne.data[breakpoints[getSize]];
-      !actualItems
-        ? toast.error("No layout found on this screensize. Create new!")
-        : setItems(actualItems);
-    }
-  }, []);
   return (
     <div className="flex-1 h">
       <div className="nav">
@@ -95,14 +81,24 @@ function Layout() {
         </button>
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
-          onClick={() => {}}
+          onClick={() => {
+            if (!last) {
+              toast.error("No layouts found", { duration: 1000 });
+            } else {
+              const actualItems = last.data[breakpoints[getSize]];
+              !actualItems
+                ? toast.error("No layout found on this screensize. Create new!")
+                : setItems(actualItems);
+
+              setLayouts(last.data);
+            }
+          }}
         >
           load layout
         </button>
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={() => {
-            console.log(layouts);
             const modifiedForFirebase = Object.keys(layouts).reduce(
               (acc: any, el) => {
                 acc[el] = (layouts as any)[el].map((item: any) => {
@@ -113,8 +109,6 @@ function Layout() {
               },
               {}
             );
-            console.log(modifiedForFirebase);
-
             storeData(`layout`, modifiedForFirebase, session);
             toast.success("layout stored...", { duration: 1000 });
           }}
