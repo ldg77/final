@@ -81,8 +81,18 @@ function Layout() {
               toast.error("No layouts found", { duration: 1000 });
             } else {
               toast.success("Layouts loaded", { duration: 1000 });
-              setLayouts(JSON.parse(lastOne.data));
-              setItems(JSON.parse(lastOne.data)[breakpoints[getSize]]);
+
+              const actualItems = JSON.parse(lastOne.data)[
+                breakpoints[getSize]
+              ];
+
+              !actualItems
+                ? setItems(
+                    JSON.parse(lastOne.data)[
+                      Object.keys(JSON.parse(lastOne.data))[0]
+                    ]
+                  )
+                : setItems(actualItems);
             }
           }}
         >
