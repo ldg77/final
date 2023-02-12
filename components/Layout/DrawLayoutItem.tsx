@@ -17,6 +17,7 @@ function DrawLayoutItem({ data }: Props) {
           gridColumnEnd: data.x + 1 + data.w,
           gridRowEnd: data.y + 1 + data.h,
         }}
+        className="border"
       >
         bla
       </div>
