@@ -5,6 +5,7 @@ import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useState } from "react";
 import Chat from "./Chat";
+import Image from "next/image";
 
 function Nav() {
   const { data: session } = useSession();
@@ -32,7 +33,7 @@ function Nav() {
           className="logout flex justify-center items-center gap-3"
           onClick={() => signOut()}
         >
-          <img
+          <Image
             src={session?.user?.image!}
             alt=""
             className="w-10 aspect-square rounded-full"

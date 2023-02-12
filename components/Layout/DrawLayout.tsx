@@ -47,8 +47,7 @@ function DrawLayout() {
       }}
     >
       {layoutObj[breakpoints[getSize]]?.map((el: any) => {
-        console.log();
-        return <DrawLayoutItem data={el} />;
+        return <DrawLayoutItem key={el.i} data={el} />;
       })}
     </div>
   );
