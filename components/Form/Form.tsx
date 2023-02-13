@@ -51,9 +51,8 @@ function Form(props: params) {
     });
 
     const user = await resUser.json();
-    console.log(user);
 
-    const pagename = await fetch(`/api/${userpath}/handler`, {
+    await fetch(`/api/${userpath}/handler`, {
       method: "POST",
       body: JSON.stringify({
         ...data,

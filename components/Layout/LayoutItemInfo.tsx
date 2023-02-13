@@ -1,6 +1,6 @@
 "use clinet";
 import useLoadData from "@/lib/loadData";
-import storeData from "@/lib/storeData";
+
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction } from "react";
@@ -25,7 +25,6 @@ function LayoutItemInfo({ id, setShowEdit }: Prop) {
       acc[el] = layoutData[el].filter((item: any) => item.i !== id);
       return acc;
     }, {});
-    storeData("layout", filtered, session);
     setShowEdit((prev) => (prev = { id: "", show: false }));
     console.log(filtered);
   };

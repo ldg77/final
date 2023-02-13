@@ -1,7 +1,6 @@
 "use client";
 
 import useLoadData from "@/lib/loadData";
-import storeData from "@/lib/storeData";
 import { uuidv4 } from "@firebase/util";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -83,7 +82,6 @@ function Layout() {
   };
 
   const handleSave = (obj: any) => {
-    storeData(`layout`, obj, session);
     toast.success("layout stored...", { duration: 1000 });
   };
 
