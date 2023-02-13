@@ -4,10 +4,11 @@ import { toast } from "react-hot-toast";
 type props = {
   url: string;
   name: string;
+  text: string;
 };
 
 function CustomToast(props: props) {
-  const { url, name } = props;
+  const { url, name, text } = props;
   return toast.custom((t) => (
     <div
       className={`${
@@ -21,7 +22,7 @@ function CustomToast(props: props) {
           </div>
           <div className="ml-3 flex-1">
             <p className="text-sm font-medium text-gray-900">{name}</p>
-            <p className="mt-1 text-sm text-gray-500">some Text</p>
+            <p className="mt-1 text-sm text-gray-500">{text}</p>
           </div>
         </div>
       </div>

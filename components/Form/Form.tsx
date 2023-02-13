@@ -1,13 +1,14 @@
 "use client";
 
-import storeData from "@/lib/storeData";
-
 import { useSession } from "next-auth/react";
 import { FormEvent, useState } from "react";
 import Input from "./Input";
 import { toast } from "react-hot-toast";
 
 import CustomToast from "../CustomToast";
+import storePicture from "@/lib/storePicture";
+import User from "@/model/User";
+import { log } from "console";
 
 type params = {
   formInfo: {
@@ -32,8 +33,37 @@ function Form(props: params) {
     const notification = CustomToast({
       url: session?.user?.image!,
       name: session?.user?.name!,
+      text: "save data...",
     });
-    const res = await storeData(userpath, data, session);
+    let url = "";
+    if (data.avatar) {
+      url = await storePicture(data.avatar, session);
+    }
+
+    const resUser = await fetch("/api/user/email", {
+      method: "POST",
+      body: JSON.stringify({
+        email: session?.user?.email,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+
+    const user = await resUser.json();
+    console.log(user);
+
+    const pagename = await fetch(`/api/${userpath}/handler`, {
+      method: "POST",
+      body: JSON.stringify({
+        ...data,
+        avatar: url,
+        user: user._id,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
 
     toast.success("allready stored", { id: notification });
     setData(INITIAL);
