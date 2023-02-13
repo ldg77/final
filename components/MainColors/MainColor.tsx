@@ -10,7 +10,6 @@ type PagenameType = {
 };
 
 function MainColor() {
-  const { data: session } = useSession();
   const INITIAL: PagenameType = {
     backgroundColor: "",
     textColor: "",
@@ -29,7 +28,7 @@ function MainColor() {
   });
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
-  console.log(data);
+
   return (
     <>
       <div className="maincolors flex-1 md:flex md:w-full lg:mx-auto">
@@ -40,14 +39,14 @@ function MainColor() {
               <p>Background</p>
               <div
                 className="w-full aspect-square rounded"
-                style={{ backgroundColor: data[0].backgroundColor }}
+                style={{ backgroundColor: data[0]?.backgroundColor }}
               ></div>
             </div>
             <div className="text w-1/5 lg:w-1/4 text-center">
               <p>Text color</p>
               <div
                 className="w-full aspect-square rounded"
-                style={{ backgroundColor: data[0].textColor }}
+                style={{ backgroundColor: data[0]?.textColor }}
               ></div>
             </div>
           </div>

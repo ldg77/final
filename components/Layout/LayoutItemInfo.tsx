@@ -1,4 +1,5 @@
 "use clinet";
+import getSessionUser from "@/lib/getSessionUser";
 import useLoadData from "@/lib/loadData";
 
 import { XCircleIcon } from "@heroicons/react/24/solid";
@@ -19,14 +20,26 @@ function LayoutItemInfo({ id, setShowEdit }: Prop) {
   const layout = useLoadData("layout");
   const { data: session } = useSession();
 
-  const handleDelete = () => {
-    const layoutData = layout?.docs[layout.docs.length - 1].data().data;
-    const filtered = Object.keys(layoutData).reduce((acc: any, el) => {
-      acc[el] = layoutData[el].filter((item: any) => item.i !== id);
+  const handleDelete = async () => {
+    const user = await getSessionUser(session);
+
+    const layoutRes = await fetch("/api/layout/" + user.layout);
+    const layoutData = await layoutRes.json();
+
+    const filtered = Object.keys(layoutData.layouts).reduce((acc: any, el) => {
+      acc[el] = layoutData.layouts[el].filter((item: any) => item.i !== id);
       return acc;
     }, {});
+
+    await fetch("/api/layout/handler", {
+      method: "POST",
+      body: JSON.stringify({ layouts: filtered, user: user._id }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+
     setShowEdit((prev) => (prev = { id: "", show: false }));
-    console.log(filtered);
   };
   return (
     <div className="absolute inset-0 md:inset-16 bg-stone-400 z-20  flex flex-col">

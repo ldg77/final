@@ -1,15 +1,18 @@
 "use client";
 
-import useLoadData from "@/lib/loadData";
+import getSessionUser from "@/lib/getSessionUser";
 import { uuidv4 } from "@firebase/util";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
-import { toast } from "react-hot-toast";
+import fetcher from "@/lib/fetcher";
+import useSWR from "swr";
 import LayoutItem from "./LayoutItem";
 import LayoutItemInfo from "./LayoutItemInfo";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
+import { log } from "console";
+import { toast } from "react-hot-toast";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -21,15 +24,13 @@ function getWindowDimention() {
   };
 }
 function Layout() {
-  const [showEdit, setShowEdit] = useState({ show: false, id: "" });
   const { data: session } = useSession();
-  const pagename = useLoadData("layout");
-  const last = pagename?.docs[pagename?.docs.length - 1]?.data();
-  const [layouts, setLayouts] = useState(last?.data);
+  const [showEdit, setShowEdit] = useState({ show: false, id: "" });
+  const [layouts, setLayouts] = useState({});
   const [windowDimentions, setWindowDimentions] = useState(
     getWindowDimention()
   );
-  const [items, setItems] = useState([]);
+
   const breakpoints: any = {
     1200: "lg",
     996: "md",
@@ -40,23 +41,14 @@ function Layout() {
   const getSize: string = Object.keys(breakpoints)
     .sort((a: any, b: any) => b - a)
     .find((el) => windowDimentions.width >= +el)!;
+  const [items, setItems] = useState([]);
 
-  const deleteUndefined = (obj: any) => {
-    return Object.keys(obj).reduce((acc: any, el) => {
-      acc[el] = (layouts as any)[el].map((item: any) => {
-        const { i, x, y, h, w } = item;
-        return { i, x, y, h, w };
-      });
-      return acc;
-    }, {});
-  };
   // handler to check if any changes on layout
-  const onLayoutChange = (
+  const onLayoutChange = async (
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
   ) => {
     setLayouts(layouts);
-    layout.length && handleSave(deleteUndefined(layouts));
   };
 
   // Use Effect to call listener on resize
@@ -67,23 +59,6 @@ function Layout() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   });
-
-  const handleLoad = () => {
-    if (!last) {
-      toast.error("No layouts found", { duration: 1000 });
-    } else {
-      const actualItems = last?.data[breakpoints[getSize]];
-      !actualItems
-        ? toast.error("No layout found on this screensize. Create new!")
-        : setItems(actualItems);
-
-      setLayouts(last.data);
-    }
-  };
-
-  const handleSave = (obj: any) => {
-    toast.success("layout stored...", { duration: 1000 });
-  };
 
   return (
     <div className="flex-1 h">
@@ -109,14 +84,33 @@ function Layout() {
         </button>
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
-          onClick={handleLoad}
+          onClick={async () => {
+            const resLayout = await fetch("/api/layout/handler");
+            const res = await resLayout.json();
+            if (!res[0]) {
+              toast.error("no layouts found...", { duration: 1000 });
+              return;
+            }
+            setLayouts(res[0].layouts);
+            console.log(res[0].layouts);
+            setItems(res[0].layouts[breakpoints[getSize]]);
+            toast.success("layout loaded... ", { duration: 1000 });
+          }}
         >
           load layout
         </button>
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
-          onClick={() => {
-            handleSave(deleteUndefined(layouts));
+          onClick={async () => {
+            toast.success("layout saved... ", { duration: 1000 });
+            const user = await getSessionUser(session);
+            await fetch("/api/layout/handler", {
+              method: "POST",
+              body: JSON.stringify({ layouts: layouts, user: user._id }),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            });
           }}
         >
           save layout
@@ -142,7 +136,7 @@ function Layout() {
             }
             className="flex justify-between border border-black overflow-hidden bg-slate-300/50"
           >
-            <LayoutItem id={el.i} session={session} handleLoad={handleLoad} />
+            <LayoutItem id={el.i} />
           </div>
         ))}
       </ResponsiveReactGridLayout>

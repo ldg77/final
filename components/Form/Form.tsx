@@ -7,8 +7,8 @@ import { toast } from "react-hot-toast";
 
 import CustomToast from "../CustomToast";
 import storePicture from "@/lib/storePicture";
-import User from "@/model/User";
-import { log } from "console";
+import getSessionUser from "@/lib/getSessionUser";
+import email from "@/pages/api/user/email";
 
 type params = {
   formInfo: {
@@ -40,18 +40,20 @@ function Form(props: params) {
       url = await storePicture(data.avatar, session);
     }
 
-    const resUser = await fetch("/api/user/email", {
-      method: "POST",
-      body: JSON.stringify({
-        email: session?.user?.email,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    });
-
-    const user = await resUser.json();
-
+    let user = await getSessionUser(session);
+    if (!user) {
+      user = await fetch(`/api/user/handler`, {
+        method: "POST",
+        body: JSON.stringify({
+          name: session?.user?.name,
+          email: session?.user?.email,
+          image: session?.user?.image,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+    }
     await fetch(`/api/${userpath}/handler`, {
       method: "POST",
       body: JSON.stringify({

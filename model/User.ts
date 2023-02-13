@@ -17,6 +17,10 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "MainColor",
     },
+    layout: {
+      type: Schema.Types.ObjectId,
+      ref: "Layout",
+    },
   },
   { timestamps: true }
 );
