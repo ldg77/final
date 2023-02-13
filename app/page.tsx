@@ -1,5 +1,3 @@
-// import AddTodo from "@/components/AddTodo";
-// import DisplayTodos from "@/components/DisplayTodos";
 import Link from "next/link";
 
 export default function Home() {
@@ -17,9 +15,6 @@ export default function Home() {
         </Link>
         <div className="">Text</div>
       </div>
-
-      {/* <DisplayTodos />
-      <AddTodo /> */}
     </main>
   );
 }

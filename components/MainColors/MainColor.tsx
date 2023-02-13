@@ -1,25 +1,19 @@
 "use client";
 
-import loadData from "@/lib/loadData";
-import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import Footer from "../Footer";
 import Form from "../Form/Form";
-
+import fetcher from "@/lib/fetcher";
+import useSWR from "swr";
 type PagenameType = {
   backgroundColor: string;
   textColor: string;
 };
 
 function MainColor() {
-  const { data: session } = useSession();
   const INITIAL: PagenameType = {
     backgroundColor: "",
     textColor: "",
   };
-  const [maincolor, setMainColor] = useState(INITIAL);
-
   const formInfo = {
     fields: {
       backgroundColor: "color",
@@ -29,11 +23,12 @@ function MainColor() {
     userpath: "maincolor",
   };
 
-  useEffect(() => {
-    loadData(session as Session, "maincolor").then((res) =>
-      setMainColor(res[0].data().data)
-    );
-  }, []);
+  const { data, error, isLoading } = useSWR("/api/maincolor/handler", fetcher, {
+    refreshInterval: 10000,
+  });
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
+
   return (
     <>
       <div className="maincolors flex-1 md:flex md:w-full lg:mx-auto">
@@ -44,14 +39,14 @@ function MainColor() {
               <p>Background</p>
               <div
                 className="w-full aspect-square rounded"
-                style={{ backgroundColor: maincolor?.backgroundColor }}
+                style={{ backgroundColor: data[0]?.backgroundColor }}
               ></div>
             </div>
             <div className="text w-1/5 lg:w-1/4 text-center">
               <p>Text color</p>
               <div
                 className="w-full aspect-square rounded"
-                style={{ backgroundColor: maincolor?.textColor }}
+                style={{ backgroundColor: data[0]?.textColor }}
               ></div>
             </div>
           </div>
@@ -60,7 +55,6 @@ function MainColor() {
           <Form formInfo={formInfo} />
         </div>
       </div>
-      <Footer prev={"home"} next={"layout"} />
     </>
   );
 }

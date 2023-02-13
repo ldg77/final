@@ -1,16 +1,19 @@
 "use client";
-import useLoadData from "@/lib/loadData";
-import { log } from "console";
+import fetcher from "@/lib/fetcher";
+import useSWR from "swr";
 
 function Colors({ children }: any) {
-  const mainColors = useLoadData("maincolors");
-  const lastOne = mainColors?.docs[mainColors.docs.length - 1]?.data()!;
+  const { data, error, isLoading } = useSWR("/api/maincolor/handler", fetcher, {
+    refreshInterval: 10000,
+  });
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
 
   return (
     <div
       style={{
-        backgroundColor: lastOne?.data.backgroundColor,
-        color: lastOne?.data.textColor,
+        backgroundColor: data[0]?.backgroundColor,
+        color: data[0]?.textColor,
       }}
       className="h-full"
     >
