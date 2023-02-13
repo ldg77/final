@@ -2,7 +2,7 @@ import connectMongo from "@/lib/dbConnect";
 import PageName from "@/model/PageName";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   await connectMongo();
   switch (req.method) {
     case "GET":
@@ -17,3 +17,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       break;
   }
 };
+export default handler;

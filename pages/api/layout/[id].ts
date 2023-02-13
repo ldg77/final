@@ -3,7 +3,7 @@ import Layout from "@/model/Layout";
 
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const id = async (req: NextApiRequest, res: NextApiResponse) => {
   await connectMongo();
   const { id } = req.query;
 
@@ -24,3 +24,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       break;
   }
 };
+export default id;
