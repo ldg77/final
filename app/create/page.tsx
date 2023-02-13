@@ -1,4 +1,3 @@
-"use client";
 import Footer from "@/components/Footer";
 import Pagename from "@/components/Pagename/Pagename";
 
