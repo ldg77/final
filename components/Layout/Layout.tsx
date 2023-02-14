@@ -12,7 +12,6 @@ import "/node_modules/react-resizable/css/styles.css";
 
 import { toast } from "react-hot-toast";
 import getLayout from "@/lib/getLayout";
-import { log } from "console";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -94,13 +93,13 @@ function Layout() {
             const res = await getLayout();
             console.log();
 
-            if (!res[0]) {
+            if (!res) {
               toast.error("no layouts found...", { duration: 1000 });
               return;
             }
-            setLayouts(res[0].layouts);
-            console.log(res[0].layouts);
-            setItems(res[0].layouts[breakpoints[getSize]]);
+            setLayouts(res.layouts);
+            console.log(res.layouts);
+            setItems(res.layouts[breakpoints[getSize]]);
             toast.success("layout loaded... ", { duration: 1000 });
           }}
         >

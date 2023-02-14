@@ -18,16 +18,16 @@ type Prop = {
 function Type({ data }: Prop) {
   const handleChange = async (e: ChangeEvent<HTMLSelectElement>) => {
     const resLayout = await getLayout();
-    const updatedLayout = Object.keys(resLayout[0].layouts).reduce(
+    const updatedLayout = Object.keys(resLayout.layouts).reduce(
       (acc: any, el) => {
-        acc[el] = resLayout[0].layouts[el].map((item: any) =>
+        acc[el] = resLayout.layouts[el].map((item: any) =>
           item.i === data.id ? { ...item, type: e.target.value } : { ...item }
         );
         return acc;
       },
       {}
     );
-    const text = await fetch("/api/layout/" + resLayout[0]._id, {
+    const text = await fetch("/api/layout/" + resLayout._id, {
       method: "PUT",
       body: JSON.stringify({ ...resLayout[0], layouts: updatedLayout }),
       headers: {
