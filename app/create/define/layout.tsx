@@ -1,10 +1,11 @@
-import getLayout from "@/lib/getLayout";
-import React from "react";
+import ListItem from "@/components/Define/ListItem";
 
-async function layout({ children }: { children: React.ReactNode }) {
+function layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col">
-      <div className="layoutsList">liste</div>
+      <div className="layoutsList">
+        <ListItem />
+      </div>
       {children}
     </div>
   );

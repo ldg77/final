@@ -4,7 +4,6 @@ import getSessionUser from "@/lib/getSessionUser";
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction } from "react";
-import ColorSizes from "./LayoutItemParts/ColorSizes";
 import Type from "./LayoutItemParts/Type";
 
 type Prop = {
@@ -59,7 +58,6 @@ function LayoutItemInfo({ id, setShowEdit, unique }: Prop) {
       </button>
       <div className="main flex-1">
         <Type data={data} />
-        <ColorSizes />
       </div>
       <div className="footer p-3 flex justify-end">
         <button
