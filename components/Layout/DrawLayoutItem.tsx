@@ -1,15 +1,16 @@
-type Props = {
-  data: {
-    x: number;
-    y: number;
-    h: number;
-    w: number;
+import HeaderItem from "./DrawHeader/HeaderItem";
+
+function DrawLayoutItem({ data }: any) {
+  const getPart = (type: string) => {
+    switch (type) {
+      case "header":
+        return <HeaderItem />;
+        break;
+
+      default:
+        break;
+    }
   };
-};
-
-function DrawLayoutItem({ data }: Props) {
-  console.log(data);
-
   return (
     data && (
       <div
@@ -20,7 +21,9 @@ function DrawLayoutItem({ data }: Props) {
           gridRowEnd: data.y + 1 + data.h,
         }}
         className="border"
-      ></div>
+      >
+        {getPart(data.type)}
+      </div>
     )
   );
 }

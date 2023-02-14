@@ -5,14 +5,13 @@ import { uuidv4 } from "@firebase/util";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
-import fetcher from "@/lib/fetcher";
-import useSWR from "swr";
 import LayoutItem from "./LayoutItem";
 import LayoutItemInfo from "./LayoutItemInfo";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
-import { log } from "console";
+
 import { toast } from "react-hot-toast";
+import getLayout from "@/lib/getLayout";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -26,6 +25,12 @@ function getWindowDimention() {
 function Layout() {
   const { data: session } = useSession();
   const [showEdit, setShowEdit] = useState({ show: false, id: "" });
+  const [uniqueLayoutItems, setUniqueLayoutItems] = useState([
+    "header",
+    "main",
+    "footer",
+    "asset",
+  ]);
   const [layouts, setLayouts] = useState({});
   const [windowDimentions, setWindowDimentions] = useState(
     getWindowDimention()
@@ -85,8 +90,7 @@ function Layout() {
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={async () => {
-            const resLayout = await fetch("/api/layout/handler");
-            const res = await resLayout.json();
+            const res = await getLayout();
             if (!res[0]) {
               toast.error("no layouts found...", { duration: 1000 });
               return;
@@ -141,7 +145,11 @@ function Layout() {
         ))}
       </ResponsiveReactGridLayout>
       {showEdit.show && (
-        <LayoutItemInfo id={showEdit.id} setShowEdit={setShowEdit} />
+        <LayoutItemInfo
+          id={showEdit.id}
+          setShowEdit={setShowEdit}
+          unique={[uniqueLayoutItems, setUniqueLayoutItems]}
+        />
       )}
     </div>
   );

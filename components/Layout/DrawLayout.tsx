@@ -1,8 +1,9 @@
 "use client";
-import useLoadData from "@/lib/loadData";
+
 import { useEffect, useState } from "react";
 import DrawLayoutItem from "./DrawLayoutItem";
-
+import fetcher from "@/lib/fetcher";
+import useSWR from "swr";
 function getWindowDimention() {
   const { innerWidth: width, innerHeight: height } = window;
   return {
@@ -12,9 +13,6 @@ function getWindowDimention() {
 }
 
 function DrawLayout() {
-  const layout = useLoadData("layout");
-  const lastOne: any = layout?.docs[layout.docs.length - 1]?.data();
-
   const cols: any = { lg: 12, md: 10, sm: 6, xs: 4, xxs: 1 };
   const breakpoints: any = {
     1200: "lg",
@@ -26,19 +24,23 @@ function DrawLayout() {
   const [windowDimentions, setWindowDimentions] = useState(
     getWindowDimention()
   );
-  const [layoutObj, setLayoutObj] = useState({});
+  const { data, error, isLoading } = useSWR("/api/layout/handler", fetcher, {
+    refreshInterval: 10000,
+  });
 
   useEffect(() => {
     function handleResize() {
       setWindowDimentions(getWindowDimention());
     }
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   });
   const getSize: string = Object.keys(breakpoints)
     .sort((a: any, b: any) => b - a)
     .find((el) => getWindowDimention().width >= +el)!;
-
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
   return (
     <div
       className="min-h-screen"
@@ -50,7 +52,7 @@ function DrawLayout() {
         gap: "2px",
       }}
     >
-      {(layoutObj as any)[breakpoints[getSize]]?.map((el: any) => {
+      {(data[0].layouts as any)[breakpoints[getSize]]?.map((el: any) => {
         return <DrawLayoutItem key={el.i} data={el} />;
       })}
     </div>

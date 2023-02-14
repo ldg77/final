@@ -7,11 +7,12 @@ const id = async (req: NextApiRequest, res: NextApiResponse) => {
   await connectMongo();
   const { id } = req.query;
 
+  console.log(id, req.body.layouts);
   switch (req.method) {
     case "GET":
       res.status(200).json(await Layout.findById(id));
       break;
-    case "POST":
+    case "PUT":
       res.status(201).json(await Layout.findByIdAndUpdate(id, req.body));
       break;
     case "PATCH":

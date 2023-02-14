@@ -1,10 +1,10 @@
 "use clinet";
 import getSessionUser from "@/lib/getSessionUser";
-import useLoadData from "@/lib/loadData";
 
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction } from "react";
+import Type from "./LayoutItemParts/Type";
 
 type Prop = {
   id: string;
@@ -14,15 +14,23 @@ type Prop = {
       id: string;
     }>
   >;
+  unique: [string[], Dispatch<SetStateAction<string[]>>];
 };
 
-function LayoutItemInfo({ id, setShowEdit }: Prop) {
-  const layout = useLoadData("layout");
+function LayoutItemInfo({ id, setShowEdit, unique }: Prop) {
+  const [uniqueLayoutItem, setUniqueLayoutItem] = unique;
   const { data: session } = useSession();
+
+  const data = {
+    options: {
+      unique: uniqueLayoutItem,
+      unlimited: "section",
+    },
+    id,
+  };
 
   const handleDelete = async () => {
     const user = await getSessionUser(session);
-
     const layoutRes = await fetch("/api/layout/" + user.layout);
     const layoutData = await layoutRes.json();
 
@@ -38,18 +46,19 @@ function LayoutItemInfo({ id, setShowEdit }: Prop) {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
-
     setShowEdit((prev) => (prev = { id: "", show: false }));
   };
   return (
-    <div className="absolute inset-0 md:inset-16 bg-stone-400 z-20  flex flex-col">
+    <div className="absolute inset-0 md:inset-16 bg-stone-400 z-20 flex flex-col justify-center items-center">
       <button
         className="delete flex w-full justify-end"
         onClick={() => setShowEdit((prev) => (prev = { ...prev, show: false }))}
       >
         <XCircleIcon className="w-6 h-6 text-slate-500/80 hover:opacity-50 transition" />
       </button>
-      <div className="main flex-1"></div>
+      <div className="main flex-1">
+        <Type data={data} />
+      </div>
       <div className="footer p-3 flex justify-end">
         <button
           className="border px-3 py-1 rounded bg-red-700 text-white capitalize"

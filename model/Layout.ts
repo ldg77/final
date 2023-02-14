@@ -1,14 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import User from "./User";
 
-const layoutItemSchema = new Schema({
-  w: String,
-  h: String,
-  x: String,
-  y: String,
-  i: String,
-});
-
 const layoutSchema = new Schema(
   {
     layouts: Object,

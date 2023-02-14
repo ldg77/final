@@ -1,9 +1,7 @@
-import { db, storage } from "../firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Session } from "next-auth";
 import { uuidv4 } from "@firebase/util";
-import { toast } from "react-hot-toast";
 
 async function storePicture(data: object | any, session: Session | null) {
   const imageRef = ref(
