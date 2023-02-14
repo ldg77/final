@@ -6,8 +6,8 @@ type Prop = {
 
 function LayoutItem({ id }: Prop) {
   return (
-    <div className="w-full grid place-content-center">
-      <p className="hover:cursor-pointer">Dubble - Click me to edit</p>
+    <div className="w-full">
+      <input type="text" className="h-full w-full" placeholder="give a name" />
     </div>
   );
 }

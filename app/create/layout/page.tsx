@@ -6,7 +6,7 @@ async function page() {
   return (
     <div className="h-full flex flex-col ">
       <Layout />
-      <Footer prev={"maincolors"} next={"layout"} />
+      <Footer prev={"maincolors"} next={"define"} />
     </div>
   );
 }

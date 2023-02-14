@@ -24,13 +24,12 @@ function getWindowDimention() {
 }
 function Layout() {
   const { data: session } = useSession();
-  const [showEdit, setShowEdit] = useState({ show: false, id: "" });
-  const [uniqueLayoutItems, setUniqueLayoutItems] = useState([
-    "header",
-    "main",
-    "footer",
-    "asset",
-  ]);
+  // const [uniqueLayoutItems, setUniqueLayoutItems] = useState([
+  //   "header",
+  //   "main",
+  //   "footer",
+  //   "asset",
+  // ]);
   const [layouts, setLayouts] = useState({});
   const [windowDimentions, setWindowDimentions] = useState(
     getWindowDimention()
@@ -71,7 +70,7 @@ function Layout() {
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={() => {
-            setLayouts((prev) => {});
+            setLayouts((prev) => (prev = {}));
           }}
         >
           reset
@@ -98,7 +97,7 @@ function Layout() {
               return;
             }
             setLayouts(res.layouts);
-            console.log(res.layouts);
+
             setItems(res.layouts[breakpoints[getSize]]);
             toast.success("layout loaded... ", { duration: 1000 });
           }}
@@ -137,22 +136,12 @@ function Layout() {
           <div
             key={el.i}
             data-grid={el}
-            onDoubleClick={() =>
-              setShowEdit((prev) => (prev = { show: !prev.show, id: el.i }))
-            }
             className="flex justify-between border border-black overflow-hidden bg-slate-300/50"
           >
             <LayoutItem id={el.i} />
           </div>
         ))}
       </ResponsiveReactGridLayout>
-      {showEdit.show && (
-        <LayoutItemInfo
-          id={showEdit.id}
-          setShowEdit={setShowEdit}
-          unique={[uniqueLayoutItems, setUniqueLayoutItems]}
-        />
-      )}
     </div>
   );
 }
