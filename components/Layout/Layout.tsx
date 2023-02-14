@@ -12,6 +12,7 @@ import "/node_modules/react-resizable/css/styles.css";
 
 import { toast } from "react-hot-toast";
 import getLayout from "@/lib/getLayout";
+import { log } from "console";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
