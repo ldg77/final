@@ -10,7 +10,7 @@ type props = {
 };
 function Input({ state, setData }: props) {
   return (
-    <label className="flex justify-between items-center gap-5 p-3">
+    <label className="flex justify-between items-center gap-1 p-1 md:gap-5 md:p-3">
       {state.name}
       <input
         onChange={(e) =>

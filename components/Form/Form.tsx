@@ -70,12 +70,12 @@ function Form(props: params) {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full">
-      <div className="p-3">
+    <div className="flex flex-col md:gap-6 w-full">
+      <div className="md:p-3">
         <p>Please select {slogan}</p>
       </div>
       <form
-        className="shadow space-y-3 flex flex-col gap-3 p-2 rounded"
+        className="shadow space-y-3 flex flex-col p-1 md:gap-3 md:p-2 rounded"
         onSubmit={handleSubmit}
       >
         {Object.keys(fields).map((el) => (

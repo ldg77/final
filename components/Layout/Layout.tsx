@@ -1,48 +1,27 @@
 "use client";
 
 import getSessionUser from "@/lib/getSessionUser";
+import getWindowSize from "@/lib/getWindowSize";
 import { uuidv4 } from "@firebase/util";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import LayoutItem from "./LayoutItem";
-import LayoutItemInfo from "./LayoutItemInfo";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 
 import { toast } from "react-hot-toast";
 import getLayout from "@/lib/getLayout";
+import getBreackpoints from "@/lib/getBreackpoints";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-function getWindowDimention() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height,
-  };
-}
 function Layout() {
   const { data: session } = useSession();
-  // const [uniqueLayoutItems, setUniqueLayoutItems] = useState([
-  //   "header",
-  //   "main",
-  //   "footer",
-  //   "asset",
-  // ]);
   const [layouts, setLayouts] = useState({});
-  const [windowDimentions, setWindowDimentions] = useState(
-    getWindowDimention()
-  );
+  const [windowDimentions, setWindowDimentions] = useState(getWindowSize());
 
-  const breakpoints: any = {
-    1200: "lg",
-    996: "md",
-    768: "sm",
-    480: "xs",
-    0: "xxs",
-  };
-  const getSize: string = Object.keys(breakpoints)
+  const getSize: string = Object.keys(getBreackpoints())
     .sort((a: any, b: any) => b - a)
     .find((el) => windowDimentions.width >= +el)!;
   const [items, setItems] = useState([]);
@@ -58,7 +37,7 @@ function Layout() {
   // Use Effect to call listener on resize
   useEffect(() => {
     function handleResize() {
-      setWindowDimentions(getWindowDimention());
+      setWindowDimentions(getWindowSize());
     }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -86,20 +65,26 @@ function Layout() {
         >
           Add
         </button>
+
+        {/* Bug layout not loaded */}
+
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={async () => {
             const res = await getLayout();
-            console.log();
 
             if (!res) {
               toast.error("no layouts found...", { duration: 1000 });
               return;
             }
-            setLayouts(res.layouts);
+            setLayouts(res.layouts[(getBreackpoints() as any)[getSize]]);
 
-            setItems(res.layouts[breakpoints[getSize]]);
-            toast.success("layout loaded... ", { duration: 1000 });
+            if (res.layout) {
+              setItems(res.layouts[(getBreackpoints() as any)[getSize]]);
+              toast.success("layout loaded... ", { duration: 1000 });
+              return;
+            }
+            toast.error("layout not loaded... ", { duration: 1000 });
           }}
         >
           load layout
@@ -107,8 +92,8 @@ function Layout() {
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={async () => {
-            toast.success("layout saved... ", { duration: 1000 });
             const user = await getSessionUser(session);
+
             await fetch("/api/layout/handler", {
               method: "POST",
               body: JSON.stringify({ layouts: layouts, user: user._id }),
@@ -116,6 +101,7 @@ function Layout() {
                 "Content-type": "application/json; charset=UTF-8",
               },
             });
+            toast.success("layout saved... ", { duration: 1000 });
           }}
         >
           save layout

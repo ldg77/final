@@ -1,4 +1,5 @@
 import ListItem from "@/components/Define/ListItem";
+import Footer from "@/components/Footer";
 
 function layout({ children }: { children: React.ReactNode }) {
   return (
@@ -7,6 +8,7 @@ function layout({ children }: { children: React.ReactNode }) {
         <ListItem />
       </div>
       {children}
+      <Footer prev={"layout"} next={"define"} />
     </div>
   );
 }
