@@ -6,7 +6,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex flex-col h-screen">
+    <section className="flex flex-col min-h-screen">
       <Colors>{children}</Colors>
     </section>
   );

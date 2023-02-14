@@ -8,13 +8,12 @@ import { toast } from "react-hot-toast";
 import CustomToast from "../CustomToast";
 import storePicture from "@/lib/storePicture";
 import getSessionUser from "@/lib/getSessionUser";
-import email from "@/pages/api/user/email";
 
 type params = {
   formInfo: {
     fields: object;
     userpath: string;
-    slogan: string;
+    slogan: string | null;
   };
 };
 

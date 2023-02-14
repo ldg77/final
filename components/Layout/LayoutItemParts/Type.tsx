@@ -44,9 +44,13 @@ function Type({ data }: Prop) {
   return (
     <>
       <p>Choose type of layout Item </p>
-      <select name="type" onChange={handleChange}>
+      <select
+        name="type"
+        onChange={handleChange}
+        className="w-full outline-none"
+      >
         {options.map((el) => (
-          <option key={el + data.id} value={el} className="capitalize">
+          <option key={el + data.id} value={el} className="capitalize w-full">
             {el}
           </option>
         ))}

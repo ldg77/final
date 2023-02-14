@@ -71,7 +71,7 @@ function Layout() {
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={() => {
-            setLayouts({});
+            setLayouts((prev) => {});
           }}
         >
           reset
@@ -91,6 +91,8 @@ function Layout() {
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={async () => {
             const res = await getLayout();
+            console.log();
+
             if (!res[0]) {
               toast.error("no layouts found...", { duration: 1000 });
               return;
