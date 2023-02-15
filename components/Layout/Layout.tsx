@@ -79,7 +79,7 @@ function Layout() {
             }
             setLayouts(res.layouts[(getBreackpoints() as any)[getSize]]);
 
-            if (res.layout) {
+            if (res.layouts) {
               setItems(res.layouts[(getBreackpoints() as any)[getSize]]);
               toast.success("layout loaded... ", { duration: 1000 });
               return;

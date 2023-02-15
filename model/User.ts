@@ -27,4 +27,18 @@ const userSchema = new Schema(
 
 const User = models.User || model("User", userSchema);
 
+export const getAllUser = async () => {
+  return await User.find({});
+};
+export const createUser = async (obj: any) => {
+  return await User.create(obj);
+};
+
+export const findOneUser = async (id: string) => {
+  return await User.findById(id);
+};
+
+export const findByEmail = async (email: string) => {
+  return await User.findOne({ email: email });
+};
 export default User;

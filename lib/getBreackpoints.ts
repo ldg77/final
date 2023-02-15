@@ -1,5 +1,3 @@
-import React from "react";
-
 function getBreackpoints() {
   return {
     1200: "lg",
