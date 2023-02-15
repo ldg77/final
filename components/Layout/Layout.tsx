@@ -24,7 +24,6 @@ function Layout({ actualLayout }: Prop) {
   const { data: session } = useSession();
   const [layouts, setLayouts] = useState(actualLayout?.layouts || {});
   const [windowDimentions, setWindowDimentions] = useState(getWindowSize());
-
   const getSize: string = Object.keys(getBreackpoints())
     .sort((a: any, b: any) => b - a)
     .find((el) => windowDimentions.width >= +el)!;
@@ -39,15 +38,15 @@ function Layout({ actualLayout }: Prop) {
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
   ) => {
-    setLayouts(layouts);
-
-    await fetch("/api/layout/" + actualLayout._id, {
+    const resLayout = await fetch("/api/layout/" + actualLayout._id, {
       method: "PATCH",
       body: JSON.stringify({ layouts: layouts }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
+    const layoutData = await resLayout.json();
+    setLayouts(layoutData.layouts);
   };
 
   // Use Effect to call listener on resize
