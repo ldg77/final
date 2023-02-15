@@ -15,9 +15,8 @@ const id = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
     case "PATCH":
       const layout = await Layout.findById(id);
-      res
-        .status(201)
-        .json(await Layout.findByIdAndUpdate(id, { ...layout, ...req.body }));
+      const combo = { ...layout._doc, ...req.body };
+      res.status(201).json(await Layout.findByIdAndUpdate(id, combo));
       break;
     default:
       break;

@@ -29,7 +29,7 @@ function ListItem() {
             href={`/create/define/${item.i}`}
             className="w-1/5 flex-1"
           >
-            <button>Item:{item.name}</button>
+            <button>Item:{item.layoutItemName}</button>
           </Link>
         )
       )}

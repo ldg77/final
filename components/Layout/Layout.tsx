@@ -16,15 +16,23 @@ import getBreackpoints from "@/lib/getBreackpoints";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-function Layout() {
+type Prop = {
+  actualLayout: any;
+};
+
+function Layout({ actualLayout }: Prop) {
+  console.log(actualLayout);
+
   const { data: session } = useSession();
-  const [layouts, setLayouts] = useState({});
+  const [layouts, setLayouts] = useState(actualLayout || {});
   const [windowDimentions, setWindowDimentions] = useState(getWindowSize());
 
   const getSize: string = Object.keys(getBreackpoints())
     .sort((a: any, b: any) => b - a)
     .find((el) => windowDimentions.width >= +el)!;
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(
+    (actualLayout as any)[(getBreackpoints() as any)[getSize]] || []
+  );
 
   // handler to check if any changes on layout
   const onLayoutChange = async (
@@ -49,7 +57,7 @@ function Layout() {
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={() => {
-            setLayouts((prev) => (prev = {}));
+            setLayouts({});
           }}
         >
           reset
