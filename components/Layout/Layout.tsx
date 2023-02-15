@@ -72,19 +72,22 @@ function Layout() {
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={async () => {
             const res = await getLayout();
-
             if (!res) {
               toast.error("no layouts found...", { duration: 1000 });
               return;
             }
-            setLayouts(res.layouts[(getBreackpoints() as any)[getSize]]);
-
-            if (res.layouts) {
+            if (res.layouts[(getBreackpoints() as any)[getSize]]) {
+              setLayouts(res.layouts[(getBreackpoints() as any)[getSize]]);
               setItems(res.layouts[(getBreackpoints() as any)[getSize]]);
               toast.success("layout loaded... ", { duration: 1000 });
               return;
             }
-            toast.error("layout not loaded... ", { duration: 1000 });
+            toast.error(
+              "No layout founded for this window size. Create please a new one.",
+              {
+                duration: 1000,
+              }
+            );
           }}
         >
           load layout
