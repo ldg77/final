@@ -21,17 +21,17 @@ type Prop = {
 };
 
 function Layout({ actualLayout }: Prop) {
-  console.log(actualLayout);
-
   const { data: session } = useSession();
-  const [layouts, setLayouts] = useState(actualLayout || {});
+  const [layouts, setLayouts] = useState(actualLayout?.layouts || {});
   const [windowDimentions, setWindowDimentions] = useState(getWindowSize());
 
   const getSize: string = Object.keys(getBreackpoints())
     .sort((a: any, b: any) => b - a)
     .find((el) => windowDimentions.width >= +el)!;
   const [items, setItems] = useState(
-    (actualLayout as any)[(getBreackpoints() as any)[getSize]] || []
+    (actualLayout.layouts &&
+      (actualLayout.layouts as any)[(getBreackpoints() as any)[getSize]]) ||
+      []
   );
 
   // handler to check if any changes on layout
@@ -40,6 +40,14 @@ function Layout({ actualLayout }: Prop) {
     layouts: ReactGridLayout.Layouts
   ) => {
     setLayouts(layouts);
+
+    await fetch("/api/layout/" + actualLayout._id, {
+      method: "PATCH",
+      body: JSON.stringify({ layouts: layouts }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
   };
 
   // Use Effect to call listener on resize
@@ -64,12 +72,19 @@ function Layout({ actualLayout }: Prop) {
         </button>
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
-          onClick={() =>
+          onClick={async () => {
             setItems([
               { i: uuidv4(), w: 2, h: 2, x: 0, y: 0 } as never,
               ...items,
-            ])
-          }
+            ]);
+            // await fetch("/api/layout/" + actualLayout._id, {
+            //   method: "PATCH",
+            //   body: JSON.stringify({ layouts: layouts }),
+            //   headers: {
+            //     "Content-type": "application/json; charset=UTF-8",
+            //   },
+            // });
+          }}
         >
           Add
         </button>
@@ -85,8 +100,8 @@ function Layout({ actualLayout }: Prop) {
               return;
             }
             if (res.layouts[(getBreackpoints() as any)[getSize]]) {
-              setLayouts(res.layouts[(getBreackpoints() as any)[getSize]]);
-              setItems(res.layouts[(getBreackpoints() as any)[getSize]]);
+              // setLayouts(res.layouts[(getBreackpoints() as any)[getSize]]);
+              // setItems(res.layouts[(getBreackpoints() as any)[getSize]]);
               toast.success("layout loaded... ", { duration: 1000 });
               return;
             }
@@ -103,15 +118,15 @@ function Layout({ actualLayout }: Prop) {
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={async () => {
-            const user = await getSessionUser(session);
+            // const user = await getSessionUser(session);
 
-            await fetch("/api/layout/handler", {
-              method: "POST",
-              body: JSON.stringify({ layouts: layouts, user: user._id }),
-              headers: {
-                "Content-type": "application/json; charset=UTF-8",
-              },
-            });
+            // await fetch("/api/layout/handler", {
+            //   method: "POST",
+            //   body: JSON.stringify({ layouts: layouts, user: user._id }),
+            //   headers: {
+            //     "Content-type": "application/json; charset=UTF-8",
+            //   },
+            // });
             toast.success("layout saved... ", { duration: 1000 });
           }}
         >
@@ -135,7 +150,7 @@ function Layout({ actualLayout }: Prop) {
             data-grid={el}
             className="flex justify-between border border-black overflow-hidden bg-slate-300/50"
           >
-            <LayoutItem id={el.i} />
+            <LayoutItem id={el.i} value={el.layoutItemName || ""} />
           </div>
         ))}
       </ResponsiveReactGridLayout>

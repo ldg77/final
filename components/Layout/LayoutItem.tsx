@@ -6,10 +6,11 @@ import { useState } from "react";
 
 type Prop = {
   id: string;
+  value: string | "";
 };
 
-function LayoutItem({ id }: Prop) {
-  const [inputValue, setInputValue] = useState("");
+function LayoutItem({ id, value }: Prop) {
+  const [inputValue, setInputValue] = useState(value);
 
   const storeNameToLayoutItem = async () => {
     const modifiedLayout = await updateLayoutItem(

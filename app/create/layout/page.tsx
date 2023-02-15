@@ -4,9 +4,17 @@ import getLayout from "@/lib/getLayout";
 import React from "react";
 
 async function page() {
-  const actualLayout = await getLayout();
-  console.log(actualLayout);
-
+  let actualLayout = await getLayout();
+  if (!actualLayout) {
+    await fetch("http://localhost:3000/api/layout/handler", {
+      method: "POST",
+      body: JSON.stringify({ layouts: { lg: [] } }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+  }
+  actualLayout = await getLayout();
   return (
     <div className="h-full flex flex-col ">
       <Layout actualLayout={actualLayout} />
