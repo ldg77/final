@@ -22,7 +22,26 @@ const mainColorSchema = new Schema(
 
 const MainColor = models.MainColor || model("MainColor", mainColorSchema);
 
-export default MainColor;
+export const getAll = async () => {
+  return await MainColor.find({}).sort({ updatedAt: -1 });
+};
+export const create = async (obj: any) => {
+  return await MainColor.create(obj);
+};
+
+export const findById = async (id: string) => {
+  return await MainColor.findById(id);
+};
+
+export const findByIdUpdatePost = async (id: string, obj: object) => {
+  return await MainColor.findByIdAndUpdate(id, obj);
+};
+export const findByIdUpdatePatch = async (id: string, obj: object) => {
+  const user = await findById(id);
+  const updated = { ...user._doc, ...obj };
+
+  return await MainColor.findByIdAndUpdate(id, updated);
+};
 
 MainColor.watch().on("change", async (data) => {
   if (data.operationType === "insert") {

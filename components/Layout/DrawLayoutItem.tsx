@@ -22,6 +22,7 @@ function DrawLayoutItem({ data }: any) {
         }}
         className="border"
       >
+        <p>{data.layoutItemName}</p>
         {getPart(data.type)}
       </div>
     )

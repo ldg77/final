@@ -52,9 +52,10 @@ function DrawLayout() {
         gap: "2px",
       }}
     >
-      {(data[0].layouts as any)[breakpoints[getSize]]?.map((el: any) => {
-        return <DrawLayoutItem key={el.i} data={el} />;
-      })}
+      {data[0]?.layouts &&
+        (data[0].layouts as any)[breakpoints[getSize]]?.map((el: any) => {
+          return <DrawLayoutItem key={el.i} data={el} />;
+        })}
     </div>
   );
 }

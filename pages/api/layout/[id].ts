@@ -1,6 +1,5 @@
 import connectMongo from "@/lib/dbConnect";
-import Layout from "@/model/Layout";
-
+import * as layout from "@/model/Layout";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const id = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -8,15 +7,17 @@ const id = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
   switch (req.method) {
     case "GET":
-      res.status(200).json(await Layout.findById(id));
+      res.status(200).json(await layout.findById(id as string));
       break;
     case "PUT":
-      res.status(201).json(await Layout.findByIdAndUpdate(id, req.body));
+      res
+        .status(201)
+        .json(await layout.findByIdUpdatePost(id as string, req.body));
       break;
     case "PATCH":
-      const layout = await Layout.findById(id);
-      const combo = { ...layout._doc, ...req.body };
-      res.status(201).json(await Layout.findByIdAndUpdate(id, combo));
+      res
+        .status(201)
+        .json(await layout.findByIdUpdatePatch(id as string, req.body));
       break;
     default:
       break;

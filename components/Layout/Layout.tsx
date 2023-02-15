@@ -21,7 +21,6 @@ type Prop = {
 };
 
 function Layout({ actualLayout }: Prop) {
-  const { data: session } = useSession();
   const [layouts, setLayouts] = useState(actualLayout?.layouts || {});
   const [windowDimentions, setWindowDimentions] = useState(getWindowSize());
 
@@ -91,7 +90,7 @@ function Layout({ actualLayout }: Prop) {
 
         {/* Bug layout not loaded */}
 
-        <button
+        {/* <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={async () => {
             const res = await getLayout();
@@ -114,8 +113,8 @@ function Layout({ actualLayout }: Prop) {
           }}
         >
           load layout
-        </button>
-        <button
+        </button> */}
+        {/* <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={async () => {
             // const user = await getSessionUser(session);
@@ -131,7 +130,7 @@ function Layout({ actualLayout }: Prop) {
           }}
         >
           save layout
-        </button>
+        </button> */}
       </div>
       <ResponsiveReactGridLayout
         className="layout mx-auto"
