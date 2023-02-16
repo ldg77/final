@@ -1,11 +1,11 @@
 import Footer from "@/components/Footer";
-import MainColor from "@/components/MainColors/MainColor";
+import Type from "@/components/Type/Type";
 
 function page() {
   return (
     <div className="h-full flex flex-col">
-      <MainColor />
-      <Footer prev={"home"} next={"type"} />
+      <Type />
+      <Footer prev={"maincolors"} next={"layout"} />
     </div>
   );
 }

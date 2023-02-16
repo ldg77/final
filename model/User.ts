@@ -2,6 +2,7 @@ import { Schema, model, models } from "mongoose";
 import Layout from "./Layout";
 import MainColor from "./MainColors";
 import PageName from "./PageName";
+import Type from "./Type";
 
 const UserSchema: any = new Schema(
   {
@@ -24,6 +25,10 @@ const UserSchema: any = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Layout",
     },
+    type: {
+      type: Schema.Types.ObjectId,
+      ref: "Type",
+    },
   },
   { timestamps: true }
 );
@@ -41,14 +46,16 @@ export const findById = async (id: string) => {
   return await User.findById(id)
     .populate({ path: "layout", model: Layout })
     .populate({ path: "maincolor", model: MainColor })
-    .populate({ path: "pagename", model: PageName });
+    .populate({ path: "pagename", model: PageName })
+    .populate({ path: "type", model: Type });
 };
 
 export const findByEmail = async (email: string) => {
   return await User.findOne({ email })
     .populate({ path: "layout", model: Layout })
     .populate({ path: "maincolor", model: MainColor })
-    .populate({ path: "pagename", model: PageName });
+    .populate({ path: "pagename", model: PageName })
+    .populate({ path: "type", model: Type });
 };
 
 export const findByIdUpdatePost = async (id: string, obj: object) => {
