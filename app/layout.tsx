@@ -12,18 +12,13 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession(authOptions);
   if (session) {
-    const resUser = await fetch("http://localhost:3000/api/user/email", {
-      method: "POST",
-      body: JSON.stringify({
-        email: session?.user?.email,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    });
-    const user = await resUser.json();
+    const resUser = await fetch(
+      "http://localhost:3000/api/user/email/" + session.user?.email!
+    );
 
-    if (!user) {
+    const loggeduser = await resUser.json();
+
+    if (!loggeduser) {
       const resUser = await fetch("http://localhost:3000/api/user/handler", {
         method: "POST",
         body: JSON.stringify({

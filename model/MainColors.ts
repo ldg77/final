@@ -1,7 +1,7 @@
 import { Schema, model, models } from "mongoose";
 import User from "./User";
 
-const mainColorSchema = new Schema(
+const MainColorSchema = new Schema(
   {
     backgroundColor: {
       type: String,
@@ -20,7 +20,7 @@ const mainColorSchema = new Schema(
   { timestamps: true }
 );
 
-const MainColor = models.MainColor || model("MainColor", mainColorSchema);
+const MainColor = models.MainColor || model("MainColor", MainColorSchema);
 
 export const getAll = async () => {
   return await MainColor.find({}).sort({ updatedAt: -1 });
@@ -50,3 +50,4 @@ MainColor.watch().on("change", async (data) => {
     });
   }
 });
+export default MainColor;

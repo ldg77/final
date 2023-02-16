@@ -23,9 +23,15 @@ function MainColor() {
     userpath: "maincolor",
   };
 
-  const { data, error, isLoading } = useSWR("/api/maincolor/handler", fetcher, {
-    refreshInterval: 10000,
-  });
+  const { data: session } = useSession();
+  const { data, error, isLoading } = useSWR(
+    "/api/user/email/" + session?.user?.email,
+    fetcher,
+    {
+      refreshInterval: 10000,
+    }
+  );
+
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
@@ -39,14 +45,14 @@ function MainColor() {
               <p>Background</p>
               <div
                 className="w-full aspect-square rounded"
-                style={{ backgroundColor: data[0]?.backgroundColor }}
+                style={{ backgroundColor: data?.maincolor.backgroundColor }}
               ></div>
             </div>
             <div className="text w-1/5 lg:w-1/4 text-center">
               <p>Text color</p>
               <div
                 className="w-full aspect-square rounded"
-                style={{ backgroundColor: data[0]?.textColor }}
+                style={{ backgroundColor: data?.maincolor.textColor }}
               ></div>
             </div>
           </div>

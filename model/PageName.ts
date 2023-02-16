@@ -1,7 +1,7 @@
 import { Schema, model, models } from "mongoose";
 import User from "./User";
 
-const pageNameSchema = new Schema(
+const PageNameSchema = new Schema(
   {
     pagename: {
       type: String,
@@ -23,7 +23,7 @@ const pageNameSchema = new Schema(
   { timestamps: true }
 );
 
-const PageName = models.PageName || model("PageName", pageNameSchema);
+const PageName = models.PageName || model("PageName", PageNameSchema);
 
 export const getAll = async () => {
   try {
@@ -120,3 +120,4 @@ PageName.watch().on("change", async (data) => {
     });
   }
 });
+export default PageName;

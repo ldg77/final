@@ -22,6 +22,7 @@ function LayoutItem({ id, value, useremail }: Prop) {
       useremail
     );
     const currentLayout = await getLayout(useremail);
+    console.log(currentLayout);
 
     fetch("/api/layout/" + currentLayout.data._id, {
       method: "PATCH",

@@ -4,6 +4,7 @@ import DrawLayoutItem from "./DrawLayoutItem";
 import fetcher from "@/lib/fetcher";
 import useSWR from "swr";
 import getBreackpoints from "@/lib/getBreackpoints";
+import { useSession } from "next-auth/react";
 function getWindowDimention() {
   const { innerWidth: width, innerHeight: height } = window;
   return {
@@ -18,10 +19,14 @@ function DrawLayout() {
   const [windowDimentions, setWindowDimentions] = useState(
     getWindowDimention()
   );
-  const { data, error, isLoading } = useSWR("/api/layout/handler", fetcher, {
-    refreshInterval: 10000,
-  });
-  console.log(data);
+  const { data: session } = useSession();
+  const { data, error, isLoading } = useSWR(
+    "/api/user/email/" + session?.user?.email,
+    fetcher,
+    {
+      refreshInterval: 10000,
+    }
+  );
 
   useEffect(() => {
     function handleResize() {
@@ -49,8 +54,8 @@ function DrawLayout() {
         gap: "2px",
       }}
     >
-      {data[0]?.layouts &&
-        (data[0].layouts as any)[(getBreackpoints as any)[getSize]]?.map(
+      {data.layout.layouts &&
+        (data.layout.layouts as any)[(getBreackpoints as any)[getSize]]?.map(
           (el: any) => {
             return <DrawLayoutItem key={el.i} data={el} />;
           }

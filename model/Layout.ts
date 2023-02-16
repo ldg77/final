@@ -1,7 +1,7 @@
 import { Schema, model, models } from "mongoose";
 import User from "./User";
 
-const layoutSchema = new Schema(
+const LayoutSchema = new Schema(
   {
     layouts: Object,
     user: {
@@ -12,7 +12,7 @@ const layoutSchema = new Schema(
   { timestamps: true }
 );
 
-const Layout = models.Layout || model("Layout", layoutSchema);
+const Layout = models.Layout || model("Layout", LayoutSchema);
 
 export const getAll = async () => {
   try {
@@ -149,3 +149,5 @@ Layout.watch().on("change", async (data) => {
     });
   }
 });
+
+export default Layout;

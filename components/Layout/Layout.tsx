@@ -31,7 +31,8 @@ function Layout() {
   ) => {
     if (layout.length) {
       const sessionuser = await getSessionUser(session);
-      const resLayout = await fetch("/api/layout/" + sessionuser.layout, {
+
+      const resLayout = await fetch("/api/layout/" + sessionuser.layout._id, {
         method: "PATCH",
         body: JSON.stringify({
           layouts: layouts,

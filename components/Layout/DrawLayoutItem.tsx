@@ -5,12 +5,14 @@ function DrawLayoutItem({ data }: any) {
     switch (type) {
       case "header":
         return <HeaderItem />;
-        break;
 
       default:
         break;
     }
   };
+
+  console.log(data.type);
+
   return (
     data && (
       <div
