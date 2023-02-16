@@ -30,9 +30,9 @@ function Pagename() {
     <>
       <div className="pagename-avatar flex-1 md:flex md:w-full lg:mx-auto">
         <div className="res bg-black text-white h-1/2 md:h-5/6 md:my-auto md:w-1/2 flex flex-col justify-center items-center gap-4 font-extrabold md:rounded-l-xl">
-          <img src={data.pagename.avatar} alt="" className="w-1/3 rounded " />
-          <p>{data.pagename.pagename}</p>
-          <p>{data.pagename.slogan}</p>
+          <img src={data?.pagename?.avatar} alt="" className="w-1/3 rounded " />
+          <p>{data?.pagename?.pagename}</p>
+          <p>{data?.pagename?.slogan}</p>
         </div>
         <div className="input flex-1 h-1/2 md:h-5/6 grid place-content-center md:my-auto md:w-1/2 border md:rounded-r-2xl">
           <Form formInfo={formInfo} />

@@ -54,7 +54,7 @@ function DrawLayout() {
         gap: "2px",
       }}
     >
-      {data.layout.layouts &&
+      {data?.layout?.layouts &&
         (data.layout.layouts as any)[(getBreackpoints as any)[getSize]]?.map(
           (el: any) => {
             return <DrawLayoutItem key={el.i} data={el} />;
