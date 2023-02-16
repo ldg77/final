@@ -1,6 +1,7 @@
 "use client";
 
 import updateLayoutItem from "@/lib/updateLayoutItem";
+import { useEffect } from "react";
 
 type Prop = {
   id: string;
@@ -10,7 +11,10 @@ type Prop = {
 
 function LayoutItem({ id, value, useremail }: Prop) {
   console.log(value);
-  updateLayoutItem(id, "layouts", "layoutItemName", value, useremail);
+  useEffect(() => {
+    updateLayoutItem(id, "layouts", "layoutItemName", value, useremail);
+  }, [value]);
+
   return (
     <div className="w-full flex flex-col p-1">
       <p className="text-center flex-1 bg-inherit">{value}</p>

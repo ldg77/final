@@ -1,5 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import User from "./User";
+import { findByIdUpdatePatch as userPatch } from "./User";
 
 const TypeSchema = new Schema(
   {
@@ -50,7 +51,7 @@ export const getAll = async () => {
 export const create = async (obj: any) => {
   try {
     const type = await Type.create(obj);
-
+    await userPatch(type.user, { type: type._id });
     return {
       approved: true,
       data: type,

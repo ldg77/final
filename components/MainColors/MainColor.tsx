@@ -28,7 +28,7 @@ function MainColor() {
     "/api/user/email/" + session?.user?.email,
     fetcher,
     {
-      refreshInterval: 10000,
+      refreshInterval: 1000,
     }
   );
 

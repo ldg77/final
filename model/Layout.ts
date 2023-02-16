@@ -1,5 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import User from "./User";
+import { findByIdUpdatePatch as userPatch } from "./User";
 
 const LayoutSchema = new Schema(
   {
@@ -39,11 +40,11 @@ export const getAll = async () => {
 export const create = async (obj: any) => {
   try {
     const newLayout = await Layout.create(obj);
-
+    await userPatch(newLayout.user, { layout: newLayout._id });
     return {
       approved: true,
       data: newLayout,
-      message: `new layout width ${newLayout._id} created`,
+      message: `new maincolor width ${newLayout._id} created`,
     };
   } catch (error: any) {
     return {

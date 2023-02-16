@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import User from "./User";
-
+import { findByIdUpdatePatch as userPatch } from "./User";
 const MainColorSchema = new Schema(
   {
     backgroundColor: {
@@ -23,10 +23,42 @@ const MainColorSchema = new Schema(
 const MainColor = models.MainColor || model("MainColor", MainColorSchema);
 
 export const getAll = async () => {
-  return await MainColor.find({}).sort({ updatedAt: -1 });
+  try {
+    const maincolor = await MainColor.find({});
+    if (maincolor.length) {
+      return {
+        approved: true,
+        data: maincolor,
+        message: "maincolor founded",
+      };
+    } else {
+      return {
+        approved: false,
+        message: "no maincolor found",
+      };
+    }
+  } catch (error: any) {
+    return {
+      approved: false,
+      message: error.message,
+    };
+  }
 };
 export const create = async (obj: any) => {
-  return await MainColor.create(obj);
+  try {
+    const newMainColor = await MainColor.create(obj);
+    await userPatch(newMainColor.user, { maincolor: newMainColor._id });
+    return {
+      approved: true,
+      data: newMainColor,
+      message: `new maincolor width ${newMainColor._id} created`,
+    };
+  } catch (error: any) {
+    return {
+      approved: false,
+      message: error.message,
+    };
+  }
 };
 
 export const findById = async (id: string) => {

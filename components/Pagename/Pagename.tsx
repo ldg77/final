@@ -1,5 +1,4 @@
 "use client";
-
 import fetcher from "@/lib/fetcher";
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
@@ -15,12 +14,14 @@ function Pagename() {
     slogan: "Page Name / Slogan / Avatar ",
     userpath: "pagename",
   };
+
   const { data: session } = useSession();
+
   const { data, error, isLoading } = useSWR(
     "/api/user/email/" + session?.user?.email,
     fetcher,
     {
-      refreshInterval: 10000,
+      refreshInterval: 1000,
     }
   );
 

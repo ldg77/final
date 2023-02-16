@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import User from "./User";
-
+import { findByIdUpdatePatch as userPatch } from "./User";
 const PageNameSchema = new Schema(
   {
     pagename: {
@@ -49,12 +49,12 @@ export const getAll = async () => {
 };
 export const create = async (obj: any) => {
   try {
-    const newLayout = await PageName.create(obj);
-
+    const newPagename = await PageName.create(obj);
+    await userPatch(newPagename.user, { pagename: newPagename._id });
     return {
       approved: true,
-      data: newLayout,
-      message: `new pagename width ${newLayout._id} created`,
+      data: newPagename,
+      message: `new pagename width ${newPagename._id} created`,
     };
   } catch (error: any) {
     return {
@@ -114,6 +114,7 @@ export const findByIdUpdatePatch = async (id: string, obj: object) => {
 };
 
 PageName.watch().on("change", async (data) => {
+  console.log(data);
   if (data.operationType === "insert") {
     await User.findByIdAndUpdate(data.fullDocument.user, {
       pagename: data.fullDocument._id,

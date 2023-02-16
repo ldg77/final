@@ -25,10 +25,13 @@ function Layout() {
     .find((el) => windowDimentions.width >= +el)!;
 
   const generateLayoutTemplate = (arr: any) => {
-    return arr.reduce((acc: any, el: string) => {
-      acc = [...acc, { i: uuidv4(), w: 2, h: 2, x: 0, y: 0, name: el }];
+    return Object.values(getBreackpoints).reduce((acc, el) => {
+      (acc as any)[el] = arr.reduce((accu: any, item: string) => {
+        accu = [...accu, { i: uuidv4(), w: 2, h: 2, x: 0, y: 0, name: item }];
+        return accu;
+      }, []);
       return acc;
-    }, []);
+    }, {});
   };
   // handler to check if any changes on layout
   const onLayoutChange = async (
@@ -48,7 +51,8 @@ function Layout() {
         },
       });
       const savedLayout = await resLayout.json();
-      setLayouts(savedLayout.data);
+
+      // setLayouts(savedLayout.data);
     }
   };
 
@@ -57,7 +61,6 @@ function Layout() {
     function handleResize() {
       setWindowDimentions(getWindowSize());
     }
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   });
@@ -74,19 +77,18 @@ function Layout() {
         const newLayoutRes = await fetch("/api/layout/handler", {
           method: "POST",
           body: JSON.stringify({
-            layouts: { [(getBreackpoints as any)[getSize]]: layoutsTemplate },
+            layouts: layoutsTemplate,
             user: user._id,
           }),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
           },
         });
-        setItems(layoutsTemplate);
+        setItems((layoutsTemplate as any)[(getBreackpoints as any)[getSize]]);
         setLayouts({ [(getBreackpoints as any)[getSize]]: layoutsTemplate });
       }
     });
   }, []);
-  console.log("render------------------------------------------------");
 
   return (
     <div className="flex-1 h">
