@@ -1,8 +1,6 @@
 "use client";
 
-import getLayout from "@/lib/getLayout";
 import updateLayoutItem from "@/lib/updateLayoutItem";
-import { useState } from "react";
 
 type Prop = {
   id: string;
@@ -11,28 +9,11 @@ type Prop = {
 };
 
 function LayoutItem({ id, value, useremail }: Prop) {
-  const [inputValue, setInputValue] = useState(value);
-
-  const storeNameToLayoutItem = async () => {
-    const modifiedLayout = await updateLayoutItem(
-      id,
-      "layouts",
-      "layoutItemName",
-      inputValue,
-      useremail
-    );
-  };
-
+  console.log(value);
+  updateLayoutItem(id, "layouts", "layoutItemName", value, useremail);
   return (
-    <div className="w-full">
-      <input
-        type="text"
-        className="h-full w-full"
-        placeholder="give a name"
-        value={inputValue}
-        onChange={(e) => setInputValue((prev) => (prev = e.target.value))}
-        onMouseLeave={storeNameToLayoutItem}
-      />
+    <div className="w-full flex flex-col p-1">
+      <p className="text-center flex-1 bg-inherit">{value}</p>
     </div>
   );
 }

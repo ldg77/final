@@ -8,8 +8,6 @@ async function updateLayoutItem(
   useremail: string
 ) {
   const layouts = await getLayout(useremail);
-  console.log(layouts);
-
   const updatedLayout = Object.keys(layouts.data[path]).reduce(
     (acc: any, el) => {
       acc[el] = (layouts.data[path] as any)[el].map((item: any) => {
@@ -19,7 +17,6 @@ async function updateLayoutItem(
     },
     {}
   );
-
   await fetch("/api/layout/" + layouts.data._id, {
     method: "PUT",
     body: JSON.stringify({ ...layouts.data, layouts: updatedLayout }),

@@ -47,9 +47,9 @@ function Layout() {
           "Content-type": "application/json; charset=UTF-8",
         },
       });
+      const savedLayout = await resLayout.json();
+      setLayouts(savedLayout.data);
     }
-
-    setLayouts(layouts);
   };
 
   // Use Effect to call listener on resize
@@ -81,13 +81,12 @@ function Layout() {
             "Content-type": "application/json; charset=UTF-8",
           },
         });
-        console.log(newLayoutRes);
-
         setItems(layoutsTemplate);
         setLayouts({ [(getBreackpoints as any)[getSize]]: layoutsTemplate });
       }
     });
   }, []);
+  console.log("render------------------------------------------------");
 
   return (
     <div className="flex-1 h">
@@ -131,7 +130,7 @@ function Layout() {
           >
             <LayoutItem
               id={el.i}
-              value={el.layoutItemName || ""}
+              value={el.name || ""}
               useremail={session?.user?.email!}
             />
           </div>
