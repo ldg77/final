@@ -1,6 +1,5 @@
 "use client";
 
-import getSessionUser from "@/lib/getSessionUser";
 import getWindowSize from "@/lib/getWindowSize";
 import { uuidv4 } from "@firebase/util";
 import { useSession } from "next-auth/react";
@@ -10,42 +9,40 @@ import LayoutItem from "./LayoutItem";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 
-import { toast } from "react-hot-toast";
-import getLayout from "@/lib/getLayout";
 import getBreackpoints from "@/lib/getBreackpoints";
+import getSessionUser from "@/lib/getSessionUser";
+import getLayout from "@/lib/getLayout";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-type Prop = {
-  actualLayout: any;
-};
-
-function Layout({ actualLayout }: Prop) {
-  const [layouts, setLayouts] = useState(actualLayout?.layouts || {});
+function Layout() {
+  const { data: session } = useSession();
+  const [layouts, setLayouts] = useState({});
+  const [items, setItems] = useState([]);
   const [windowDimentions, setWindowDimentions] = useState(getWindowSize());
   const getSize: string = Object.keys(getBreackpoints())
     .sort((a: any, b: any) => b - a)
     .find((el) => windowDimentions.width >= +el)!;
-  const [items, setItems] = useState(
-    (actualLayout.layouts &&
-      (actualLayout.layouts as any)[(getBreackpoints() as any)[getSize]]) ||
-      []
-  );
 
   // handler to check if any changes on layout
   const onLayoutChange = async (
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
   ) => {
-    const resLayout = await fetch("/api/layout/" + actualLayout._id, {
-      method: "PATCH",
-      body: JSON.stringify({ layouts: layouts }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    });
-    const layoutData = await resLayout.json();
-    setLayouts(layoutData.layouts);
+    if (layout.length) {
+      const sessionuser = await getSessionUser(session);
+      const resLayout = await fetch("/api/layout/" + sessionuser.layout, {
+        method: "PATCH",
+        body: JSON.stringify({
+          layouts: layouts,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+    }
+
+    setLayouts(layouts);
   };
 
   // Use Effect to call listener on resize
@@ -53,9 +50,34 @@ function Layout({ actualLayout }: Prop) {
     function handleResize() {
       setWindowDimentions(getWindowSize());
     }
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   });
+
+  useEffect(() => {
+    getLayout(session?.user?.email!).then(async (res) => {
+      if (res.approved) {
+        setLayouts(res.data.layouts);
+        setItems(res.data.layouts[(getBreackpoints() as any)[getSize]]);
+      } else {
+        const user = await getSessionUser(session);
+        const newLayoutRes = await fetch("/api/layout/handler", {
+          method: "POST",
+          body: JSON.stringify({
+            layouts: { lg: [], md: [], sm: [], xs: [], xxs: [] },
+            user: user._id,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        const newLayout = await newLayoutRes.json();
+        console.log(newLayout);
+        setLayouts(newLayout.data.layouts);
+      }
+    });
+  }, []);
 
   return (
     <div className="flex-1 h">
@@ -75,61 +97,10 @@ function Layout({ actualLayout }: Prop) {
               { i: uuidv4(), w: 2, h: 2, x: 0, y: 0 } as never,
               ...items,
             ]);
-            // await fetch("/api/layout/" + actualLayout._id, {
-            //   method: "PATCH",
-            //   body: JSON.stringify({ layouts: layouts }),
-            //   headers: {
-            //     "Content-type": "application/json; charset=UTF-8",
-            //   },
-            // });
           }}
         >
           Add
         </button>
-
-        {/* Bug layout not loaded */}
-
-        {/* <button
-          className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
-          onClick={async () => {
-            const res = await getLayout();
-            if (!res) {
-              toast.error("no layouts found...", { duration: 1000 });
-              return;
-            }
-            if (res.layouts[(getBreackpoints() as any)[getSize]]) {
-              // setLayouts(res.layouts[(getBreackpoints() as any)[getSize]]);
-              // setItems(res.layouts[(getBreackpoints() as any)[getSize]]);
-              toast.success("layout loaded... ", { duration: 1000 });
-              return;
-            }
-            toast.error(
-              "No layout founded for this window size. Create please a new one.",
-              {
-                duration: 1000,
-              }
-            );
-          }}
-        >
-          load layout
-        </button> */}
-        {/* <button
-          className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
-          onClick={async () => {
-            // const user = await getSessionUser(session);
-
-            // await fetch("/api/layout/handler", {
-            //   method: "POST",
-            //   body: JSON.stringify({ layouts: layouts, user: user._id }),
-            //   headers: {
-            //     "Content-type": "application/json; charset=UTF-8",
-            //   },
-            // });
-            toast.success("layout saved... ", { duration: 1000 });
-          }}
-        >
-          save layout
-        </button> */}
       </div>
       <ResponsiveReactGridLayout
         className="layout mx-auto"
@@ -148,7 +119,11 @@ function Layout({ actualLayout }: Prop) {
             data-grid={el}
             className="flex justify-between border border-black overflow-hidden bg-slate-300/50"
           >
-            <LayoutItem id={el.i} value={el.layoutItemName || ""} />
+            <LayoutItem
+              id={el.i}
+              value={el.layoutItemName || ""}
+              useremail={session?.user?.email!}
+            />
           </div>
         ))}
       </ResponsiveReactGridLayout>

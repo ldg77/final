@@ -7,9 +7,10 @@ import { useState } from "react";
 type Prop = {
   id: string;
   value: string | "";
+  useremail: string;
 };
 
-function LayoutItem({ id, value }: Prop) {
+function LayoutItem({ id, value, useremail }: Prop) {
   const [inputValue, setInputValue] = useState(value);
 
   const storeNameToLayoutItem = async () => {
@@ -17,10 +18,13 @@ function LayoutItem({ id, value }: Prop) {
       id,
       "layouts",
       "layoutItemName",
-      inputValue
+      inputValue,
+      useremail
     );
-    const currentLayout = await getLayout();
-    fetch("/api/layout/" + currentLayout._id, {
+    const currentLayout = await getLayout(useremail);
+    console.log(currentLayout);
+
+    fetch("/api/layout/" + currentLayout.data._id, {
       method: "PATCH",
       body: JSON.stringify({ layouts: modifiedLayout }),
       headers: {

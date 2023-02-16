@@ -15,14 +15,66 @@ const layoutSchema = new Schema(
 const Layout = models.Layout || model("Layout", layoutSchema);
 
 export const getAll = async () => {
-  return await Layout.find({}).sort({ updatedAt: -1 });
+  try {
+    const layouts = await Layout.find({});
+    if (layouts.length) {
+      return {
+        approved: true,
+        data: layouts,
+        message: "layouts founded",
+      };
+    } else {
+      return {
+        approved: false,
+        message: "no layouts found",
+      };
+    }
+  } catch (error: any) {
+    return {
+      approved: false,
+      message: error.message,
+    };
+  }
 };
 export const create = async (obj: any) => {
-  return await Layout.create(obj);
+  try {
+    const newLayout = await Layout.create(obj);
+
+    return {
+      approved: true,
+      data: newLayout,
+      message: `new layout width ${newLayout._id} created`,
+    };
+  } catch (error: any) {
+    return {
+      approved: false,
+      message: error.message,
+    };
+  }
 };
 
 export const findById = async (id: string) => {
-  return await Layout.findById(id);
+  try {
+    const layout = await Layout.findById(id);
+
+    if (layout) {
+      return {
+        approved: true,
+        data: layout,
+        message: "layout found",
+      };
+    } else {
+      return {
+        approved: false,
+        message: "no layouts found",
+      };
+    }
+  } catch (error: any) {
+    return {
+      approved: false,
+      message: error.message,
+    };
+  }
 };
 
 export const findByIdUpdatePost = async (id: string, obj: object) => {
@@ -30,11 +82,66 @@ export const findByIdUpdatePost = async (id: string, obj: object) => {
 };
 export const findByIdUpdatePatch = async (id: string, obj: object) => {
   const user = await findById(id);
-  const updated = { ...user._doc, ...obj };
+  const updated = { ...user, ...obj };
 
   return await Layout.findByIdAndUpdate(id, updated);
 };
 
+export const updateAllLayoutItemsPut = async (
+  layoutId: string,
+  itemId: string,
+  value: object
+) => {
+  const layout = await findById(layoutId);
+
+  if (layout.approved) {
+    const modefied = Object.keys(layout.data.layouts).reduce((acc: any, el) => {
+      acc[el] = layout.data.layouts[el].map((item: any) =>
+        item.i === itemId ? value : item
+      );
+      return acc;
+    }, {});
+
+    return {
+      approved: true,
+      data: await Layout.findByIdAndUpdate(layoutId, modefied),
+      message: "layout updated",
+    };
+  } else {
+    return {
+      approved: false,
+      message: "layout not found",
+    };
+  }
+};
+
+export const updateAllLayoutItemsPatch = async (
+  layoutId: string,
+  itemId: string,
+  value: object
+) => {
+  const layout = await findById(layoutId);
+
+  if (layout.approved) {
+    const modefied = Object.keys(layout.data.layouts).reduce((acc: any, el) => {
+      acc[el] = layout.data.layouts[el].map((item: any) =>
+        item.i === itemId ? { ...layout.data, ...value } : item
+      );
+      return acc;
+    }, {});
+
+    return {
+      approved: true,
+      data: await Layout.findByIdAndUpdate(layoutId, modefied),
+      message: "layout updated",
+    };
+  } else {
+    return {
+      approved: false,
+      message: "layout not found",
+    };
+  }
+};
 Layout.watch().on("change", async (data) => {
   if (data.operationType === "insert") {
     await User.findByIdAndUpdate(data.fullDocument.user, {

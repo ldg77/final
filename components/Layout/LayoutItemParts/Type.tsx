@@ -1,8 +1,7 @@
 import getLayout from "@/lib/getLayout";
-import { log } from "console";
 
-import { DocumentData, QuerySnapshot } from "firebase/firestore";
 import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 import { ChangeEvent } from "react";
 
 type Prop = {
@@ -16,9 +15,11 @@ type Prop = {
 };
 
 function Type({ data }: Prop) {
+  const { data: session } = useSession();
+
   const handleChange = async (e: ChangeEvent<HTMLSelectElement>) => {
-    const resLayout = await getLayout();
-    const updatedLayout = Object.keys(resLayout.layouts).reduce(
+    const resLayout = await getLayout(session?.user?.email!);
+    const updatedLayout = Object.keys(resLayout.data.layouts).reduce(
       (acc: any, el) => {
         acc[el] = resLayout.layouts[el].map((item: any) =>
           item.i === data.id ? { ...item, type: e.target.value } : { ...item }
