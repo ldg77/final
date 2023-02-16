@@ -10,13 +10,19 @@ function Type() {
   const { data: session } = useSession();
   const items: any = {
     blog: ["avatar", "pagename", "slogan", "footer", "copyright", "main"],
-    shop: ["avatar", "pagename", "slogan", "footer", "copyright", "main"],
+    shop: [
+      "avatar",
+      "pagename",
+      "slogan",
+      "footer",
+      "copyright",
+      "main",
+      "shopcard",
+    ],
   };
 
   const handleSelect = async (str: string) => {
     const user = await getSessionUser(session);
-    console.log(user);
-
     const res = await fetch("/api/type/handler", {
       method: "POST",
       body: JSON.stringify({

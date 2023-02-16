@@ -24,6 +24,12 @@ function Layout() {
     .sort((a: any, b: any) => b - a)
     .find((el) => windowDimentions.width >= +el)!;
 
+  const generateLayoutTemplate = (arr: any) => {
+    return arr.reduce((acc: any, el: string) => {
+      acc = [...acc, { i: uuidv4(), w: 2, h: 2, x: 0, y: 0, name: el }];
+      return acc;
+    }, []);
+  };
   // handler to check if any changes on layout
   const onLayoutChange = async (
     layout: ReactGridLayout.Layout[],
@@ -31,11 +37,11 @@ function Layout() {
   ) => {
     if (layout.length) {
       const sessionuser = await getSessionUser(session);
-
       const resLayout = await fetch("/api/layout/" + sessionuser.layout._id, {
         method: "PATCH",
         body: JSON.stringify({
           layouts: layouts,
+          user: sessionuser._id,
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -63,19 +69,22 @@ function Layout() {
         setItems(res.data.layouts[(getBreackpoints as any)[getSize]]);
       } else {
         const user = await getSessionUser(session);
+        const layoutsTemplate = generateLayoutTemplate(user.type.layoutitem);
+
         const newLayoutRes = await fetch("/api/layout/handler", {
           method: "POST",
           body: JSON.stringify({
-            layouts: { lg: [], md: [], sm: [], xs: [], xxs: [] },
+            layouts: { [(getBreackpoints as any)[getSize]]: layoutsTemplate },
             user: user._id,
           }),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
           },
         });
-        const newLayout = await newLayoutRes.json();
-        console.log(newLayout);
-        setLayouts(newLayout.data.layouts);
+        console.log(newLayoutRes);
+
+        setItems(layoutsTemplate);
+        setLayouts({ [(getBreackpoints as any)[getSize]]: layoutsTemplate });
       }
     });
   }, []);
