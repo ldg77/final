@@ -22,7 +22,6 @@ function LayoutItem({ id, value, useremail }: Prop) {
       useremail
     );
     const currentLayout = await getLayout(useremail);
-    console.log(currentLayout);
 
     fetch("/api/layout/" + currentLayout.data._id, {
       method: "PATCH",
@@ -30,9 +29,7 @@ function LayoutItem({ id, value, useremail }: Prop) {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json));
+    });
   };
 
   return (

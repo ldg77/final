@@ -20,7 +20,7 @@ function Layout() {
   const [layouts, setLayouts] = useState({});
   const [items, setItems] = useState([]);
   const [windowDimentions, setWindowDimentions] = useState(getWindowSize());
-  const getSize: string = Object.keys(getBreackpoints())
+  const getSize: string = Object.keys(getBreackpoints)
     .sort((a: any, b: any) => b - a)
     .find((el) => windowDimentions.width >= +el)!;
 
@@ -59,7 +59,7 @@ function Layout() {
     getLayout(session?.user?.email!).then(async (res) => {
       if (res.approved) {
         setLayouts(res.data.layouts);
-        setItems(res.data.layouts[(getBreackpoints() as any)[getSize]]);
+        setItems(res.data.layouts[(getBreackpoints as any)[getSize]]);
       } else {
         const user = await getSessionUser(session);
         const newLayoutRes = await fetch("/api/layout/handler", {

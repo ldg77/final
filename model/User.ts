@@ -35,7 +35,7 @@ export const create = async (obj: any) => {
 };
 
 export const findById = async (id: string) => {
-  return await User.findById(id);
+  return await User.findById(id).populate(["layout", "pagename", "maincolor"]);
 };
 
 export const findByEmail = async (email: string) => {

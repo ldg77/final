@@ -13,8 +13,6 @@ function ListItem() {
 
   useEffect(() => {
     getLayout(session?.user?.email!).then((res) => {
-      console.log(res);
-
       if (!res.approved) {
         toast.error("no layouts found", {
           duration: 2000,
@@ -25,13 +23,13 @@ function ListItem() {
     });
   }, []);
 
-  const getSize: string = Object.keys(getBreackpoints())
+  const getSize: string = Object.keys(getBreackpoints)
     .sort((a: any, b: any) => b - a)
     .find((el) => getWindowSize().width >= +el)!;
 
   return (
     <div className="flex w-full flex-shrink">
-      {(data as any)[(getBreackpoints() as any)[getSize]]?.map((item: any) => (
+      {(data as any)[(getBreackpoints as any)[getSize]]?.map((item: any) => (
         <Link
           key={item.i}
           href={`/create/define/${item.i}`}

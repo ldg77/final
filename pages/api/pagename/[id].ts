@@ -1,6 +1,5 @@
 import connectMongo from "@/lib/dbConnect";
-import PageName from "@/model/PageName";
-import User from "@/model/User";
+import * as page from "@/model/PageName";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const id = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,16 +8,23 @@ const id = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (req.method) {
     case "GET":
-      res.status(200).json(await PageName.findById(id));
+      res.status(200).json(await page.findById(id as string));
       break;
     case "POST":
-      res.status(201).json(await PageName.findByIdAndUpdate(id, req.body));
-      break;
-    case "PATCH":
-      const page = await PageName.findById(id);
       res
         .status(201)
-        .json(await PageName.findByIdAndUpdate(id, { ...page, ...req.body }));
+        .json(await page.findByIdUpdatePost(id as string, req.body));
+      break;
+    case "PATCH":
+      const mypage = await page.findById(id as string);
+      res
+        .status(201)
+        .json(
+          await page.findByIdUpdatePatch(id as string, {
+            ...mypage,
+            ...req.body,
+          })
+        );
       break;
     default:
       break;
