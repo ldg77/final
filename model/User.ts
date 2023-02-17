@@ -67,4 +67,16 @@ export const findByIdUpdatePatch = async (id: string, obj: object) => {
 
   return await User.findByIdAndUpdate(id, updated);
 };
+
+export const findByEmailAndPath = async (email: string, pathname: string) => {
+  try {
+    return await User.findOne({ email }, [pathname]).populate(`${pathname}`);
+  } catch (error) {}
+};
+export const findByEmailUpdatePath = async (
+  email: string,
+  pathname: string,
+  obj: object
+) => {};
+
 export default User;

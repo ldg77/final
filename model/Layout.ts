@@ -82,10 +82,9 @@ export const findByIdUpdatePost = async (id: string, obj: object) => {
   return await Layout.findByIdAndUpdate(id, obj);
 };
 export const findByIdUpdatePatch = async (id: string, obj: object) => {
-  const user = await findById(id);
-  const updated = { ...user, ...obj };
+  console.log(id);
 
-  return await Layout.findByIdAndUpdate(id, updated);
+  return await Layout.findByIdAndUpdate(id, { layouts: obj });
 };
 
 export const updateAllLayoutItemsPut = async (

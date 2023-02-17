@@ -38,20 +38,22 @@ function Layout() {
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
   ) => {
-    if (layout.length) {
-      const sessionuser = await getSessionUser(session);
-      const resLayout = await fetch("/api/layout/" + sessionuser.layout._id, {
-        method: "PATCH",
-        body: JSON.stringify({
-          layouts: layouts,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
-      const savedLayout = await resLayout.json();
-      setLayouts(layouts);
-    }
+    const actualLayoutRes = await fetch(
+      `/api/user/path/${session?.user?.email}/layout`
+    );
+    const aktualLayout = await actualLayoutRes.json();
+    console.log(aktualLayout);
+    const resLayout = await fetch("/api/layout/" + aktualLayout.layout._id, {
+      method: "PATCH",
+      body: JSON.stringify(layouts),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    const savedLayout = await resLayout.json();
+    console.log(savedLayout);
+
+    setLayouts(layouts);
   };
 
   // Use Effect to call listener on resize
@@ -60,16 +62,15 @@ function Layout() {
     function handleResize() {
       setWindowDimentions(getWindowSize());
     }
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    global.window.addEventListener("resize", handleResize);
+    return () => global.window.removeEventListener("resize", handleResize);
   });
 
   useEffect(() => {
     getLayout(session?.user?.email!).then(async (res) => {
-      console.log(res);
       if (res.approved) {
-        setLayouts(res.data.layouts);
-        setItems(res.data.layouts[(getBreackpoints as any)[getSize]]);
+        setLayouts(res.layout.layout.layouts);
+        setItems(res.layout.layout.layouts[(getBreackpoints as any)[getSize]]);
       } else {
         const user = await getSessionUser(session);
         const layoutsTemplate = generateLayoutTemplate(user.type.layoutitem);
@@ -83,7 +84,7 @@ function Layout() {
             "Content-type": "application/json; charset=UTF-8",
           },
         });
-        console.log(layoutsTemplate);
+
         setItems((layoutsTemplate as any)[(getBreackpoints as any)[getSize]]);
         setLayouts(layoutsTemplate);
       }
@@ -92,27 +93,6 @@ function Layout() {
 
   return (
     <div className="flex-1 h">
-      {/* <div className="nav">
-        <button
-          className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
-          onClick={() => {
-            setLayouts({});
-          }}
-        >
-          reset
-        </button>
-        <button
-          className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
-          onClick={async () => {
-            setItems([
-              { i: uuidv4(), w: 2, h: 2, x: 0, y: 0 } as never,
-              ...items,
-            ]);
-          }}
-        >
-          Add
-        </button>
-      </div> */}
       <ResponsiveReactGridLayout
         className="layout mx-auto"
         cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 1 }}

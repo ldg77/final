@@ -1,13 +1,12 @@
 async function getLayout(email: string) {
-  const userRes = await fetch("/api/user/email/" + email);
-  const user = await userRes.json();
+  const userLayoutRes = await fetch(`/api/user/path/${email}/layout`);
+  const layout = await userLayoutRes.json();
   // check if user exists
-  if (!user) return { approved: false, message: "no user found" };
+  if (!layout) return { approved: false, message: "no user found" };
 
   // check if user has any layouts
-  if (user.layout) {
-    const layoutRes = await fetch("/api/layout/" + user.layout._id);
-    return await layoutRes.json();
+  if (layout) {
+    return { approved: true, layout, message: "layout found" };
   }
   return { approved: false, message: "no layout found" };
 }

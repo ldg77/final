@@ -13,12 +13,14 @@ function ListItem() {
 
   useEffect(() => {
     getLayout(session?.user?.email!).then((res) => {
+      console.log(res);
+
       if (!res.approved) {
         toast.error("no layouts found", {
           duration: 2000,
         });
       } else {
-        setData(res.data.layouts);
+        setData(res.layout.layout.layouts);
       }
     });
   }, []);
