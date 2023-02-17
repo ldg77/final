@@ -38,21 +38,45 @@ function Layout() {
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
   ) => {
-    // if (layout.length) {
-    //   const sessionuser = await getSessionUser(session);
-    //   const resLayout = await fetch("/api/layout/" + sessionuser.layout._id, {
-    //     method: "PATCH",
-    //     body: JSON.stringify({
-    //       layouts: layouts,
-    //       user: sessionuser._id,
-    //     }),
-    //     headers: {
-    //       "Content-type": "application/json; charset=UTF-8",
-    //     },
-    //   });
-    //   const savedLayout = await resLayout.json();
-    //   // setLayouts(savedLayout.data);
-    // }
+    if (layout.length) {
+      const sessionuser = await getSessionUser(session);
+      const resLayout = await fetch("/api/layout/" + sessionuser.layout._id, {
+        method: "PATCH",
+        body: JSON.stringify({
+          layouts: layouts,
+          user: sessionuser._id,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      const savedLayout = await resLayout.json();
+      setLayouts(layouts);
+    } else {
+      getLayout(session?.user?.email!).then(async (res) => {
+        console.log(res);
+        if (res.approved) {
+          setLayouts(res.data.layouts);
+          setItems(res.data.layouts[(getBreackpoints as any)[getSize]]);
+        } else {
+          const user = await getSessionUser(session);
+          const layoutsTemplate = generateLayoutTemplate(user.type.layoutitem);
+          const newLayoutRes = await fetch("/api/layout/handler", {
+            method: "POST",
+            body: JSON.stringify({
+              layouts: layoutsTemplate,
+              user: user._id,
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          });
+          console.log(layoutsTemplate);
+          setItems((layoutsTemplate as any)[(getBreackpoints as any)[getSize]]);
+          // setLayouts({ [(getBreackpoints as any)[getSize]]: layoutsTemplate });
+        }
+      });
+    }
   };
 
   // Use Effect to call listener on resize
