@@ -43,13 +43,16 @@ function Layout() {
     );
     const aktualLayout = await actualLayoutRes.json();
     console.log(aktualLayout);
-    const resLayout = await fetch("/api/layout/" + aktualLayout.layout._id, {
-      method: "PATCH",
-      body: JSON.stringify(layouts),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    });
+    const resLayout = await fetch(
+      "/api/layout/" + aktualLayout.data.layout._id,
+      {
+        method: "PATCH",
+        body: JSON.stringify(layouts),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
     const savedLayout = await resLayout.json();
     console.log(savedLayout);
 
@@ -68,9 +71,11 @@ function Layout() {
 
   useEffect(() => {
     getLayout(session?.user?.email!).then(async (res) => {
+      console.log(res);
+
       if (res.approved) {
-        setLayouts(res.layout.layout.layouts);
-        setItems(res.layout.layout.layouts[(getBreackpoints as any)[getSize]]);
+        setLayouts(res.data.layout.layouts);
+        setItems(res.data.layout.layouts[(getBreackpoints as any)[getSize]]);
       } else {
         const user = await getSessionUser(session);
         const layoutsTemplate = generateLayoutTemplate(user.type.layoutitem);

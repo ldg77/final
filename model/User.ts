@@ -70,7 +70,16 @@ export const findByIdUpdatePatch = async (id: string, obj: object) => {
 
 export const findByEmailAndPath = async (email: string, pathname: string) => {
   try {
-    return await User.findOne({ email }, [pathname]).populate(`${pathname}`);
+    const user = await User.findOne({ email });
+    if (user[pathname]) {
+      return {
+        approved: true,
+        data: await User.findOne({ email }, [pathname]).populate(`${pathname}`),
+        message: `${pathname} found`,
+      };
+    } else {
+      return { approved: false, message: `${pathname} not found` };
+    }
   } catch (error) {}
 };
 export const findByEmailUpdatePath = async (
