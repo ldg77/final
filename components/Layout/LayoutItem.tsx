@@ -10,7 +10,6 @@ type Prop = {
 };
 
 function LayoutItem({ id, value, useremail }: Prop) {
-  console.log(value);
   useEffect(() => {
     updateLayoutItem(id, "layouts", "layoutItemName", value, useremail);
   }, [value]);

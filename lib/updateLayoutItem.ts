@@ -8,6 +8,7 @@ async function updateLayoutItem(
   useremail: string
 ) {
   const layouts = await getLayout(useremail);
+
   const updatedLayout = Object.keys(layouts.data[path]).reduce(
     (acc: any, el) => {
       acc[el] = (layouts.data[path] as any)[el].map((item: any) => {
