@@ -93,6 +93,18 @@ function Layout() {
 
   return (
     <div className="flex-1 h">
+      <button
+        className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
+        onClick={async () => {
+          setItems([
+            { i: uuidv4(), w: 2, h: 2, x: 0, y: 0 } as never,
+            ...items,
+          ]);
+        }}
+      >
+        Add
+      </button>
+
       <ResponsiveReactGridLayout
         className="layout mx-auto"
         cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 1 }}
