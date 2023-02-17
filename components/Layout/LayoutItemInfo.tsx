@@ -56,9 +56,7 @@ function LayoutItemInfo({ id, setShowEdit, unique }: Prop) {
       >
         <XCircleIcon className="w-6 h-6 text-slate-500/80 hover:opacity-50 transition" />
       </button>
-      <div className="main flex-1">
-        <LayoutItemColor />
-      </div>
+      <div className="main flex-1">{/* <LayoutItemColor /> */}</div>
       <div className="footer p-3 flex justify-end">
         <button
           className="border px-3 py-1 rounded bg-red-700 text-white capitalize"

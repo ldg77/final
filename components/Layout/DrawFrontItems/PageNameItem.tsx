@@ -1,7 +1,10 @@
 import fetcher from "@/lib/fetcher";
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
-function PageNameItem() {
+type Prop = {
+  itemdata: any;
+};
+function PageNameItem({ itemdata }: Prop) {
   const { data: session } = useSession();
   const { data, error, isLoading } = useSWR(
     `/api/user/path/${session?.user?.email}/pagename`,
@@ -11,7 +14,7 @@ function PageNameItem() {
   if (isLoading) return <div>loading...</div>;
 
   return (
-    <div className="grid place-content-center">
+    <div className="grid place-content-center p-5" style={{ ...itemdata }}>
       <p className="w-20 rounded">{data.data.pagename.pagename}</p>
     </div>
   );

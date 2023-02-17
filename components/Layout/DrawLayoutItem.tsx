@@ -1,36 +1,50 @@
+import { useSession } from "next-auth/react";
 import AvatarItem from "./DrawFrontItems/AvatarItem";
 import CopyrightItem from "./DrawFrontItems/CopyrightItem";
 import PageNameItem from "./DrawFrontItems/PageNameItem";
 import SloganItem from "./DrawFrontItems/SloganItem";
+import fetcher from "@/lib/fetcher";
+import useSWR from "swr";
+import getSessionUser from "@/lib/getSessionUser";
 
-function DrawLayoutItem({ data }: any) {
+function DrawLayoutItem({ params }: any) {
+  const { data: session } = useSession();
+  const { data, error, isLoading } = useSWR(
+    `/api/user/email/${session?.user?.email}`,
+    fetcher
+  );
+
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
+  console.log(data);
+
   const getPart = (type: string) => {
     switch (type) {
       case "avatar":
-        return <AvatarItem />;
+        return <AvatarItem itemdata={data.type.layoutitem[type]} />;
       case "pagename":
-        return <PageNameItem />;
+        return <PageNameItem itemdata={data.type.layoutitem[type]} />;
       case "slogan":
-        return <SloganItem />;
+        return <SloganItem itemdata={data.type.layoutitem[type]} />;
       case "copyright":
-        return <CopyrightItem />;
+        return <CopyrightItem itemdata={data.type.layoutitem[type]} />;
       default:
         break;
     }
   };
 
   return (
-    data && (
+    params && (
       <div
         style={{
-          gridColumnStart: data.x + 1,
-          gridRowStart: data.y + 1,
-          gridColumnEnd: data.x + 1 + data.w,
-          gridRowEnd: data.y + 1 + data.h,
+          gridColumnStart: params.x + 1,
+          gridRowStart: params.y + 1,
+          gridColumnEnd: params.x + 1 + params.w,
+          gridRowEnd: params.y + 1 + params.h,
         }}
-        className=" w-full p-5 border"
+        className=" w-full border"
       >
-        {getPart(data.i)}
+        {getPart(params.i)}
       </div>
     )
   );

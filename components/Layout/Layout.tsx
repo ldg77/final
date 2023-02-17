@@ -44,6 +44,7 @@ function Layout() {
       `/api/user/path/${session?.user?.email}/layout`
     );
     const aktualLayout = await actualLayoutRes.json();
+    console.log(aktualLayout);
 
     const resLayout = await fetch(
       "/api/layout/" + aktualLayout.data.layout._id,

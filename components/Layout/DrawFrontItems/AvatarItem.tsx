@@ -1,7 +1,12 @@
 import fetcher from "@/lib/fetcher";
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
-function AvatarItem() {
+
+type Prop = {
+  itemdata: any;
+};
+
+function AvatarItem({ itemdata }: Prop) {
   const { data: session } = useSession();
   const { data, error, isLoading } = useSWR(
     `/api/user/path/${session?.user?.email}/pagename`,
@@ -11,7 +16,10 @@ function AvatarItem() {
   if (isLoading) return <div>loading...</div>;
 
   return (
-    <div className="flex justify-between items-center h-full p-1">
+    <div
+      className="flex justify-between items-center h-full p-5"
+      style={{ ...itemdata }}
+    >
       <img src={data.data.pagename.avatar} className="w-20 rounded" />
     </div>
   );
