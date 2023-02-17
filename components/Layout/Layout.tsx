@@ -78,7 +78,9 @@ function Layout() {
         setItems(res.data.layout.layouts[(getBreackpoints as any)[getSize]]);
       } else {
         const user = await getSessionUser(session);
-        const layoutsTemplate = generateLayoutTemplate(user.type.layoutitem);
+        const layoutsTemplate = generateLayoutTemplate(
+          Object.keys(user.type.layoutitem)
+        );
         const newLayoutRes = await fetch("/api/layout/handler", {
           method: "POST",
           body: JSON.stringify({
@@ -98,7 +100,7 @@ function Layout() {
 
   return (
     <div className="flex-1 h">
-      <button
+      {/* <button
         className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
         onClick={async () => {
           setItems([
@@ -108,7 +110,7 @@ function Layout() {
         }}
       >
         Add
-      </button>
+      </button> */}
 
       <ResponsiveReactGridLayout
         className="layout mx-auto"

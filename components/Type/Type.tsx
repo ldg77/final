@@ -22,12 +22,17 @@ function Type() {
   };
 
   const handleSelect = async (str: string) => {
+    const modified = items[str].reduce((acc: any, el: string) => {
+      acc[el] = [];
+      return acc;
+    }, {});
+
     const user = await getSessionUser(session);
     const res = await fetch("/api/type/handler", {
       method: "POST",
       body: JSON.stringify({
         name: str,
-        layoutitem: items[str],
+        layoutitem: modified,
         user: user._id,
       }),
       headers: {

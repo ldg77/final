@@ -9,11 +9,10 @@ const TypeSchema = new Schema(
       enum: ["blog", "shop"],
     },
 
-    layoutitem: [
-      {
-        type: String,
-      },
-    ],
+    layoutitem: {
+      type: Object,
+    },
+
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
@@ -55,7 +54,7 @@ export const create = async (obj: any) => {
     return {
       approved: true,
       data: type,
-      message: `new pagename width ${type._id} created`,
+      message: `new type width ${type._id} created`,
     };
   } catch (error: any) {
     return {
