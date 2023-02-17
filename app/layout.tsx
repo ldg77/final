@@ -42,7 +42,7 @@ export default async function RootLayout({
           ) : (
             <>
               <ClientPrivider />
-              <div>{children}</div>
+              <div className="flex-1">{children}</div>
             </>
           )}
         </body>

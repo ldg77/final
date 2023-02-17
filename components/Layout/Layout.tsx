@@ -27,13 +27,15 @@ function Layout() {
   const generateLayoutTemplate = (arr: any) => {
     return Object.values(getBreackpoints).reduce((acc, el) => {
       (acc as any)[el] = arr.reduce((accu: any, item: string) => {
-        accu = [...accu, { i: uuidv4(), w: 2, h: 2, x: 0, y: 0, name: item }];
+        accu = [...accu, { i: item, w: 2, h: 2, x: 0, y: 0 }];
         return accu;
       }, []);
       return acc;
     }, {});
   };
+
   // handler to check if any changes on layout
+
   const onLayoutChange = async (
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
@@ -42,7 +44,7 @@ function Layout() {
       `/api/user/path/${session?.user?.email}/layout`
     );
     const aktualLayout = await actualLayoutRes.json();
-    console.log(aktualLayout);
+
     const resLayout = await fetch(
       "/api/layout/" + aktualLayout.data.layout._id,
       {
@@ -53,8 +55,6 @@ function Layout() {
         },
       }
     );
-    const savedLayout = await resLayout.json();
-    console.log(savedLayout);
 
     setLayouts(layouts);
   };
@@ -102,7 +102,7 @@ function Layout() {
         className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
         onClick={async () => {
           setItems([
-            { i: uuidv4(), w: 2, h: 2, x: 0, y: 0 } as never,
+            { i: `section ${items.length}`, w: 2, h: 2, x: 0, y: 0 } as never,
             ...items,
           ]);
         }}
@@ -129,7 +129,7 @@ function Layout() {
           >
             <LayoutItem
               id={el.i}
-              value={el.name || ""}
+              value={el.i || ""}
               useremail={session?.user?.email!}
             />
           </div>

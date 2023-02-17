@@ -1,28 +1,20 @@
-"use client";
 import fetcher from "@/lib/fetcher";
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
-
-function Colors({ children }: any) {
+function PageNameItem() {
   const { data: session } = useSession();
   const { data, error, isLoading } = useSWR(
-    "/api/user/email/" + session?.user?.email,
+    `/api/user/path/${session?.user?.email}/pagename`,
     fetcher
   );
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
   return (
-    <div
-      style={{
-        backgroundColor: data?.maincolor?.backgroundColor,
-        color: data?.maincolor?.textColor,
-      }}
-      className="h-full flex-1"
-    >
-      {children}
+    <div className="grid place-content-center">
+      <p className="w-20 rounded">{data.data.pagename.pagename}</p>
     </div>
   );
 }
 
-export default Colors;
+export default PageNameItem;

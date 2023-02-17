@@ -40,13 +40,13 @@ function DrawLayout() {
   if (isLoading) return <div>loading...</div>;
   return (
     <div
-      className="min-h-screen"
+      className=""
       style={{
         display: "grid",
         gridTemplateColumns: `repeat(${
           cols[(getBreackpoints as any)[getSize]]
         },1fr)`,
-        gridAutoRows: "min(1fr, 100px)",
+        gridAutoRows: "min(1fr, 20px)",
         gridAutoColumns: "100px",
         gap: "2px",
       }}
