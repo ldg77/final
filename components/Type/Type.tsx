@@ -23,9 +23,11 @@ function Type() {
 
   const handleSelect = async (str: string) => {
     const modified = items[str].reduce((acc: any, el: string) => {
-      acc[el] = [];
+      acc[el] = { name: el };
       return acc;
     }, {});
+
+    console.log(modified);
 
     const user = await getSessionUser(session);
     const res = await fetch("/api/type/handler", {

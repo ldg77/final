@@ -4,7 +4,7 @@ import getSessionUser from "@/lib/getSessionUser";
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction } from "react";
-import Type from "./LayoutItemParts/Type";
+import LayoutItemColor from "./LayoutItemParts/LayoutItemColor";
 
 type Prop = {
   id: string;
@@ -57,7 +57,7 @@ function LayoutItemInfo({ id, setShowEdit, unique }: Prop) {
         <XCircleIcon className="w-6 h-6 text-slate-500/80 hover:opacity-50 transition" />
       </button>
       <div className="main flex-1">
-        <Type data={data} />
+        <LayoutItemColor />
       </div>
       <div className="footer p-3 flex justify-end">
         <button

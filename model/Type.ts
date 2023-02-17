@@ -9,9 +9,7 @@ const TypeSchema = new Schema(
       enum: ["blog", "shop"],
     },
 
-    layoutitem: {
-      type: Object,
-    },
+    layoutitem: { type: {} },
 
     user: {
       type: Schema.Types.ObjectId,
@@ -105,6 +103,45 @@ export const findByIdUpdatePatch = async (id: string, obj: object) => {
     return {
       approved: true,
       data: await Type.findByIdAndUpdate(id, updated),
+    };
+  } catch (error: any) {
+    return {
+      approved: false,
+      message: error.message,
+    };
+  }
+};
+
+export const findByIdAndName = async (id: string, name: string) => {
+  try {
+    return {
+      approved: true,
+      data: await Type.findById(id, `layoutitem.${name}`),
+    };
+  } catch (error: any) {
+    return {
+      approved: false,
+      message: error.message,
+    };
+  }
+};
+
+export const findByIdAndNameAndUpdate = async (
+  id: string,
+  name: string,
+  obj: object
+) => {
+  try {
+    const type = await findById(id);
+
+    const updated = {
+      ...type.data.layoutitem,
+      [name]: { ...obj },
+    };
+
+    return {
+      approved: true,
+      data: await Type.findByIdAndUpdate(id, { layoutitem: updated }),
     };
   } catch (error: any) {
     return {

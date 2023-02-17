@@ -1,5 +1,5 @@
 "use client";
-import Type from "@/components/Layout/LayoutItemParts/Type";
+import LayoutItemColor from "@/components/Layout/LayoutItemParts/LayoutItemColor";
 import { useState } from "react";
 
 type Props = {
@@ -9,9 +9,11 @@ type Props = {
 };
 
 function page({ params: { id } }: Props) {
+  console.log(id);
+
   return (
     <div className="flex-1">
-      <Type />
+      <LayoutItemColor path={id} />
     </div>
   );
 }
