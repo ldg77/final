@@ -21,6 +21,12 @@ function Type() {
     ],
   };
 
+  getSessionUser(session).then((res) => {
+    if (res.type) {
+      setChoosen((prev) => (prev = { ...prev, [res.type.name]: true }));
+    }
+  });
+
   const handleSelect = async (str: string) => {
     const user = await getSessionUser(session);
     const res = await fetch("/api/type/handler", {

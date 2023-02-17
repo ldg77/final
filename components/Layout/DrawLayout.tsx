@@ -22,10 +22,7 @@ function DrawLayout() {
   const { data: session } = useSession();
   const { data, error, isLoading } = useSWR(
     "/api/user/email/" + session?.user?.email,
-    fetcher,
-    {
-      refreshInterval: 10000,
-    }
+    fetcher
   );
 
   useEffect(() => {

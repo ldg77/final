@@ -44,7 +44,6 @@ function Layout() {
         method: "PATCH",
         body: JSON.stringify({
           layouts: layouts,
-          user: sessionuser._id,
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -52,71 +51,48 @@ function Layout() {
       });
       const savedLayout = await resLayout.json();
       setLayouts(layouts);
-    } else {
-      getLayout(session?.user?.email!).then(async (res) => {
-        console.log(res);
-        if (res.approved) {
-          setLayouts(res.data.layouts);
-          setItems(res.data.layouts[(getBreackpoints as any)[getSize]]);
-        } else {
-          const user = await getSessionUser(session);
-          const layoutsTemplate = generateLayoutTemplate(user.type.layoutitem);
-          const newLayoutRes = await fetch("/api/layout/handler", {
-            method: "POST",
-            body: JSON.stringify({
-              layouts: layoutsTemplate,
-              user: user._id,
-            }),
-            headers: {
-              "Content-type": "application/json; charset=UTF-8",
-            },
-          });
-          console.log(layoutsTemplate);
-          setItems((layoutsTemplate as any)[(getBreackpoints as any)[getSize]]);
-          // setLayouts({ [(getBreackpoints as any)[getSize]]: layoutsTemplate });
-        }
-      });
     }
   };
 
   // Use Effect to call listener on resize
-  // useEffect(() => {
-  //   function handleResize() {
-  //     setWindowDimentions(getWindowSize());
-  //   }
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // });
 
   useEffect(() => {
-    // getLayout(session?.user?.email!).then(async (res) => {
-    //   console.log(res);
-    //   if (res.approved) {
-    //     setLayouts(res.data.layouts);
-    //     setItems(res.data.layouts[(getBreackpoints as any)[getSize]]);
-    //   } else {
-    //     const user = await getSessionUser(session);
-    //     const layoutsTemplate = generateLayoutTemplate(user.type.layoutitem);
-    //     const newLayoutRes = await fetch("/api/layout/handler", {
-    //       method: "POST",
-    //       body: JSON.stringify({
-    //         layouts: layoutsTemplate,
-    //         user: user._id,
-    //       }),
-    //       headers: {
-    //         "Content-type": "application/json; charset=UTF-8",
-    //       },
-    //     });
-    //     console.log(layoutsTemplate);
-    //     setItems((layoutsTemplate as any)[(getBreackpoints as any)[getSize]]);
-    //     setLayouts({ [(getBreackpoints as any)[getSize]]: layoutsTemplate });
-    //   }
-    // });
+    function handleResize() {
+      setWindowDimentions(getWindowSize());
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  });
+
+  useEffect(() => {
+    getLayout(session?.user?.email!).then(async (res) => {
+      console.log(res);
+      if (res.approved) {
+        setLayouts(res.data.layouts);
+        setItems(res.data.layouts[(getBreackpoints as any)[getSize]]);
+      } else {
+        const user = await getSessionUser(session);
+        const layoutsTemplate = generateLayoutTemplate(user.type.layoutitem);
+        const newLayoutRes = await fetch("/api/layout/handler", {
+          method: "POST",
+          body: JSON.stringify({
+            layouts: layoutsTemplate,
+            user: user._id,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        console.log(layoutsTemplate);
+        setItems((layoutsTemplate as any)[(getBreackpoints as any)[getSize]]);
+        setLayouts(layoutsTemplate);
+      }
+    });
   }, []);
 
   return (
     <div className="flex-1 h">
-      <div className="nav">
+      {/* <div className="nav">
         <button
           className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
           onClick={() => {
@@ -136,7 +112,7 @@ function Layout() {
         >
           Add
         </button>
-      </div>
+      </div> */}
       <ResponsiveReactGridLayout
         className="layout mx-auto"
         cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 1 }}
