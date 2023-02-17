@@ -16,8 +16,8 @@ function Colors({ children }: any) {
   return (
     <div
       style={{
-        backgroundColor: data.maincolor.backgroundColor,
-        color: data.maincolor.textColor,
+        backgroundColor: data?.maincolor?.backgroundColor,
+        color: data?.maincolor?.textColor,
       }}
       className="h-full"
     >

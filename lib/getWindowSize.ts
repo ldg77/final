@@ -1,5 +1,5 @@
 function getWindowSize() {
-  const { innerWidth: width, innerHeight: height } = global.window;
+  const { innerWidth: width, innerHeight: height } = window;
   return {
     width,
     height,

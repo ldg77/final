@@ -42,14 +42,16 @@ function MainColor() {
               <p>Background</p>
               <div
                 className="w-full aspect-square rounded"
-                style={{ backgroundColor: data?.maincolor?.backgroundColor }}
+                style={{
+                  backgroundColor: data?.data?.maincolor?.backgroundColor,
+                }}
               ></div>
             </div>
             <div className="text w-1/5 lg:w-1/4 text-center">
               <p>Text color</p>
               <div
                 className="w-full aspect-square rounded"
-                style={{ backgroundColor: data?.maincolor?.textColor }}
+                style={{ backgroundColor: data?.data?.maincolor?.textColor }}
               ></div>
             </div>
           </div>

@@ -20,7 +20,7 @@ function ListItem() {
           duration: 2000,
         });
       } else {
-        setData(res.layout.layout.layouts);
+        setData(res.data.layout.layouts);
       }
     });
   }, []);
