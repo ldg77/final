@@ -19,7 +19,7 @@ function MainColor() {
       backgroundColor: "color",
       textColor: "color",
     },
-    slogan: "Background color / Text color ",
+    slogan: "Step 2: Choose colors ",
     userpath: "maincolor",
   };
 
@@ -36,7 +36,7 @@ function MainColor() {
     <>
       <div className="maincolors flex-1 md:flex md:w-full lg:mx-auto">
         <div className="res  bg-black text-white h-1/2 md:h-5/6 md:my-auto md:w-1/2 flex flex-col justify-center items-center gap-4 font-extrabold md:rounded-l-2xl">
-          <h1>Selected colors</h1>
+          <h1>Preview</h1>
           <div className="flex justify-center items-center gap-5 w-full">
             <div className="bg w-1/5 lg:w-1/4 text-center">
               <p>Background</p>
@@ -48,15 +48,22 @@ function MainColor() {
               ></div>
             </div>
             <div className="text w-1/5 lg:w-1/4 text-center">
-              <p>Text color</p>
-              <div
+              <p
+                style={{
+                  color: data?.data?.maincolor?.textColor,
+                  backgroundColor: data?.data?.maincolor?.backgroundColor,
+                }}
+              >
+                Text color
+              </p>
+              {/* <div
                 className="w-full aspect-square rounded"
                 style={{ backgroundColor: data?.data?.maincolor?.textColor }}
-              ></div>
+              ></div> */}
             </div>
           </div>
         </div>
-        <div className="input flex-1 h-1/2 grid place-content-center md:my-auto md:w-1/2 border md:rounded-r-2xl md:h-5/6">
+        <div className="input flex-1  grid place-content-center md:my-auto md:w-2/3 border md:rounded-r-2xl md:h-5/6">
           <Form formInfo={formInfo} />
         </div>
       </div>

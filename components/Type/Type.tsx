@@ -51,30 +51,33 @@ function Type() {
 
   return (
     <div className="flex-1 flex flex-col md:flex-row justify-center items-center gap-3">
-      <button
-        className={`blog p-10 bg-black text-white transition ${
-          choosen.blog && "button-active"
-        } ${choosen.shop && "button-nonactive"} `}
-        onClick={() => {
-          setChoosen({ blog: true, shop: false });
-          handleSelect("blog");
-          toast.success("selected blog", { duration: 1000 });
-        }}
-      >
-        blog
-      </button>
-      <button
-        className={`shop blog p-10 bg-black text-white transition ${
-          choosen.shop && "button-active"
-        } ${choosen.blog && "button-nonactive"} `}
-        onClick={() => {
-          setChoosen({ blog: false, shop: true });
-          handleSelect("shop");
-          toast.success("selected shop", { duration: 1000 });
-        }}
-      >
-        shop
-      </button>
+      <p>Step 3: What is kind of website you need</p>
+      <div>
+        <button
+          className={`blog p-10 bg-black text-white transition ${
+            choosen.blog && "button-active"
+          } ${choosen.shop && "button-nonactive"} `}
+          onClick={() => {
+            setChoosen({ blog: true, shop: false });
+            handleSelect("blog");
+            toast.success("selected blog", { duration: 1000 });
+          }}
+        >
+          blog
+        </button>
+        <button
+          className={`shop blog p-10 bg-black text-white transition ${
+            choosen.shop && "button-active"
+          } ${choosen.blog && "button-nonactive"} `}
+          onClick={() => {
+            setChoosen({ blog: false, shop: true });
+            handleSelect("shop");
+            toast.success("selected shop", { duration: 1000 });
+          }}
+        >
+          shop
+        </button>
+      </div>
     </div>
   );
 }

@@ -21,13 +21,13 @@ function DrawLayoutItem({ params }: any) {
   const getPart = (type: string) => {
     switch (type) {
       case "avatar":
-        return <AvatarItem itemdata={data.type.layoutitem[type]} />;
+        return <AvatarItem itemdata={data.type?.layoutitem[type]} />;
       case "pagename":
-        return <PageNameItem itemdata={data.type.layoutitem[type]} />;
+        return <PageNameItem itemdata={data.type?.layoutitem[type]} />;
       case "slogan":
-        return <SloganItem itemdata={data.type.layoutitem[type]} />;
+        return <SloganItem itemdata={data.type?.layoutitem[type]} />;
       case "copyright":
-        return <CopyrightItem itemdata={data.type.layoutitem[type]} />;
+        return <CopyrightItem itemdata={data.type?.layoutitem[type]} />;
       default:
         break;
     }
@@ -42,7 +42,7 @@ function DrawLayoutItem({ params }: any) {
           gridColumnEnd: params.x + 1 + params.w,
           gridRowEnd: params.y + 1 + params.h,
         }}
-        className=" w-full border"
+        className="border w-full"
       >
         {getPart(params.i)}
       </div>

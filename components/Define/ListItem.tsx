@@ -1,11 +1,19 @@
 "use client";
 import getBreackpoints from "@/lib/getBreackpoints";
 import getLayout from "@/lib/getLayout";
-import getWindowSize from "@/lib/getWindowSize";
+
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+
+function getWindowSize() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+}
 
 function ListItem() {
   const { data: session } = useSession();
@@ -30,7 +38,7 @@ function ListItem() {
     .find((el) => getWindowSize().width >= +el)!;
 
   return (
-    <div className="flex w-full flex-shrink">
+    <div className="flex flex-col w-full flex-shrink">
       {(data as any)[(getBreackpoints as any)[getSize]]?.map((item: any) => (
         <Link
           key={item.i}

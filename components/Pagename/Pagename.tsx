@@ -11,7 +11,7 @@ function Pagename() {
       slogan: "text",
       avatar: "file",
     },
-    slogan: "Page Name / Slogan / Avatar ",
+    slogan: "Step 1: your website needs a ... ",
     userpath: "pagename",
   };
 

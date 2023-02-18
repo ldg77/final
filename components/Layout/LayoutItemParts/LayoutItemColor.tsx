@@ -21,7 +21,7 @@ function LayoutItemColor({ path }: Prop) {
   const [data, setData] = useState({
     color: "",
     backgroundColor: "",
-    fintSize: "",
+    fontSize: "",
     borderRadius: "",
   });
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,6 +67,16 @@ function LayoutItemColor({ path }: Prop) {
           value={data.backgroundColor}
           onChange={handleChange}
           name="backgroundColor"
+        />
+      </label>
+      <label className="flex  justify-between w-full">
+        fontsize
+        <input
+          type="number"
+          min={1}
+          value={data.fontSize}
+          onChange={handleChange}
+          name="fontSize"
         />
       </label>
       <button className=" border shadow-2xl px-5 py-2 rounded-lg bg-slate-800 text-white hover:scale-95 transition">

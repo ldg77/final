@@ -1,7 +1,5 @@
 "use client";
 
-import getWindowSize from "@/lib/getWindowSize";
-import { uuidv4 } from "@firebase/util";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
@@ -12,17 +10,27 @@ import "/node_modules/react-resizable/css/styles.css";
 import getBreackpoints from "@/lib/getBreackpoints";
 import getSessionUser from "@/lib/getSessionUser";
 import getLayout from "@/lib/getLayout";
+import Footer from "../Footer";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
-
+// function getWindowSize() {
+//   const { innerWidth: width, innerHeight: height } = window;
+//   return {
+//     width,
+//     height,
+//   };
+// }
 function Layout() {
   const { data: session } = useSession();
   const [layouts, setLayouts] = useState({});
   const [items, setItems] = useState([]);
-  const [windowDimentions, setWindowDimentions] = useState(getWindowSize());
+  const [windowDimentions, setWindowDimentions] = useState({
+    width: 1920,
+    height: 1080,
+  });
   const getSize: string = Object.keys(getBreackpoints)
     .sort((a: any, b: any) => b - a)
-    .find((el) => windowDimentions.width >= +el)!;
+    .find((el) => windowDimentions.width! >= +el)!;
 
   const generateLayoutTemplate = (arr: any) => {
     return Object.values(getBreackpoints).reduce((acc, el) => {
@@ -40,23 +48,21 @@ function Layout() {
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
   ) => {
-    const actualLayoutRes = await fetch(
-      `/api/user/path/${session?.user?.email}/layout`
-    );
-    const aktualLayout = await actualLayoutRes.json();
-    console.log(aktualLayout);
-
-    const resLayout = await fetch(
-      "/api/layout/" + aktualLayout.data.layout._id,
-      {
-        method: "PATCH",
-        body: JSON.stringify(layouts),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      }
-    );
-
+    // const actualLayoutRes = await fetch(
+    //   `/api/user/path/${session?.user?.email}/layout`
+    // );
+    // const aktualLayout = await actualLayoutRes.json();
+    // console.log("bin drin");
+    // const resLayout = await fetch(
+    //   "/api/layout/" + aktualLayout.data?.layout._id,
+    //   {
+    //     method: "PATCH",
+    //     body: JSON.stringify(layouts),
+    //     headers: {
+    //       "Content-type": "application/json; charset=UTF-8",
+    //     },
+    //   }
+    // );
     setLayouts(layouts);
   };
 
@@ -64,16 +70,24 @@ function Layout() {
 
   useEffect(() => {
     function handleResize() {
-      setWindowDimentions(getWindowSize());
+      const { innerWidth: width, innerHeight: height } = window;
+      setWindowDimentions({ width: width, height: height });
     }
-    global.window.addEventListener("resize", handleResize);
-    return () => global.window.removeEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   });
 
   useEffect(() => {
-    getLayout(session?.user?.email!).then(async (res) => {
-      console.log(res);
+    // fetch(`/api/user/path/${session?.user?.email}/layout`)
+    //   .then((res) => res.json())
+    //   .then((json) => {
+    //     if (json.approved) {
+    //       setLayouts(json.data.layout.layouts);
+    //       setItems(json.data.layout.layouts[(getBreackpoints as any)[getSize]]);
+    //     }
+    //   });
 
+    getLayout(session?.user?.email!).then(async (res) => {
       if (res.approved) {
         setLayouts(res.data.layout.layouts);
         setItems(res.data.layout.layouts[(getBreackpoints as any)[getSize]]);
@@ -92,7 +106,6 @@ function Layout() {
             "Content-type": "application/json; charset=UTF-8",
           },
         });
-
         setItems((layoutsTemplate as any)[(getBreackpoints as any)[getSize]]);
         setLayouts(layoutsTemplate);
       }
@@ -100,7 +113,7 @@ function Layout() {
   }, []);
 
   return (
-    <div className="flex-1 h">
+    <div className="flex-1">
       {/* <button
         className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
         onClick={async () => {
@@ -114,7 +127,7 @@ function Layout() {
       </button> */}
 
       <ResponsiveReactGridLayout
-        className="layout mx-auto"
+        className="layout mx-auto "
         cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 1 }}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
         rowHeight={70}
@@ -130,14 +143,16 @@ function Layout() {
             data-grid={el}
             className="flex justify-between border border-black overflow-hidden bg-slate-300/50"
           >
-            <LayoutItem
+            {el.i}
+            {/* <LayoutItem
               id={el.i}
               value={el.i || ""}
               useremail={session?.user?.email!}
-            />
+            /> */}
           </div>
         ))}
       </ResponsiveReactGridLayout>
+      <Footer prev={"type"} next={"define"} />
     </div>
   );
 }
