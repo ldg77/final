@@ -3,19 +3,21 @@ import Iframe from "react-iframe";
 import Footer from "../Footer";
 function LayoutDesign({ children }: any) {
   return (
-    <div>
+    <div className="flex flex-col">
       <div className="info">
-        <div className="description">bla</div>
+        <div className="description text-white text-center py-5">
+          Step 4 / 5: Define your layout
+        </div>
         {children}
+        <Footer prev={"maincolors"} next={"define"} />
       </div>
-      <div className="frame hidden sm:block">
+      <div className="frame hidden sm:block sm:h-[300px] lg:min-h-full scroll-smooth">
         <Iframe
           url="http://localhost:3000/show/page"
           width="100%"
           height="100%"
         />
       </div>
-      <Footer prev={"maincolors"} next={"define"} />
     </div>
   );
 }
