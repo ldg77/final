@@ -71,11 +71,11 @@ function Form(props: params) {
 
   return (
     <div className="flex flex-col md:gap-6 w-full">
-      <div className="md:p-3">
+      <div className="md:p-3 font-extrabold text-center">
         <p>{slogan}</p>
       </div>
       <form
-        className="shadow space-y-3 flex flex-col p-1 md:gap-3 md:p-2 rounded"
+        className=" space-y-3 flex flex-col p-1 md:gap-3 md:p-2 rounded"
         onSubmit={handleSubmit}
       >
         {Object.keys(fields).map((el) => (
@@ -85,7 +85,7 @@ function Form(props: params) {
             setData={setData}
           />
         ))}
-        <button className="border w-1/3 mx-auto p-3 bg-slate-700 text-white rounded-xl uppercase transition hover:opacity-50 hover:scale-95 hover:translate-y-1">
+        <button className=" w-1/3 mx-auto p-3 bg-slate-700 text-white rounded-xl uppercase transition hover:opacity-50 hover:scale-95 hover:translate-y-1">
           save
         </button>
       </form>

@@ -10,7 +10,7 @@ type props = {
 };
 function Input({ state, setData }: props) {
   return (
-    <label className="flex justify-between items-center gap-1 p-1 md:gap-5 md:p-3">
+    <label className="flex justify-between items-center gap-1 p-1 md:gap-5 md:p-3 ">
       {state.name}
       <input
         onChange={(e) =>
@@ -25,12 +25,12 @@ function Input({ state, setData }: props) {
         }
         name={state.name}
         type={state.type}
-        className={`border-b border-slate-400 w-1/3 rounded outline-none ${
+        className={`border-b border-slate-400 w-1/3 rounded outline-none text-black ${
           state.type === "file" && "hidden"
         }`}
       />
       {state.type === "file" && (
-        <DocumentIcon className="w-10 h-10 hover:cursor-pointer" />
+        <DocumentIcon className="w-10 h-10 hover:cursor-pointer text-white" />
       )}
     </label>
   );

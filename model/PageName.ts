@@ -114,7 +114,6 @@ export const findByIdUpdatePatch = async (id: string, obj: object) => {
 };
 
 PageName.watch().on("change", async (data) => {
-  console.log(data);
   if (data.operationType === "insert") {
     await User.findByIdAndUpdate(data.fullDocument.user, {
       pagename: data.fullDocument._id,

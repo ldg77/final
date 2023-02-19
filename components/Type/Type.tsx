@@ -50,11 +50,11 @@ function Type() {
   };
 
   return (
-    <div className="flex-1 flex flex-col justify-center items-center gap-3">
+    <div className="flex-1 flex flex-col justify-center items-center gap-3 text-white">
       <p>Step 1 / 5: What is kind of website you need</p>
       <div className=" flex flex-col gap-5 sm:flex-row ">
         <button
-          className={`blog p-10 bg-black text-white transition ${
+          className={`blog p-10 bg-[#555] text-white transition ${
             choosen.blog && "button-active"
           } ${choosen.shop && "button-nonactive"} `}
           onClick={() => {
@@ -66,7 +66,7 @@ function Type() {
           blog
         </button>
         <button
-          className={`shop blog p-10 bg-black text-white transition ${
+          className={`shop blog p-10 bg-[#555] text-white transition ${
             choosen.shop && "button-active"
           } ${choosen.blog && "button-nonactive"} `}
           onClick={() => {

@@ -19,7 +19,7 @@ function MainColor() {
       backgroundColor: "color",
       textColor: "color",
     },
-    slogan: "Step 3/5: Choose colors ",
+    slogan: "Step 3 / 5: Choose colors ",
     userpath: "maincolor",
   };
 
@@ -35,7 +35,7 @@ function MainColor() {
   return (
     <>
       <div className="maincolors flex-1 md:flex md:w-full lg:mx-auto">
-        <div className="res  bg-black text-white h-1/2 md:h-5/6 md:my-auto md:w-1/2 flex flex-col justify-center items-center gap-4 font-extrabold md:rounded-l-2xl">
+        <div className="res   text-white h-1/2 md:h-5/6 md:my-auto md:w-1/2 flex flex-col justify-center items-center gap-4 font-extrabold md:rounded-l-2xl">
           <h1>Preview</h1>
           <div className="flex justify-center items-center gap-5 w-full">
             <div className="bg flex justify-start items-center gap-2 text-center">
@@ -69,7 +69,7 @@ function MainColor() {
             <p className="text-xs">extra small text </p>
           </div>
         </div>
-        <div className="input flex-1 flex justify-center items-center h-1/2 p-5 md:my-auto md:w-2/3 border md:rounded-r-2xl md:h-5/6">
+        <div className="input flex-1 flex justify-center items-center h-1/2 p-5 md:my-auto md:w-2/3 md:rounded-r-2xl md:h-5/6 text-white">
           <Form formInfo={formInfo} />
         </div>
       </div>

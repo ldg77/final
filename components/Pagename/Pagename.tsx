@@ -11,7 +11,7 @@ function Pagename() {
       slogan: "text",
       avatar: "file",
     },
-    slogan: "Step 2/5 : your website needs a ... ",
+    slogan: "Step 2 / 5 : your website needs a ... ",
     userpath: "pagename",
   };
 
@@ -29,7 +29,7 @@ function Pagename() {
   return (
     <>
       <div className="pagename-avatar flex-1 md:flex md:w-full lg:mx-auto">
-        <div className="res bg-black text-white h-1/2 md:h-5/6 md:my-auto md:w-1/2 flex flex-col justify-center items-center gap-4 font-extrabold md:rounded-l-xl">
+        <div className="res text-white h-1/2 md:h-5/6 md:my-auto md:w-1/2 flex flex-col justify-center items-center gap-4 font-extrabold md:rounded-l-xl">
           <img
             src={data?.data?.pagename?.avatar}
             alt=""
@@ -38,7 +38,7 @@ function Pagename() {
           <p>{data?.data?.pagename?.pagename}</p>
           <p>{data?.data?.pagename?.slogan}</p>
         </div>
-        <div className="input flex-1 flex justify-center items-center h-1/2 p-5 md:my-auto md:w-2/3 border md:rounded-r-2xl md:h-5/6">
+        <div className="input flex-1 flex justify-center items-center h-1/2 p-5 md:my-auto md:w-2/3 text-white md:rounded-r-2xl md:h-5/6">
           <Form formInfo={formInfo} />
         </div>
       </div>

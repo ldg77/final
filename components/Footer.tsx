@@ -11,7 +11,7 @@ type props = {
 function Footer({ prev, next }: props) {
   const [show, setShow] = useState(false);
   return (
-    <div className="footerNav flex justify-center items-center p-5 relative gap-7">
+    <div className="footerNav flex justify-center items-center p-5 relative gap-7 text-white">
       {prev && (
         <Link
           className="relative"

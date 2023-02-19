@@ -11,7 +11,10 @@ function DrawLayoutItem({ params }: any) {
   const { data: session } = useSession();
   const { data, error, isLoading } = useSWR(
     `/api/user/email/${session?.user?.email}`,
-    fetcher
+    fetcher,
+    {
+      refreshInterval: 1000,
+    }
   );
 
   if (error) return <div>failed to load</div>;

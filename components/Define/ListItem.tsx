@@ -31,7 +31,7 @@ function ListItem() {
         setData(res.data.layout.layouts);
       }
     });
-  }, []);
+  }, [session?.user?.email!]);
 
   const getSize: string = Object.keys(getBreackpoints)
     .sort((a: any, b: any) => b - a)

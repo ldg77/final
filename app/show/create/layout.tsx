@@ -9,7 +9,7 @@ export default async function RootLayout({
     <div className="flex flex-col h-screen">
       <>
         <Nav />
-        <div className="flex-1">{children}</div>
+        <div className="flex-1 landing-bg">{children}</div>
       </>
     </div>
   );

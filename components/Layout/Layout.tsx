@@ -100,7 +100,7 @@ function Layout() {
         setLayouts(layoutsTemplate);
       }
     });
-  }, []);
+  }, [session]);
 
   return (
     <div className="flex-1">

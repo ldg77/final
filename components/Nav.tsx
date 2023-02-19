@@ -11,7 +11,7 @@ function Nav() {
   const [showChat, setShowChat] = useState(false);
 
   return (
-    <div className="text-xl bg-slate-800/20 p-3 flex justify-between items-center">
+    <div className="text-xl bg-slate-800/20 p-3 flex justify-between items-center ">
       <div className="menu flex  gap-3">
         <Link href="/">Main</Link>
         <Link href="/show/page">Page</Link>

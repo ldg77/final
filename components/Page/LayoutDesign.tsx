@@ -8,11 +8,11 @@ function LayoutDesign({ children }: any) {
         <div className="description">bla</div>
         {children}
       </div>
-      <div className="frame">
+      <div className="frame hidden sm:block">
         <Iframe
           url="http://localhost:3000/show/page"
-          width="640px"
-          height="320px"
+          width="100%"
+          height="100%"
         />
       </div>
       <Footer prev={"maincolors"} next={"define"} />

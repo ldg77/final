@@ -21,3 +21,11 @@
   background-position: center;
   background-size: cover;
 }
+.landing-bg {
+  background: url("../public/landing.jpg");
+  background-position: center;
+  background-size: cover;
+}
+.backdrop {
+  backdrop-filter: blur(10px);
+}
