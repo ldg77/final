@@ -14,7 +14,7 @@ function Nav() {
     <div className="text-xl bg-slate-800/20 p-3 flex justify-between items-center">
       <div className="menu flex  gap-3">
         <Link href="/">Main</Link>
-        <Link href="/page">Page</Link>
+        <Link href="/show/page">Page</Link>
       </div>
       <div className="flex justify-center items-center gap-2 ">
         {showChat && <Chat setShowChat={setShowChat} />}

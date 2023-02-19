@@ -11,7 +11,7 @@ function Pagename() {
       slogan: "text",
       avatar: "file",
     },
-    slogan: "Step 1: your website needs a ... ",
+    slogan: "Step 2/5 : your website needs a ... ",
     userpath: "pagename",
   };
 
@@ -38,7 +38,7 @@ function Pagename() {
           <p>{data?.data?.pagename?.pagename}</p>
           <p>{data?.data?.pagename?.slogan}</p>
         </div>
-        <div className="input flex-1 h-1/2 md:h-5/6 grid place-content-center md:my-auto md:w-1/2 border md:rounded-r-2xl">
+        <div className="input flex-1 flex justify-center items-center h-1/2 p-5 md:my-auto md:w-2/3 border md:rounded-r-2xl md:h-5/6">
           <Form formInfo={formInfo} />
         </div>
       </div>

@@ -50,9 +50,9 @@ function Type() {
   };
 
   return (
-    <div className="flex-1 flex flex-col md:flex-row justify-center items-center gap-3">
-      <p>Step 3: What is kind of website you need</p>
-      <div>
+    <div className="flex-1 flex flex-col justify-center items-center gap-3">
+      <p>Step 1 / 5: What is kind of website you need</p>
+      <div className=" flex flex-col gap-5 sm:flex-row ">
         <button
           className={`blog p-10 bg-black text-white transition ${
             choosen.blog && "button-active"

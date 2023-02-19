@@ -15,7 +15,7 @@ function Footer({ prev, next }: props) {
       {prev && (
         <Link
           className="relative"
-          href={`/create/${prev !== "home" ? prev : ""}`}
+          href={`/show/create/${prev !== "home" ? prev : ""}`}
           onMouseEnter={() => {
             setShow(true);
           }}
@@ -34,7 +34,7 @@ function Footer({ prev, next }: props) {
       {next && (
         <Link
           className="relative"
-          href={`/create/${next}`}
+          href={`/show/create/${next}`}
           onMouseEnter={() => {
             setShow(true);
           }}

@@ -78,15 +78,6 @@ function Layout() {
   });
 
   useEffect(() => {
-    // fetch(`/api/user/path/${session?.user?.email}/layout`)
-    //   .then((res) => res.json())
-    //   .then((json) => {
-    //     if (json.approved) {
-    //       setLayouts(json.data.layout.layouts);
-    //       setItems(json.data.layout.layouts[(getBreackpoints as any)[getSize]]);
-    //     }
-    //   });
-
     getLayout(session?.user?.email!).then(async (res) => {
       if (res.approved) {
         setLayouts(res.data.layout.layouts);
@@ -152,7 +143,7 @@ function Layout() {
           </div>
         ))}
       </ResponsiveReactGridLayout>
-      <Footer prev={"type"} next={"define"} />
+      <Footer prev={"maincolors"} next={"define"} />
     </div>
   );
 }
