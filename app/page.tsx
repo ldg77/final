@@ -10,9 +10,9 @@ export default function Home() {
     <main className="h-screen">
       <div className="page landing w-full h-full relative">
         <Link href={"http://gurduza.de"}>
-          <div className="logo absolute top-8 left-8 w-48 aspect-square logo rounded"></div>
+          <div className="logo absolute top-8 left-16 w-24 aspect-square logo rounded"></div>
         </Link>
-        <div className="slogan absolute left-8 bottom-1/4 text-white flex flex-col gap-10">
+        <div className="slogan absolute left-16 bottom-1/4 text-white flex flex-col gap-10">
           <div>
             <p className="text-8xl">Make your ideas </p>
             <p className="text-8xl">comes to life</p>
