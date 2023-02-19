@@ -9,13 +9,15 @@ export default function Home() {
   return (
     <main className="h-screen">
       <div className="page landing w-full h-full relative">
-        <div className="logo absolute top-8 left-8 w-24 aspect-square logo rounded"></div>
+        <Link href={"http://gurduza.de"}>
+          <div className="logo absolute top-8 left-8 w-48 aspect-square logo rounded"></div>
+        </Link>
         <div className="slogan absolute left-8 bottom-1/4 text-white flex flex-col gap-10">
           <div>
             <p className="text-8xl">Make your ideas </p>
             <p className="text-8xl">comes to life</p>
           </div>
-          <p className="text-4xl">my website build your website</p>
+          <p className="text-4xl">My website build Your website</p>
         </div>
         <div className="meta absolute bottom-14 text-white w-full flex justify-center items-center text-4xl ">
           <Link href="/show" className="flex justify-center items-center gap-5">

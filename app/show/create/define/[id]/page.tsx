@@ -1,6 +1,5 @@
 "use client";
 import LayoutItemColor from "@/components/Layout/LayoutItemParts/LayoutItemColor";
-import { useState } from "react";
 
 type Props = {
   params: {
@@ -11,7 +10,9 @@ type Props = {
 function page({ params: { id } }: Props) {
   return (
     <div className="flex-1">
-      <p>define properties for layout item: {id}</p>
+      <p className="text-center p-5 font-extrabold">
+        define properties for layout item: {id}
+      </p>
       <LayoutItemColor path={id} />
     </div>
   );

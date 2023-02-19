@@ -48,7 +48,7 @@ function LayoutItemColor({ path }: Prop) {
   return (
     <form
       action=""
-      className="flex flex-col justify-center items-center w-1/2 mx-auto"
+      className="flex flex-col justify-center items-center w-1/2 mx-auto gap-3"
       onSubmit={async (e) => handleSubmit(e)}
     >
       <label className="flex  justify-between w-full">
@@ -58,6 +58,7 @@ function LayoutItemColor({ path }: Prop) {
           value={data.color}
           onChange={handleChange}
           name="color"
+          className="rounded"
         />
       </label>
       <label className="flex  justify-between w-full">
@@ -67,6 +68,7 @@ function LayoutItemColor({ path }: Prop) {
           value={data.backgroundColor}
           onChange={handleChange}
           name="backgroundColor"
+          className="rounded"
         />
       </label>
       <label className="flex  justify-between w-full">
@@ -77,6 +79,7 @@ function LayoutItemColor({ path }: Prop) {
           value={data.fontSize}
           onChange={handleChange}
           name="fontSize"
+          className="rounded outline none"
         />
       </label>
       <button className=" border shadow-2xl px-5 py-2 rounded-lg bg-slate-800 text-white hover:scale-95 transition">

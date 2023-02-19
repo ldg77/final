@@ -47,22 +47,25 @@ function Layout() {
     layout: ReactGridLayout.Layout[],
     layouts: ReactGridLayout.Layouts
   ) => {
-    // const actualLayoutRes = await fetch(
-    //   `/api/user/path/${session?.user?.email}/layout`
-    // );
-    // const aktualLayout = await actualLayoutRes.json();
-    // console.log("bin drin");
-    // const resLayout = await fetch(
-    //   "/api/layout/" + aktualLayout.data?.layout._id,
-    //   {
-    //     method: "PATCH",
-    //     body: JSON.stringify(layouts),
-    //     headers: {
-    //       "Content-type": "application/json; charset=UTF-8",
-    //     },
-    //   }
-    // );
     setLayouts(layouts);
+  };
+
+  const handleSaveLayout = async () => {
+    const actualLayoutRes = await fetch(
+      `/api/user/path/${session?.user?.email}/layout`
+    );
+    const aktualLayout = await actualLayoutRes.json();
+    console.log("bin drin");
+    const resLayout = await fetch(
+      "/api/layout/" + aktualLayout.data?.layout._id,
+      {
+        method: "PATCH",
+        body: JSON.stringify(layouts),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
   };
 
   // Use Effect to call listener on resize
@@ -104,17 +107,12 @@ function Layout() {
 
   return (
     <div className="flex-1">
-      {/* <button
-        className="border px-3 py-1 rounded bg-blue-400 text-white capitalize"
-        onClick={async () => {
-          setItems([
-            { i: `section ${items.length}`, w: 2, h: 2, x: 0, y: 0 } as never,
-            ...items,
-          ]);
-        }}
+      <button
+        className="border px-3 py-1 rounded text-white capitalize mx-auto"
+        onClick={handleSaveLayout}
       >
-        Add
-      </button> */}
+        save
+      </button>
 
       <ResponsiveReactGridLayout
         className="layout mx-auto "
@@ -131,14 +129,9 @@ function Layout() {
           <div
             key={el.i}
             data-grid={el}
-            className="flex justify-between border border-black overflow-hidden bg-slate-300/50"
+            className="flex justify-center items-center bg-slate-300/20 capitalize rounded text-white"
           >
             {el.i}
-            {/* <LayoutItem
-              id={el.i}
-              value={el.i || ""}
-              useremail={session?.user?.email!}
-            /> */}
           </div>
         ))}
       </ResponsiveReactGridLayout>

@@ -6,7 +6,7 @@ function LayoutDesign({ children }: any) {
     <div className="flex flex-col">
       <div className="info">
         <div className="description text-white text-center py-5">
-          Step 4 / 5: Define your layout
+          Step 4 / 5 : Define your layout
         </div>
         {children}
         <Footer prev={"maincolors"} next={"define"} />

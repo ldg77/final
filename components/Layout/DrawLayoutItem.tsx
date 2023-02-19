@@ -45,7 +45,7 @@ function DrawLayoutItem({ params }: any) {
           gridColumnEnd: params.x + 1 + params.w,
           gridRowEnd: params.y + 1 + params.h,
         }}
-        className="border w-full"
+        className=" w-full"
       >
         {getPart(params.i)}
       </div>

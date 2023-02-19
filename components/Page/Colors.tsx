@@ -18,7 +18,7 @@ function Colors({ children }: any) {
         backgroundColor: data?.maincolor?.backgroundColor,
         color: data?.maincolor?.textColor,
       }}
-      className="h-full flex-1"
+      className="h-full flex-1 p-5"
     >
       {children}
     </div>
