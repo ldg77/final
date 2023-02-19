@@ -9,10 +9,9 @@ type Props = {
 };
 
 function page({ params: { id } }: Props) {
-  console.log(id);
-
   return (
     <div className="flex-1">
+      <p>define properties for layout item: {id}</p>
       <LayoutItemColor path={id} />
     </div>
   );

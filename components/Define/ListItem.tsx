@@ -42,7 +42,7 @@ function ListItem() {
       {(data as any)[(getBreackpoints as any)[getSize]]?.map((item: any) => (
         <Link
           key={item.i}
-          href={`/create/define/${item.i}`}
+          href={`/show/create/define/${item.i}`}
           className="w-1/5 flex-1"
         >
           <button>Item:{item.i}</button>

@@ -3,11 +3,13 @@ import Footer from "@/components/Footer";
 
 function layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col h-full">
-      <div className="layoutsList">
-        <ListItem />
+    <div className="flex h-full flex-col">
+      <div className="wrapper flex flex-1">
+        <div className="layoutsList">
+          <ListItem />
+        </div>
+        {children}
       </div>
-      {children}
       <Footer prev={"layout"} next={"define"} />
     </div>
   );
