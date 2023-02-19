@@ -10,3 +10,14 @@
 .button-nonactive {
   opacity: 0.3;
 }
+
+.landing {
+  background: url("../public/landing.jpg");
+  background-position: center;
+  background-size: cover;
+}
+.logo {
+  background: url("../public/DG.gif");
+  background-position: center;
+  background-size: cover;
+}
