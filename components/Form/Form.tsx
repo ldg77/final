@@ -70,21 +70,33 @@ function Form(props: params) {
   };
 
   return (
-    <div className="flex flex-col md:gap-6 w-full">
+    <div className="flex flex-col md:gap-6 w-full bg-inherit shadow">
       <div className="p-3 font-extrabold">
         <p>{slogan}</p>
       </div>
       <form
-        className=" space-y-3 flex flex-col p-1 md:gap-3 md:p-2 rounded max-w-lg "
+        className=" space-y-3 flex flex-col p-1 md:gap-3 md:p-2 rounded max-w-lg"
         onSubmit={handleSubmit}
       >
-        {Object.keys(fields).map((el) => (
-          <Input
-            key={el}
-            state={{ name: el, type: (fields as any)[el] }}
-            setData={setData}
-          />
-        ))}
+        {Object.keys(fields).map((el) =>
+          (fields as any)[el] === "textarea" ? (
+            <textarea
+              key={el}
+              name={el}
+              onChange={(e) =>
+                setData({ ...data, [e.target.name]: e.target.value })
+              }
+              placeholder={el}
+              className="outline-none rounded resize-none px-1"
+            />
+          ) : (
+            <Input
+              key={el}
+              state={{ name: el, type: (fields as any)[el] }}
+              setData={setData}
+            />
+          )
+        )}
         <button className=" w-1/3 mx-auto p-3 bg-slate-700 text-white rounded-xl uppercase transition hover:opacity-50 hover:scale-95 hover:translate-y-1">
           save
         </button>

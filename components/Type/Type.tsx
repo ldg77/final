@@ -9,8 +9,8 @@ function Type() {
   const [choosen, setChoosen] = useState({ blog: false, shop: false });
   const { data: session } = useSession();
   const items: any = {
-    blog: ["avatar", "pagename", "slogan", "footer", "copyright", "blogpart"],
-    shop: ["avatar", "pagename", "slogan", "footer", "copyright", "main"],
+    blog: ["avatar", "pagename", "slogan", "blogpart", "footer", "copyright"],
+    shop: ["avatar", "pagename", "slogan", "main", "footer", "copyright"],
   };
 
   const handleSelect = async (str: string) => {

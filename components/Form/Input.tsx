@@ -25,7 +25,7 @@ function Input({ state, setData }: props) {
         }
         name={state.name}
         type={state.type}
-        className={`border-b border-slate-400 w-1/3 rounded outline-none text-black ${
+        className={`border-b border-slate-400 w-1/3 rounded outline-none text-black px-1 ${
           state.type === "file" && "hidden"
         }`}
       />

@@ -8,7 +8,6 @@ function BlogPartItem({ itemdata }: Prop) {
   return (
     <div style={{ ...itemdata }} className="h-full">
       <SchowBlogs />
-      <AddBlog />
     </div>
   );
 }

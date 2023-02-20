@@ -1,31 +1,31 @@
 import { Schema, model, models } from "mongoose";
+import User from "./User";
 
-const PostSchema = new Schema(
+const BlogSchema = new Schema(
   {
-    name: String,
-
+    title: { type: String, required: true },
+    theme: { type: String, required: true },
+    message: { type: String, required: true },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
     comments: [
       {
-        name: {
-          type: String,
-        },
-      },
-    ],
-    likes: [
-      {
-        name: {
-          type: String,
-        },
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
       },
     ],
   },
+
   { timestamps: true }
 );
-const Post = models.PostSchema || model("Post", PostSchema);
+
+const Blog = models.Blog || model("Blog", BlogSchema);
 
 export const getAll = async () => {
   try {
-    return await Post.find({});
+    return await Blog.find({});
   } catch (error: any) {
     return {
       approved: false,
@@ -36,7 +36,7 @@ export const getAll = async () => {
 
 export const getOne = async (id: string) => {
   try {
-    return await Post.findById(id);
+    return await Blog.findById(id);
   } catch (error: any) {
     return {
       approved: false,
@@ -46,7 +46,7 @@ export const getOne = async (id: string) => {
 };
 export const createOne = async (obj: object) => {
   try {
-    return await Post.create(obj);
+    return await Blog.create(obj);
   } catch (error: any) {
     return {
       approved: false,
@@ -56,7 +56,7 @@ export const createOne = async (obj: object) => {
 };
 export const createonPath = async (id: string, path: string, obj: object) => {
   try {
-    return await Post.findByIdAndUpdate(id, {
+    return await Blog.findByIdAndUpdate(id, {
       $push: {
         [path]: obj,
       },
@@ -70,7 +70,7 @@ export const createonPath = async (id: string, path: string, obj: object) => {
 };
 export const getOnPath = async (id: string, path: string) => {
   try {
-    return await Post.findById(id, [path]);
+    return await Blog.findById(id, [path]);
   } catch (error: any) {
     return {
       approved: false,
@@ -78,3 +78,13 @@ export const getOnPath = async (id: string, path: string) => {
     };
   }
 };
+
+Blog.watch().on("change", async (data) => {
+  if (data.operationType === "insert") {
+    await User.findByIdAndUpdate(data.fullDocument.user, {
+      $push: {
+        blog: data.fullDocument._id,
+      },
+    });
+  }
+});
