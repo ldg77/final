@@ -16,11 +16,8 @@ function AvatarItem({ itemdata }: Prop) {
   if (isLoading) return <div>loading...</div>;
 
   return (
-    <div
-      className="flex justify-between items-center h-full"
-      style={{ ...itemdata }}
-    >
-      <img src={data.data.pagename.avatar} className="w-20 rounded" />
+    <div className="flex h-full w-full" style={{ ...itemdata }}>
+      <img src={data.data.pagename.avatar} className=" rounded" />
     </div>
   );
 }

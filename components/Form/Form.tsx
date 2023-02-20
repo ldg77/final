@@ -14,13 +14,13 @@ type params = {
     fields: object;
     userpath: string;
     slogan: string | null;
+    options?: any;
   };
 };
 
 function Form(props: params) {
   const { data: session } = useSession();
-  const { fields, userpath, slogan } = props.formInfo;
-
+  const { fields, userpath, slogan, options } = props.formInfo;
   const INITIAL = Object.keys(fields).reduce((acc: any, el) => {
     acc[el] = "";
     return acc;
@@ -59,6 +59,7 @@ function Form(props: params) {
         ...data,
         avatar: url,
         user: user._id,
+        ...options,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",

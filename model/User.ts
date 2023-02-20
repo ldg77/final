@@ -35,6 +35,12 @@ const UserSchema: any = new Schema(
         ref: "Blog",
       },
     ],
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
   },
   { timestamps: true }
 );

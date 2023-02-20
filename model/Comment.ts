@@ -1,32 +1,29 @@
 import { Schema, model, models } from "mongoose";
-import Comment from "./Comment";
+import Blog from "./Blog";
 import User from "./User";
 
-const BlogSchema = new Schema(
+const CommentSchema = new Schema(
   {
-    title: { type: String, required: true },
-    theme: { type: String, required: true },
+    name: { type: String, required: true },
     message: { type: String, required: true },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    comments: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Comment",
-      },
-    ],
+    blog: {
+      type: Schema.Types.ObjectId,
+      ref: "Blog",
+    },
   },
 
   { timestamps: true }
 );
 
-const Blog = models.Blog || model("Blog", BlogSchema);
+const Comment = models.Comment || model("Comment", CommentSchema);
 
 export const getAll = async () => {
   try {
-    return await Blog.find({}).populate({ path: "comments", model: Comment });
+    return await Comment.find({});
   } catch (error: any) {
     return {
       approved: false,
@@ -37,7 +34,7 @@ export const getAll = async () => {
 
 export const getOne = async (id: string) => {
   try {
-    return await Blog.findById(id);
+    return await Comment.findById(id);
   } catch (error: any) {
     return {
       approved: false,
@@ -47,7 +44,7 @@ export const getOne = async (id: string) => {
 };
 export const createOne = async (obj: object) => {
   try {
-    return await Blog.create(obj);
+    return await Comment.create(obj);
   } catch (error: any) {
     return {
       approved: false,
@@ -57,7 +54,7 @@ export const createOne = async (obj: object) => {
 };
 export const createonPath = async (id: string, path: string, obj: object) => {
   try {
-    return await Blog.findByIdAndUpdate(id, {
+    return await Comment.findByIdAndUpdate(id, {
       $push: {
         [path]: obj,
       },
@@ -71,7 +68,7 @@ export const createonPath = async (id: string, path: string, obj: object) => {
 };
 export const getOnPath = async (id: string, path: string) => {
   try {
-    return await Blog.findById(id, [path]);
+    return await Comment.findById(id, [path]);
   } catch (error: any) {
     return {
       approved: false,
@@ -80,14 +77,16 @@ export const getOnPath = async (id: string, path: string) => {
   }
 };
 
-Blog.watch().on("change", async (data) => {
+Comment.watch().on("change", async (data) => {
+  console.log(data);
+
   if (data.operationType === "insert") {
-    await User.findByIdAndUpdate(data.fullDocument.user, {
+    await Blog.findByIdAndUpdate(data.fullDocument.blog, {
       $push: {
-        blog: data.fullDocument._id,
+        comments: data.fullDocument._id,
       },
     });
   }
 });
 
-export default Blog;
+export default Comment;

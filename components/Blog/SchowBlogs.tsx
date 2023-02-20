@@ -16,13 +16,15 @@ function SchowBlogs() {
   return (
     <div className="relative">
       <button className="add absolute right-0" onClick={() => setShow(!show)}>
+        Create new Blog
         <BsFillFilePlusFill className="text-3xl" />
       </button>
-
-      {data?.map((el: any) => {
-        return <Blog data={el} />;
-      })}
       {show && <AddBlog />}
+      <div className="blogs flex flex-col">
+        {data?.map((el: any) => {
+          return <Blog key={el._id} data={el} />;
+        })}
+      </div>
     </div>
   );
 }

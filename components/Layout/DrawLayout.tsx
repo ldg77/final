@@ -40,7 +40,7 @@ function DrawLayout() {
   if (isLoading) return <div>loading...</div>;
   return (
     <div
-      className=""
+      className="min-h-screen"
       style={{
         display: "grid",
         gridTemplateColumns: `repeat(${
