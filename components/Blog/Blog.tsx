@@ -25,7 +25,7 @@ function Blog({ data }: Prop) {
           <Comment key={comment._id} data={comment} />
         ))}
       </div>
-      {show && <AddCommentToBlog blog={data._id} />}
+      {show && <AddCommentToBlog blog={data._id} setShow={setShow} />}
     </div>
   );
 }

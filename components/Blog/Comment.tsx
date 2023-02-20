@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import Form from "../Form/Form";
 type Prop = {
   data: any;

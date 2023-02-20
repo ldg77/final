@@ -15,7 +15,7 @@ type params = {
     userpath: string;
     slogan: string | null;
     options?: any;
-    dispatch: Dispatch<SetStateAction<boolean>>;
+    dispatch: React.Dispatch<React.SetStateAction<boolean>>;
   };
 };
 

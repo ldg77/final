@@ -3,8 +3,9 @@ import React from "react";
 import Form from "../Form/Form";
 type Prop = {
   blog: mongoose.Schema.Types.ObjectId;
+  setShow: any;
 };
-function AddCommentToBlog({ blog }: Prop) {
+function AddCommentToBlog({ blog, setShow }: Prop) {
   const formInfo = {
     fields: {
       name: "text",
@@ -13,6 +14,7 @@ function AddCommentToBlog({ blog }: Prop) {
     userpath: "comment",
     slogan: "add a comment",
     options: { blog },
+    dispatch: setShow,
   };
   return (
     <div>
