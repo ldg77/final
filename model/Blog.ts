@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import Comment from "./Comment";
-import User from "./User";
+import { findByIdUpdatePatch as userPatch } from "./User";
 
 const BlogSchema = new Schema(
   {
@@ -47,7 +47,8 @@ export const getOne = async (id: string) => {
 };
 export const createOne = async (obj: object) => {
   try {
-    return await Blog.create(obj);
+    const newBlog = await Blog.create(obj);
+    await userPatch(newBlog.user, { maincolor: newBlog._id });
   } catch (error: any) {
     return {
       approved: false,
@@ -79,15 +80,5 @@ export const getOnPath = async (id: string, path: string) => {
     };
   }
 };
-
-Blog.watch().on("change", async (data) => {
-  if (data.operationType === "insert") {
-    await User.findByIdAndUpdate(data.fullDocument.user, {
-      $push: {
-        blog: data.fullDocument._id,
-      },
-    });
-  }
-});
 
 export default Blog;

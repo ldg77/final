@@ -153,11 +153,4 @@ export const findByIdAndNameAndUpdate = async (
   }
 };
 
-Type.watch().on("change", async (data) => {
-  if (data.operationType === "insert") {
-    await User.findByIdAndUpdate(data.fullDocument.user, {
-      type: data.fullDocument._id,
-    });
-  }
-});
 export default Type;

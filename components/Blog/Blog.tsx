@@ -9,18 +9,18 @@ function Blog({ data }: Prop) {
   const [show, setShow] = useState(false);
 
   return (
-    <div className=" sm:w-1/2 sm:mx-auto shadow-lg relative">
+    <div className=" relative">
       <button
-        className="comment absolute bottom-0 right-0"
+        className="comment absolute bottom-2 right-2"
         onClick={() => setShow(!show)}
       >
         <BiCommentEdit />
       </button>
 
-      <p>{data.title}</p>
-      <p>{data.theme}</p>
-      <p>{data.message}</p>
-      <div className="comments">
+      <p>Title: {data.title}</p>
+      <p>Theme: {data.theme}</p>
+      <p>Message: {data.message}</p>
+      <div className="comments border-b-2 py-2 ">
         {data.comments.map((comment: any) => (
           <Comment key={comment._id} data={comment} />
         ))}

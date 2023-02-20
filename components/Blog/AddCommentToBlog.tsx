@@ -11,7 +11,7 @@ function AddCommentToBlog({ blog }: Prop) {
       message: "textarea",
     },
     userpath: "comment",
-    slogan: "",
+    slogan: "add a comment",
     options: { blog },
   };
   return (

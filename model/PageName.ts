@@ -1,5 +1,5 @@
 import { Schema, model, models } from "mongoose";
-import User from "./User";
+
 import { findByIdUpdatePatch as userPatch } from "./User";
 const PageNameSchema = new Schema(
   {
@@ -113,11 +113,4 @@ export const findByIdUpdatePatch = async (id: string, obj: object) => {
   }
 };
 
-PageName.watch().on("change", async (data) => {
-  if (data.operationType === "insert") {
-    await User.findByIdAndUpdate(data.fullDocument.user, {
-      pagename: data.fullDocument._id,
-    });
-  }
-});
 export default PageName;

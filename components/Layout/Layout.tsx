@@ -118,7 +118,7 @@ function Layout() {
         className="layout mx-auto "
         cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 1 }}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-        rowHeight={30}
+        rowHeight={100}
         width={2560}
         layouts={layouts}
         onLayoutChange={(layout, layouts) => onLayoutChange(layout, layouts)}

@@ -75,11 +75,4 @@ export const findByIdUpdatePatch = async (id: string, obj: object) => {
   return await MainColor.findByIdAndUpdate(id, updated);
 };
 
-MainColor.watch().on("change", async (data) => {
-  if (data.operationType === "insert") {
-    await User.findByIdAndUpdate(data.fullDocument.user, {
-      maincolor: data.fullDocument._id,
-    });
-  }
-});
 export default MainColor;

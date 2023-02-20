@@ -9,7 +9,7 @@ function Comment({ data }: Prop) {
     <div className="px-5">
       <p>{data.name} wrote:</p>
       <p>{data.message}</p>
-      <p className="font-extralight text-right">
+      <p className="font-extralight text-right ">
         written on {created.toLocaleString()}
       </p>
     </div>

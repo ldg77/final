@@ -8,11 +8,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       res.status(200).json(await blog.getAll());
       break;
-
     case "POST":
       res.status(200).json(await blog.createOne(req.body));
       break;
-
     default:
       break;
   }

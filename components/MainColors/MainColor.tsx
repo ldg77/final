@@ -26,7 +26,8 @@ function MainColor() {
   const { data: session } = useSession();
   const { data, error, isLoading } = useSWR(
     `/api/user/path/${session?.user?.email}/maincolor`,
-    fetcher
+    fetcher,
+    { refreshInterval: 10000 }
   );
 
   if (error) return <div>failed to load</div>;

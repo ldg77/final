@@ -42,9 +42,20 @@ export const getOne = async (id: string) => {
     };
   }
 };
-export const createOne = async (obj: object) => {
+export const createOne = async (obj: any) => {
   try {
-    return await Comment.create(obj);
+    console.log(obj);
+    const newComment = await Comment.create(obj);
+    await Blog.findOneAndUpdate(
+      { _id: obj.blog },
+      { $push: { comments: newComment._id } }
+    );
+    await User.findOneAndUpdate(
+      { _id: obj.blog },
+      { $push: { comments: newComment._id } }
+    );
+
+    return newComment;
   } catch (error: any) {
     return {
       approved: false,
@@ -76,17 +87,5 @@ export const getOnPath = async (id: string, path: string) => {
     };
   }
 };
-
-Comment.watch().on("change", async (data) => {
-  console.log(data);
-
-  if (data.operationType === "insert") {
-    await Blog.findByIdAndUpdate(data.fullDocument.blog, {
-      $push: {
-        comments: data.fullDocument._id,
-      },
-    });
-  }
-});
 
 export default Comment;

@@ -6,7 +6,7 @@ type Prop = {
 function FooterItem({ itemdata }: Prop) {
   const [show, setShow] = useState(false);
   return (
-    <div className="text-center h-full" style={{ ...itemdata }}>
+    <div className="h-full flex items-center" style={{ ...itemdata }}>
       <button onClick={() => setShow(!show)}>Impressum</button>
       {show && <Impressum />}
     </div>

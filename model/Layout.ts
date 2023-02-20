@@ -140,12 +140,5 @@ export const updateAllLayoutItemsPatch = async (
     };
   }
 };
-Layout.watch().on("change", async (data) => {
-  if (data.operationType === "insert") {
-    await User.findByIdAndUpdate(data.fullDocument.user, {
-      layout: data.fullDocument._id,
-    });
-  }
-});
 
 export default Layout;

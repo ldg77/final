@@ -19,7 +19,8 @@ function Pagename() {
 
   const { data, error, isLoading } = useSWR(
     `/api/user/path/${session?.user?.email}/pagename`,
-    fetcher
+    fetcher,
+    { refreshInterval: 10000 }
   );
 
   if (error) return <div>failed to load</div>;

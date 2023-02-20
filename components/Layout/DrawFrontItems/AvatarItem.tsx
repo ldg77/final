@@ -16,8 +16,8 @@ function AvatarItem({ itemdata }: Prop) {
   if (isLoading) return <div>loading...</div>;
 
   return (
-    <div className="flex h-full w-full" style={{ ...itemdata }}>
-      <img src={data.data.pagename.avatar} className=" rounded" />
+    <div className="flex" style={{ ...itemdata }}>
+      <img src={data.data.pagename.avatar} className="bg-cover aspect-square" />
     </div>
   );
 }
