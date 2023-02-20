@@ -71,11 +71,11 @@ function Form(props: params) {
 
   return (
     <div className="flex flex-col md:gap-6 w-full">
-      <div className="md:p-3 font-extrabold text-center">
+      <div className="p-3 font-extrabold">
         <p>{slogan}</p>
       </div>
       <form
-        className=" space-y-3 flex flex-col p-1 md:gap-3 md:p-2 rounded"
+        className=" space-y-3 flex flex-col p-1 md:gap-3 md:p-2 rounded max-w-lg "
         onSubmit={handleSubmit}
       >
         {Object.keys(fields).map((el) => (

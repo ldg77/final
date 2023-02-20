@@ -14,12 +14,14 @@ export default function Home() {
         </Link>
         <div className="slogan absolute left-16 bottom-1/4 text-white flex flex-col gap-10">
           <div>
-            <p className="text-8xl">Make your ideas </p>
-            <p className="text-8xl">comes to life</p>
+            <p className="text-4xl md:text-8xl">Make your ideas </p>
+            <p className="text-4xl md:text-8xl">comes to life</p>
           </div>
-          <p className="text-4xl">My website build Your website</p>
+          <p className="text-2xl md:text-4xl text-slate-100/50">
+            My website build Your website
+          </p>
         </div>
-        <div className="meta absolute bottom-14 text-white w-full flex justify-center items-center text-4xl ">
+        <div className="meta absolute bottom-14 text-white w-full flex justify-center items-center text-2xl md:text-4xl ">
           <Link href="/show" className="flex justify-center items-center gap-5">
             <BsFillArrowRightCircleFill className="animate-pulse" />
             <p>Meta_Manager</p>
