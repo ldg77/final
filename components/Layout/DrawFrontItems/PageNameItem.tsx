@@ -14,10 +14,7 @@ function PageNameItem({ itemdata }: Prop) {
   if (isLoading) return <div>loading...</div>;
 
   return (
-    <div
-      className="grid place-content-center p-5 h-full"
-      style={{ ...itemdata }}
-    >
+    <div className="h-full" style={{ ...itemdata }}>
       <p className="w-20 rounded">{data.data.pagename.pagename}</p>
     </div>
   );

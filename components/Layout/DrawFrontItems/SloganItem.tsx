@@ -14,7 +14,7 @@ function SloganItem({ itemdata }: Prop) {
   if (isLoading) return <div>loading...</div>;
 
   return (
-    <div className="h-full p-5" style={{ ...itemdata }}>
+    <div className="h-full" style={{ ...itemdata }}>
       <p className="w-20 rounded">{data.data.pagename.slogan}</p>
     </div>
   );

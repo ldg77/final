@@ -9,16 +9,8 @@ function Type() {
   const [choosen, setChoosen] = useState({ blog: false, shop: false });
   const { data: session } = useSession();
   const items: any = {
-    blog: ["avatar", "pagename", "slogan", "footer", "copyright", "main"],
-    shop: [
-      "avatar",
-      "pagename",
-      "slogan",
-      "footer",
-      "copyright",
-      "main",
-      "shopcard",
-    ],
+    blog: ["avatar", "pagename", "slogan", "footer", "copyright", "blogpart"],
+    shop: ["avatar", "pagename", "slogan", "footer", "copyright", "main"],
   };
 
   const handleSelect = async (str: string) => {

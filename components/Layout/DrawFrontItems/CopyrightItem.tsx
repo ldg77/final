@@ -16,7 +16,7 @@ function CopyrightItem({ itemdata }: Prop) {
 
   return (
     <div
-      className="flex w-full justify-between items-center h-full p-5"
+      className="flex w-full justify-between items-center h-full"
       style={{ ...itemdata }}
     >
       <a href={`mailto:${data.email}`} className="hover:animate-pulse">

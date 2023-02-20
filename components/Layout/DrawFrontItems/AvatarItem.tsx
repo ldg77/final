@@ -17,7 +17,7 @@ function AvatarItem({ itemdata }: Prop) {
 
   return (
     <div
-      className="flex justify-between items-center h-full p-5"
+      className="flex justify-between items-center h-full"
       style={{ ...itemdata }}
     >
       <img src={data.data.pagename.avatar} className="w-20 rounded" />

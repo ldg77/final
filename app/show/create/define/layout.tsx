@@ -10,7 +10,7 @@ function layout({ children }: { children: React.ReactNode }) {
           <ListItem />
         </div>
         {children}
-        <div className="frame flex-1 p-5 ">
+        <div className="frame flex-1">
           <Iframe
             url="http://localhost:3000/show/page"
             width="100%"

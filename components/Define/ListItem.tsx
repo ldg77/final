@@ -38,7 +38,7 @@ function ListItem() {
     .find((el) => getWindowSize().width >= +el)!;
 
   return (
-    <div className="flex flex-col justify-center items-center gap-2 ">
+    <div className="flex flex-col gap-2 ">
       {(data as any)[(getBreackpoints as any)[getSize]]?.map((item: any) => (
         <Link key={item.i} href={`/show/create/define/${item.i}`} className="">
           <button>Item:{item.i}</button>

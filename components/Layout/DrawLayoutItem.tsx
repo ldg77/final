@@ -6,6 +6,10 @@ import SloganItem from "./DrawFrontItems/SloganItem";
 import fetcher from "@/lib/fetcher";
 import useSWR from "swr";
 import getSessionUser from "@/lib/getSessionUser";
+import Footer from "../Footer";
+import FooterItem from "./DrawFrontItems/FooterItem";
+import MainItem from "./DrawFrontItems/MainItem";
+import BlogPartItem from "./DrawFrontItems/BlogPartItem";
 
 function DrawLayoutItem({ params }: any) {
   const { data: session } = useSession();
@@ -19,7 +23,6 @@ function DrawLayoutItem({ params }: any) {
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
-  console.log(data);
 
   const getPart = (type: string) => {
     switch (type) {
@@ -31,6 +34,12 @@ function DrawLayoutItem({ params }: any) {
         return <SloganItem itemdata={data.type?.layoutitem[type]} />;
       case "copyright":
         return <CopyrightItem itemdata={data.type?.layoutitem[type]} />;
+      case "footer":
+        return <FooterItem itemdata={data.type?.layoutitem[type]} />;
+      case "main":
+        return <MainItem itemdata={data.type?.layoutitem[type]} />;
+      case "blogpart":
+        return <BlogPartItem itemdata={data.type?.layoutitem[type]} />;
       default:
         break;
     }

@@ -17,13 +17,15 @@ type Prop = {
 };
 
 function LayoutItemColor({ path }: Prop) {
-  const { data: session } = useSession();
-  const [data, setData] = useState({
+  const INITIAL = {
     color: "",
     backgroundColor: "",
     fontSize: "",
     borderRadius: "",
-  });
+  };
+
+  const { data: session } = useSession();
+  const [data, setData] = useState(INITIAL);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -31,7 +33,7 @@ function LayoutItemColor({ path }: Prop) {
     e.preventDefault();
     const typeRes = await fetch(`/api/user/path/${session?.user?.email}/type`);
     const type = await typeRes.json();
-    console.log(type);
+
     const updateTypeRes = await fetch(
       `/api/type/${type.data.type._id}/${path}`,
       {
@@ -43,7 +45,6 @@ function LayoutItemColor({ path }: Prop) {
       }
     );
     const updateType = await updateTypeRes.json();
-    console.log(updateType);
   };
   return (
     <form
@@ -83,7 +84,7 @@ function LayoutItemColor({ path }: Prop) {
         />
       </label>
       <button className=" border shadow-2xl px-5 py-2 rounded-lg bg-slate-800 text-white hover:scale-95 transition">
-        save
+        {data.color || data.backgroundColor ? "save" : "reset"}
       </button>
     </form>
   );
