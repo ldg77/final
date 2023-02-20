@@ -82,10 +82,5 @@ export const findByEmailAndPath = async (email: string, pathname: string) => {
     }
   } catch (error) {}
 };
-export const findByEmailUpdatePath = async (
-  email: string,
-  pathname: string,
-  obj: object
-) => {};
 
 export default User;

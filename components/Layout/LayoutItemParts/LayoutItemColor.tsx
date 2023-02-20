@@ -45,11 +45,12 @@ function LayoutItemColor({ path }: Prop) {
       }
     );
     const updateType = await updateTypeRes.json();
+    setData(INITIAL);
   };
   return (
     <form
       action=""
-      className="flex flex-col justify-center items-center w-1/2 mx-auto gap-3"
+      className="flex flex-col justify-center items-center max-w-md mx-auto gap-3"
       onSubmit={async (e) => handleSubmit(e)}
     >
       <label className="flex  justify-between w-full">

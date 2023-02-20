@@ -9,14 +9,16 @@ function layout({ children }: { children: React.ReactNode }) {
         <div className="layoutsList p-5">
           <ListItem />
         </div>
-        {children}
-        <div className="frame flex-1">
-          <Iframe
-            url="http://localhost:3000/show/page"
-            width="100%"
-            height="100%"
-            className="rounded"
-          />
+        <div className="flex-1 flex flex-col">
+          {children}
+          <div className="frame flex-1">
+            <Iframe
+              url="http://localhost:3000/show/page"
+              width="100%"
+              height="100%"
+              className="rounded"
+            />
+          </div>
         </div>
       </div>
       <Footer prev={"layout"} next={"page"} />
