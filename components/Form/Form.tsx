@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { FormEvent, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import Input from "./Input";
 import { toast } from "react-hot-toast";
 
@@ -15,12 +15,13 @@ type params = {
     userpath: string;
     slogan: string | null;
     options?: any;
+    dispatch: Dispatch<SetStateAction<boolean>>;
   };
 };
 
 function Form(props: params) {
   const { data: session } = useSession();
-  const { fields, userpath, slogan, options } = props.formInfo;
+  const { fields, userpath, slogan, options, dispatch } = props.formInfo;
   const INITIAL = Object.keys(fields).reduce((acc: any, el) => {
     acc[el] = "";
     return acc;
@@ -68,6 +69,8 @@ function Form(props: params) {
 
     toast.success("allready stored", { id: notification });
     setData(INITIAL);
+
+    dispatch && dispatch((prev: boolean) => (prev = !prev));
   };
 
   return (

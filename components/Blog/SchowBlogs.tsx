@@ -22,7 +22,7 @@ function SchowBlogs() {
         Create new Discussion
         <BsFillFilePlusFill className="text-3xl" />
       </button>
-      {show && <AddBlog />}
+      {show && <AddBlog setShow={setShow} />}
       <div className="blogs flex flex-col space-y-6">
         {data?.map((el: any) => {
           return <Blog key={el._id} data={el} />;

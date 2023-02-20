@@ -1,6 +1,11 @@
+import { Dispatch, SetStateAction } from "react";
 import Form from "../Form/Form";
 
-function AddBlog() {
+type Prop = {
+  setShow: Dispatch<SetStateAction<boolean>>;
+};
+
+function AddBlog({ setShow }: Prop) {
   const formInfo = {
     fields: {
       title: "text",
@@ -9,6 +14,7 @@ function AddBlog() {
     },
     userpath: "blog",
     slogan: "Define data for new blog",
+    dispatch: setShow,
   };
 
   return (

@@ -51,7 +51,7 @@ export const createOne = async (obj: any) => {
       { $push: { comments: newComment._id } }
     );
     await User.findOneAndUpdate(
-      { _id: obj.blog },
+      { _id: obj.user },
       { $push: { comments: newComment._id } }
     );
 

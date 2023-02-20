@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import Comment from "./Comment";
-import { findByIdUpdatePatch as userPatch } from "./User";
+import User, { findByIdUpdatePatch as userPatch } from "./User";
 
 const BlogSchema = new Schema(
   {
@@ -45,10 +45,13 @@ export const getOne = async (id: string) => {
     };
   }
 };
-export const createOne = async (obj: object) => {
+export const createOne = async (obj: any) => {
   try {
     const newBlog = await Blog.create(obj);
-    await userPatch(newBlog.user, { maincolor: newBlog._id });
+    await User.findOneAndUpdate(
+      { _id: obj.user },
+      { $push: { blog: newBlog._id } }
+    );
   } catch (error: any) {
     return {
       approved: false,
