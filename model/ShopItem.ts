@@ -18,6 +18,7 @@ const ShopItemSchema = new Schema(
       ref: "User",
       required: true,
     },
+    selected: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
@@ -73,8 +74,8 @@ export const findByIdUpdatePost = async (id: string, obj: object) => {
   return await ShopItem.findByIdAndUpdate(id, obj);
 };
 export const findByIdUpdatePatch = async (id: string, obj: object) => {
-  const user = await findById(id);
-  const updated = { ...user._doc, ...obj };
+  const shopitem = await findById(id);
+  const updated = { ...shopitem._doc, ...obj };
 
   return await ShopItem.findByIdAndUpdate(id, updated);
 };

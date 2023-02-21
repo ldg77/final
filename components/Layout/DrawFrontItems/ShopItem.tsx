@@ -13,7 +13,15 @@ function ShopItem({ itemdata }: Prop) {
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
   console.log(data);
-
+  const addtoCart = async (id: string) => {
+    await fetch(`/api/shopitem/${id}`, {
+      method: "POST",
+      body: JSON.stringify({ selected: true }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+  };
   return (
     <div
       style={{ ...itemdata }}
@@ -25,7 +33,10 @@ function ShopItem({ itemdata }: Prop) {
           <div className="">
             <p>{item.productName}</p>
             <p>price: {item.price}€</p>
-            <button className="bg-green-900 px-3 rounded text-white">
+            <button
+              className="bg-green-900 px-3 rounded text-white"
+              onClick={() => addtoCart(item._id)}
+            >
               add
             </button>
             <button className="bg-red-900 px-3 rounded text-white">
