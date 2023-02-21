@@ -10,7 +10,15 @@ function Type() {
   const { data: session } = useSession();
   const items: any = {
     blog: ["avatar", "pagename", "slogan", "blogpart", "footer", "copyright"],
-    shop: ["avatar", "pagename", "slogan", "main", "footer", "copyright"],
+    shop: [
+      "avatar",
+      "pagename",
+      "slogan",
+      "shopmain",
+      "userinfo",
+      "footer",
+      "copyright",
+    ],
   };
 
   const handleSelect = async (str: string) => {

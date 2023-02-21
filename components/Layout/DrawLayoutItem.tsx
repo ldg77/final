@@ -5,11 +5,10 @@ import PageNameItem from "./DrawFrontItems/PageNameItem";
 import SloganItem from "./DrawFrontItems/SloganItem";
 import fetcher from "@/lib/fetcher";
 import useSWR from "swr";
-import getSessionUser from "@/lib/getSessionUser";
-import Footer from "../Footer";
 import FooterItem from "./DrawFrontItems/FooterItem";
-import MainItem from "./DrawFrontItems/MainItem";
+import ShopItem from "./DrawFrontItems/ShopItem";
 import BlogPartItem from "./DrawFrontItems/BlogPartItem";
+import UserInfoItem from "./DrawFrontItems/UserInfoItem";
 
 function DrawLayoutItem({ params }: any) {
   const { data: session } = useSession();
@@ -36,10 +35,12 @@ function DrawLayoutItem({ params }: any) {
         return <CopyrightItem itemdata={data.type?.layoutitem[type]} />;
       case "footer":
         return <FooterItem itemdata={data.type?.layoutitem[type]} />;
-      case "main":
-        return <MainItem itemdata={data.type?.layoutitem[type]} />;
+      case "shopmain":
+        return <ShopItem itemdata={data.type?.layoutitem[type]} />;
       case "blogpart":
         return <BlogPartItem itemdata={data.type?.layoutitem[type]} />;
+      case "userinfo":
+        return <UserInfoItem itemdata={data.type?.layoutitem[type]} />;
       default:
         break;
     }

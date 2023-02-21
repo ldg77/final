@@ -2,12 +2,12 @@ import React from "react";
 type Prop = {
   itemdata: any;
 };
-function MainItem({ itemdata }: Prop) {
+function ShopItem({ itemdata }: Prop) {
   return (
     <div style={{ ...itemdata }} className="h-full">
-      MainItem
+      ShopItem
     </div>
   );
 }
 
-export default MainItem;
+export default ShopItem;
