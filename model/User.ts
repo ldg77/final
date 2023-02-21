@@ -43,8 +43,14 @@ const UserSchema: any = new Schema(
     ],
     shop: {
       type: Schema.Types.ObjectId,
-      ref: "Blog",
+      ref: "Shop",
     },
+    shopitem: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "ShopItem",
+      },
+    ],
   },
   { timestamps: true }
 );

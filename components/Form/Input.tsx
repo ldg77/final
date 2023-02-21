@@ -7,7 +7,7 @@ type props = {
     type: string;
   };
   setData: Dispatch<SetStateAction<{}>>;
-  value: string;
+  value?: string;
 };
 function Input({ state, setData, value }: props) {
   return (

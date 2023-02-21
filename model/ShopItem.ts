@@ -1,5 +1,5 @@
 import { Schema, model, models } from "mongoose";
-import { findByIdUpdatePatch as userPatch } from "./User";
+import User, { findByIdUpdatePatch as userPatch } from "./User";
 
 const ShopItemSchema = new Schema(
   {
@@ -13,6 +13,11 @@ const ShopItemSchema = new Schema(
     },
     avatar: String,
     price: Number,
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true }
 );
@@ -44,7 +49,9 @@ export const getAll = async () => {
 export const create = async (obj: any) => {
   try {
     const shopitem = await ShopItem.create(obj);
-    await userPatch(shopitem.user, { shopitem: shopitem._id });
+    await User.findByIdAndUpdate(shopitem.user, {
+      $push: { shopitem: shopitem._id },
+    });
     return {
       approved: true,
       data: shopitem,

@@ -9,6 +9,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       res.json(await shopitem.getAll());
       break;
     case "POST":
+      console.log(req.body);
+
       res.status(200).json(await shopitem.create(req.body));
       break;
     default:

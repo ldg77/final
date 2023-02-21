@@ -98,12 +98,18 @@ function Form(props: params) {
               className="outline-none rounded resize-none px-1"
               value={data[el]}
             />
-          ) : (
+          ) : el !== "avatar" ? (
             <Input
               key={el}
               state={{ name: el, type: (fields as any)[el] }}
               setData={setData}
               value={data[el]}
+            />
+          ) : (
+            <Input
+              key={el}
+              state={{ name: el, type: (fields as any)[el] }}
+              setData={setData}
             />
           )
         )}
