@@ -4,6 +4,12 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import LogIn from "@/components/LogIn";
 
+async function getUser(params: string) {
+  const resUser = await fetch("http://localhost:3000/api/user/email/" + params);
+  const loggeduser = await resUser.json();
+  return loggeduser;
+}
+
 export default async function RootLayout({
   children,
 }: {
@@ -11,12 +17,7 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession(authOptions);
   if (session) {
-    const resUser = await fetch(
-      "http://localhost:3000/api/user/email/" + session.user?.email!
-    );
-
-    const loggeduser = await resUser.json();
-
+    const loggeduser = await getUser(session?.user?.email!);
     if (!loggeduser) {
       const resUser = await fetch("http://localhost:3000/api/user/handler", {
         method: "POST",
