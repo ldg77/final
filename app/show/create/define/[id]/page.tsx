@@ -1,5 +1,6 @@
 "use client";
 import LayoutItemColor from "@/components/Layout/LayoutItemParts/LayoutItemColor";
+import AddItem from "@/components/Shop/AddItem";
 
 type Props = {
   params: {
@@ -14,6 +15,7 @@ function page({ params: { id } }: Props) {
         define properties for layout item: {id}
       </p>
       <LayoutItemColor path={id} />
+      {id === "shopmain" && <AddItem />}
     </div>
   );
 }
