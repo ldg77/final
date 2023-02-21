@@ -1,15 +1,15 @@
 import connectMongo from "@/lib/dbConnect";
-import * as shop from "@/model/Shop";
+import * as shopitem from "@/model/ShopItem";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   await connectMongo();
   switch (req.method) {
     case "GET":
-      res.json(await shop.getAll());
+      res.json(await shopitem.getAll());
       break;
     case "POST":
-      res.status(200).json(await shop.create(req.body));
+      res.status(200).json(await shopitem.create(req.body));
       break;
     default:
       break;

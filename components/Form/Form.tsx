@@ -16,12 +16,14 @@ type params = {
     slogan: string | null;
     options?: any;
     dispatch?: React.Dispatch<React.SetStateAction<boolean>>;
+    position?: string;
   };
 };
 
 function Form(props: params) {
   const { data: session } = useSession();
-  const { fields, userpath, slogan, options, dispatch } = props.formInfo;
+  const { fields, userpath, slogan, options, dispatch, position } =
+    props.formInfo;
   const INITIAL = Object.keys(fields).reduce((acc: any, el) => {
     acc[el] = "";
     return acc;
@@ -74,12 +76,14 @@ function Form(props: params) {
   };
 
   return (
-    <div className="flex flex-col md:gap-6 w-full bg-inherit shadow">
+    <div
+      className={`flex flex-col items-${position} md:gap-6 w-full bg-inherit lg:p-5`}
+    >
       <div className="p-3 font-extrabold">
-        <p>{slogan}</p>
+        <p className="text-2xl uppercase">{slogan}</p>
       </div>
       <form
-        className=" space-y-3 flex flex-col p-1 md:gap-3 md:p-2 rounded max-w-lg"
+        className={`space-y-3 flex flex-col  p-1 md:gap-3 md:p-2 rounded max-w-lg`}
         onSubmit={handleSubmit}
       >
         {Object.keys(fields).map((el) =>
@@ -101,7 +105,7 @@ function Form(props: params) {
             />
           )
         )}
-        <button className=" w-1/3 mx-auto p-3 bg-slate-700 text-white rounded-xl uppercase transition hover:opacity-50 hover:scale-95 hover:translate-y-1">
+        <button className=" w-1/3 mx-auto p-3 bg-black border border-b-white text-white rounded-xl uppercase transition hover:opacity-50 hover:scale-95 hover:translate-y-1">
           save
         </button>
       </form>

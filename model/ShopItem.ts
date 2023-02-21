@@ -1,56 +1,37 @@
 import { Schema, model, models } from "mongoose";
 import { findByIdUpdatePatch as userPatch } from "./User";
 
-const ShopItemSchema = new Schema({
-  productName: {
-    type: String,
-    required: true,
-  },
-  quantity: {
-    type: Number,
-    required: true,
-  },
-  onsale: Boolean,
-  avatar: String,
-  price: Number,
-});
-
-const ShopSchema = new Schema(
+const ShopItemSchema = new Schema(
   {
-    name: {
+    productName: {
       type: String,
       required: true,
     },
-    item: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "ShopItem",
-      },
-    ],
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+    quantity: {
+      type: Number,
       required: true,
     },
+    avatar: String,
+    price: Number,
   },
   { timestamps: true }
 );
 
-const Shop = models.Shop || model("Shop", ShopSchema);
+const ShopItem = models.ShopItem || model("ShopItem", ShopItemSchema);
 
 export const getAll = async () => {
   try {
-    const maincolor = await Shop.find({});
+    const maincolor = await ShopItem.find({});
     if (maincolor.length) {
       return {
         approved: true,
         data: maincolor,
-        message: "shop founded",
+        message: "shopitem founded",
       };
     } else {
       return {
         approved: false,
-        message: "no shop found",
+        message: "no shopitem found",
       };
     }
   } catch (error: any) {
@@ -62,12 +43,12 @@ export const getAll = async () => {
 };
 export const create = async (obj: any) => {
   try {
-    const shop = await Shop.create(obj);
-    await userPatch(shop.user, { shop: shop._id });
+    const shopitem = await ShopItem.create(obj);
+    await userPatch(shopitem.user, { shopitem: shopitem._id });
     return {
       approved: true,
-      data: shop,
-      message: `new shop width ${shop._id} created`,
+      data: shopitem,
+      message: `new shopitem width ${shopitem._id} created`,
     };
   } catch (error: any) {
     return {
@@ -78,17 +59,17 @@ export const create = async (obj: any) => {
 };
 
 export const findById = async (id: string) => {
-  return await Shop.findById(id);
+  return await ShopItem.findById(id);
 };
 
 export const findByIdUpdatePost = async (id: string, obj: object) => {
-  return await Shop.findByIdAndUpdate(id, obj);
+  return await ShopItem.findByIdAndUpdate(id, obj);
 };
 export const findByIdUpdatePatch = async (id: string, obj: object) => {
   const user = await findById(id);
   const updated = { ...user._doc, ...obj };
 
-  return await Shop.findByIdAndUpdate(id, updated);
+  return await ShopItem.findByIdAndUpdate(id, updated);
 };
 
-export default Shop;
+export default ShopItem;

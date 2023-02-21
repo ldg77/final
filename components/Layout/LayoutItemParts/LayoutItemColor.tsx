@@ -50,10 +50,10 @@ function LayoutItemColor({ path }: Prop) {
   return (
     <form
       action=""
-      className="flex flex-col justify-center items-center max-w-md mx-auto gap-3"
+      className="space-y-3 flex flex-col p-1 md:gap-3 md:p-2 rounded max-w-lg "
       onSubmit={async (e) => handleSubmit(e)}
     >
-      <label className="flex  justify-between w-full">
+      <label className="flex justify-between items-center gap-1 p-1 md:gap-5 md:p-3 ">
         color
         <input
           type="color"
@@ -63,7 +63,7 @@ function LayoutItemColor({ path }: Prop) {
           className="rounded"
         />
       </label>
-      <label className="flex  justify-between w-full">
+      <label className="flex justify-between items-center gap-1 p-1 md:gap-5 md:p-3 ">
         background
         <input
           type="color"
@@ -73,7 +73,7 @@ function LayoutItemColor({ path }: Prop) {
           className="rounded"
         />
       </label>
-      <label className="flex  justify-between w-full">
+      <label className="flex justify-between items-center gap-1 p-1 md:gap-5 md:p-3 ">
         fontsize
         <input
           type="number"
@@ -84,7 +84,7 @@ function LayoutItemColor({ path }: Prop) {
           className="rounded outline none"
         />
       </label>
-      <button className=" border shadow-2xl px-5 py-2 rounded-lg bg-slate-800 text-white hover:scale-95 transition">
+      <button className=" w-1/3 mx-auto p-3 bg-black border border-b-white text-white rounded-xl uppercase transition hover:opacity-50 hover:scale-95 hover:translate-y-1">
         {data.color || data.backgroundColor ? "save" : "reset"}
       </button>
     </form>
