@@ -15,13 +15,23 @@ function ShopItem({ itemdata }: Prop) {
   console.log(data);
 
   return (
-    <div style={{ ...itemdata }} className="h-full flex gap-2">
+    <div
+      style={{ ...itemdata }}
+      className="h-full flex flex-col sm:flex-row gap-2 flex-wrap content-center"
+    >
       {data?.data.shopitem.map((item: any) => (
-        <div className="flex-1">
+        <div className="flex flex-col mx-auto">
           <img src={item.avatar} alt="avatar" className="w-24 aspect-square" />
-          <p>{item.productName}</p>
-          <p>price: {item.price}€</p>
-          <button className="bg-green-900 px-3 rounded text-white">add</button>
+          <div className="">
+            <p>{item.productName}</p>
+            <p>price: {item.price}€</p>
+            <button className="bg-green-900 px-3 rounded text-white">
+              add
+            </button>
+            <button className="bg-red-900 px-3 rounded text-white">
+              remove
+            </button>
+          </div>
         </div>
       ))}
     </div>
