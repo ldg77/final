@@ -45,7 +45,7 @@ export const getAll = async () => {
       return {
         approved: true,
         data: maincolor,
-        message: "shop founded",
+        message: "shop found",
       };
     } else {
       return {

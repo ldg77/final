@@ -7,8 +7,9 @@ type props = {
     type: string;
   };
   setData: Dispatch<SetStateAction<{}>>;
+  value: string;
 };
-function Input({ state, setData }: props) {
+function Input({ state, setData, value }: props) {
   return (
     <label className="flex justify-between items-center gap-1 p-1 md:gap-5 md:p-3 ">
       {state.name}
@@ -23,6 +24,7 @@ function Input({ state, setData }: props) {
               })
           )
         }
+        value={value}
         name={state.name}
         type={state.type}
         className={`border-b border-slate-400 w-1/3 rounded outline-none text-black px-1 ${

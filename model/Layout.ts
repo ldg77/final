@@ -22,7 +22,7 @@ export const getAll = async () => {
       return {
         approved: true,
         data: layouts,
-        message: "layouts founded",
+        message: "layouts found",
       };
     } else {
       return {
