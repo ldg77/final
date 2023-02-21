@@ -11,7 +11,7 @@ function Blog({ data }: Prop) {
   return (
     <div className=" relative">
       <button
-        className="comment absolute bottom-2 right-2"
+        className="comment absolute  right-2"
         onClick={() => setShow(!show)}
       >
         <BiCommentEdit />

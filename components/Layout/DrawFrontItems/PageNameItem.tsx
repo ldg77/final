@@ -14,8 +14,11 @@ function PageNameItem({ itemdata }: Prop) {
   if (isLoading) return <div>loading...</div>;
 
   return (
-    <div className="h-full" style={{ ...itemdata }}>
-      <p className="w-20 rounded">{data.data.pagename.pagename}</p>
+    <div
+      className="h-full w-full flex justify-center items-center"
+      style={{ ...itemdata }}
+    >
+      <p className="rounded">{data.data.pagename.pagename}</p>
     </div>
   );
 }
