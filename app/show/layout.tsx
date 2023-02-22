@@ -33,10 +33,9 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en">
-      <head />
+    <div>
       <SessionProvider session={session}>
-        <body className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen">
           {!session ? (
             <LogIn />
           ) : (
@@ -45,8 +44,8 @@ export default async function RootLayout({
               <div className="flex-1">{children}</div>
             </>
           )}
-        </body>
+        </div>
       </SessionProvider>
-    </html>
+    </div>
   );
 }

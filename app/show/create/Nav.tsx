@@ -4,7 +4,7 @@ import { signOut, useSession } from "next-auth/react";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useState } from "react";
-import Chat from "./Chat";
+import Chat from "../../../components/Chat";
 
 function Nav() {
   const { data: session } = useSession();

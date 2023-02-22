@@ -1,4 +1,4 @@
-import Nav from "@/components/Nav";
+import Nav from "@/app/show/create/Nav";
 
 export default async function RootLayout({
   children,

@@ -5,7 +5,7 @@ import {
   BsGithub,
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
-export default function Home() {
+export default async function Home() {
   return (
     <main className="h-screen">
       <div className="page landing w-full h-full relative">

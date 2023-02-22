@@ -13,7 +13,7 @@ import UserInfoItem from "./DrawFrontItems/UserInfoItem";
 function DrawLayoutItem({ params }: any) {
   const { data: session } = useSession();
   const { data, error, isLoading } = useSWR(
-    `/api/user/email/${session?.user?.email}`,
+    `/api/user/path/${session?.user?.email}/layout`,
     fetcher,
     {
       refreshInterval: 1000,
