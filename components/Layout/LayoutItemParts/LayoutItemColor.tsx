@@ -2,6 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { ChangeEvent, FormEvent, useState } from "react";
+import LabelInputComponent from "./LabelInputComponent";
 
 type Prop = {
   path: string;
@@ -9,28 +10,38 @@ type Prop = {
 
 function LayoutItemColor({ path }: Prop) {
   const INITIAL = {
-    color: "",
-    backgroundColor: "",
+    color: "#ffffff",
+    backgroundColor: "#000000",
     fontSize: "",
     borderRadius: "",
+    padding: "",
+    marginBottom: "",
+    marginTop: "",
+    marginLeft: "",
+    marginRight: "",
   };
 
   const { data: session } = useSession();
   const [data, setData] = useState(INITIAL);
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+
+  const modifyState = (obj: any) => {
+    return Object.keys(obj).reduce((acc: any, el) => {
+      acc[el] = parseInt(obj[el]) == +obj[el] ? obj[el] + "em" : obj[el];
+      return acc;
+    }, {});
   };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setData({ ...data, [e.target.name]: e.target.value });
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const typeRes = await fetch(`/api/user/path/${session?.user?.email}/type`);
     const type = await typeRes.json();
-    console.log(type.data.type._id);
-    console.log(path);
     const updateTypeRes = await fetch(
       `/api/type/${type.data.type._id}/${path}`,
       {
         method: "PATCH",
-        body: JSON.stringify(data),
+        body: JSON.stringify(modifyState(data)),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -45,41 +56,84 @@ function LayoutItemColor({ path }: Prop) {
   return (
     <form
       action=""
-      className="space-y-3 flex flex-col p-1 md:gap-3 md:p-2 rounded max-w-lg "
+      className="space-y-3 flex flex-col lg:flex-row lg:flex-wrap justify-around items-center p-1 md:gap-3 md:p-2 rounded font-medium"
       onSubmit={async (e) => handleSubmit(e)}
     >
-      <label className="flex justify-between items-center gap-1 p-1 md:gap-5 md:p-3 ">
-        color
-        <input
+      <div className="colors lg:w-1/3">
+        <p className="text-center">Colors</p>
+        <LabelInputComponent
+          data={data}
+          handleChange={handleChange}
+          name="color"
           type="color"
           value={data.color}
-          onChange={handleChange}
-          name="color"
-          className="rounded"
         />
-      </label>
-      <label className="flex justify-between items-center gap-1 p-1 md:gap-5 md:p-3 ">
-        background
-        <input
+        <LabelInputComponent
+          data={data}
+          handleChange={handleChange}
+          name="backgroundColor"
           type="color"
           value={data.backgroundColor}
-          onChange={handleChange}
-          name="backgroundColor"
-          className="rounded"
         />
-      </label>
-      <label className="flex justify-between items-center gap-1 p-1 md:gap-5 md:p-3 ">
-        fontsize
-        <input
+      </div>
+      <div className="sizes">
+        <p className="text-center">Sizes</p>
+
+        <LabelInputComponent
+          data={data}
+          handleChange={handleChange}
+          name="padding"
           type="number"
-          min={1}
-          value={data.fontSize}
-          onChange={handleChange}
-          name="fontSize"
-          className="rounded outline none"
+          value={data.padding}
         />
-      </label>
-      <button className=" w-1/3 mx-auto p-3 bg-black border border-b-white text-white rounded-xl uppercase transition hover:opacity-50 hover:scale-95 hover:translate-y-1">
+        <LabelInputComponent
+          data={data}
+          handleChange={handleChange}
+          name="fontSize"
+          type="number"
+          value={data.fontSize}
+        />
+        <LabelInputComponent
+          data={data}
+          handleChange={handleChange}
+          name="borderRadius"
+          type="number"
+          value={data.borderRadius}
+        />
+      </div>
+      <div className="margin">
+        <p className="text-center">Margin</p>
+
+        <LabelInputComponent
+          data={data}
+          handleChange={handleChange}
+          name="marginBottom"
+          type="number"
+          value={data.marginBottom}
+        />
+        <LabelInputComponent
+          data={data}
+          handleChange={handleChange}
+          name="marginTop"
+          type="number"
+          value={data.marginTop}
+        />
+        <LabelInputComponent
+          data={data}
+          handleChange={handleChange}
+          name="marginLeft"
+          type="number"
+          value={data.marginLeft}
+        />
+        <LabelInputComponent
+          data={data}
+          handleChange={handleChange}
+          name="marginRight"
+          type="number"
+          value={data.marginRight}
+        />
+      </div>
+      <button className="mx-auto p-3 bg-black border border-b-white text-white rounded-xl uppercase transition hover:opacity-50 hover:scale-95 hover:translate-y-1">
         {data.color || data.backgroundColor ? "save" : "reset"}
       </button>
     </form>
