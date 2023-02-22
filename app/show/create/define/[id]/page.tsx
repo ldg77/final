@@ -11,8 +11,11 @@ function page({ params: { id } }: Props) {
   return (
     <div className="flex-1 flex flex-col items-center">
       <p className="text-center p-5 uppercase text-2xl font-extrabold">
-        define properties for layout item:{" "}
+        define properties for layout item :{" "}
         <span className="font-mono">{id}</span>
+      </p>
+      <p className="font-extralight">
+        sizes are in rem. 1rem = 16px = normalsize
       </p>
       <LayoutItemColor path={id} />
       {id === "shopmain" && <AddItem />}
