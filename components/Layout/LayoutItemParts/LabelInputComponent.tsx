@@ -16,6 +16,7 @@ function LabelInputComponent({ value, handleChange, data, type, name }: Prop) {
         onChange={handleChange}
         name={name}
         className="rounded  text-black lg:w-1/4"
+        pattern="^\d*(\.\d{0,2})?$"
       />
     </label>
   );

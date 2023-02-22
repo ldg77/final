@@ -2,6 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { toast } from "react-hot-toast";
 import LabelInputComponent from "./LabelInputComponent";
 
 type Prop = {
@@ -26,7 +27,7 @@ function LayoutItemColor({ path }: Prop) {
 
   const modifyState = (obj: any) => {
     return Object.keys(obj).reduce((acc: any, el) => {
-      acc[el] = parseInt(obj[el]) == +obj[el] ? obj[el] + "em" : obj[el];
+      acc[el] = parseFloat(obj[el]) == +obj[el] ? obj[el] + "em" : obj[el];
       return acc;
     }, {});
   };
@@ -35,6 +36,7 @@ function LayoutItemColor({ path }: Prop) {
     setData({ ...data, [e.target.name]: e.target.value });
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const save = toast.loading("save your data....");
     const typeRes = await fetch(`/api/user/path/${session?.user?.email}/type`);
     const type = await typeRes.json();
     const updateTypeRes = await fetch(
@@ -48,10 +50,10 @@ function LayoutItemColor({ path }: Prop) {
       }
     );
     const updateType = await updateTypeRes.json();
-
     console.log(updateType);
 
     setData(INITIAL);
+    toast.success("saving done", { id: save });
   };
   return (
     <form action="" className=" p-5" onSubmit={async (e) => handleSubmit(e)}>
@@ -80,21 +82,21 @@ function LayoutItemColor({ path }: Prop) {
             data={data}
             handleChange={handleChange}
             name="padding"
-            type="number"
+            type="text"
             value={data.padding}
           />
           <LabelInputComponent
             data={data}
             handleChange={handleChange}
             name="fontSize"
-            type="number"
+            type="text"
             value={data.fontSize}
           />
           <LabelInputComponent
             data={data}
             handleChange={handleChange}
             name="borderRadius"
-            type="number"
+            type="text"
             value={data.borderRadius}
           />
         </div>
@@ -105,28 +107,28 @@ function LayoutItemColor({ path }: Prop) {
             data={data}
             handleChange={handleChange}
             name="marginBottom"
-            type="number"
+            type="text"
             value={data.marginBottom}
           />
           <LabelInputComponent
             data={data}
             handleChange={handleChange}
             name="marginTop"
-            type="number"
+            type="text"
             value={data.marginTop}
           />
           <LabelInputComponent
             data={data}
             handleChange={handleChange}
             name="marginLeft"
-            type="number"
+            type="text"
             value={data.marginLeft}
           />
           <LabelInputComponent
             data={data}
             handleChange={handleChange}
             name="marginRight"
-            type="number"
+            type="text"
             value={data.marginRight}
           />
         </div>
@@ -134,7 +136,9 @@ function LayoutItemColor({ path }: Prop) {
 
       <div className="btn flex justify-center items-center w-full">
         <button className=" p-3 bg-black border border-b-white text-white rounded-xl uppercase transition hover:opacity-50 hover:scale-95 hover:translate-y-1">
-          {data.color || data.backgroundColor ? "save" : "reset"}
+          {!Object.keys(data).findIndex((el) => (data as any)[el])
+            ? "save"
+            : "reset"}
         </button>
       </div>
     </form>

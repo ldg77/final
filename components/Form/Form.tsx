@@ -17,12 +17,13 @@ type params = {
     options?: any;
     dispatch?: React.Dispatch<React.SetStateAction<boolean>>;
     position?: string;
+    color?: string;
   };
 };
 
 function Form(props: params) {
   const { data: session } = useSession();
-  const { fields, userpath, slogan, options, dispatch, position } =
+  const { fields, userpath, slogan, options, dispatch, position, color } =
     props.formInfo;
   const INITIAL = Object.keys(fields).reduce((acc: any, el) => {
     acc[el] = "";
@@ -83,7 +84,7 @@ function Form(props: params) {
         <p className="text-2xl uppercase">{slogan}</p>
       </div>
       <form
-        className={`space-y-3 flex flex-col  p-1 md:gap-3 md:p-2 rounded max-w-lg text-black`}
+        className={`space-y-3 flex flex-col  p-1 md:gap-3 md:p-2 rounded max-w-lg text-${color}-700`}
         onSubmit={handleSubmit}
       >
         {Object.keys(fields).map((el) =>

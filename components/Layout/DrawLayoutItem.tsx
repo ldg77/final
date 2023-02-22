@@ -25,7 +25,7 @@ function DrawLayoutItem({ params, data }: any) {
       case "blogpart":
         return <BlogPartItem itemdata={data} />;
       case "userinfo":
-        return <UserInfoItem itemdata={data.data?.type?.layoutitem[type]} />;
+        return <UserInfoItem itemdata={data} />;
       default:
         break;
     }
