@@ -1,6 +1,6 @@
 import SelectedType from "./SelectedType";
 
-function Type() {
+async function Type() {
   return (
     <div className="flex-1 flex flex-col justify-center items-center gap-3 text-white">
       <p>Step 1 / 5: What is kind of website you need</p>

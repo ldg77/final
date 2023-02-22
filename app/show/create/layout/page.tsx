@@ -1,10 +1,10 @@
-import Layout from "@/components/Layout/Layout";
-import React from "react";
+import LayoutComponent from "./LayoutComponent";
 
 async function page() {
   return (
     <div className="h-full flex flex-col backdrop-blur-md">
-      <Layout />
+      {/* @ts-ignore */}
+      <LayoutComponent />
     </div>
   );
 }

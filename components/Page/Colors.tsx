@@ -6,8 +6,9 @@ import useSWR from "swr";
 function Colors({ children }: any) {
   const { data: session } = useSession();
   const { data, error, isLoading } = useSWR(
-    "/api/user/email/" + session?.user?.email,
-    fetcher
+    `/api/user/path/${session?.user?.email}/maincolor`,
+    fetcher,
+    { refreshInterval: 1000 }
   );
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
@@ -15,8 +16,8 @@ function Colors({ children }: any) {
   return (
     <div
       style={{
-        backgroundColor: data?.maincolor?.backgroundColor,
-        color: data?.maincolor?.textColor,
+        backgroundColor: data?.data?.maincolor?.backgroundColor,
+        color: data?.data?.maincolor?.textColor,
       }}
       className="h-full flex-1 p-5"
     >

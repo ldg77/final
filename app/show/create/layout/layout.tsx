@@ -10,14 +10,14 @@ function layout({ children }: { children: React.ReactNode }) {
           Step 4 / 5 : Define your layout
         </div>
         {children}
+        <div className="frame hidden sm:block sm:h-[300px] lg:min-h-full scroll-smooth">
+          <Iframe
+            url="http://localhost:3000/show/page"
+            width="100%"
+            height="100%"
+          />
+        </div>
         <Footer prev={"maincolors"} next={"define"} />
-      </div>
-      <div className="frame hidden sm:block sm:h-[300px] lg:min-h-full scroll-smooth">
-        <Iframe
-          url="http://localhost:3000/show/page"
-          width="100%"
-          height="100%"
-        />
       </div>
     </div>
   );

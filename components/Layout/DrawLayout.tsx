@@ -21,9 +21,10 @@ function DrawLayout() {
   );
   const { data: session } = useSession();
   const { data, error, isLoading } = useSWR(
-    "/api/user/email/" + session?.user?.email,
+    `/api/user/path/${session?.user?.email}/layout`,
     fetcher
   );
+  console.log(data);
 
   useEffect(() => {
     function handleResize() {
@@ -40,7 +41,7 @@ function DrawLayout() {
   if (isLoading) return <div>loading...</div>;
   return (
     <div
-      className="min-h-screen"
+      className="h-full"
       style={{
         display: "grid",
         gridTemplateColumns: `repeat(${
@@ -51,12 +52,12 @@ function DrawLayout() {
         gap: "2px",
       }}
     >
-      {data?.layout?.layouts &&
-        (data.layout.layouts as any)[(getBreackpoints as any)[getSize]]?.map(
-          (el: any) => {
-            return <DrawLayoutItem key={el.i} params={el} />;
-          }
-        )}
+      {data?.data?.layout.layouts &&
+        (data?.data?.layout.layouts as any)[
+          (getBreackpoints as any)[getSize]
+        ]?.map((el: any) => {
+          return <DrawLayoutItem key={el.i} params={el} />;
+        })}
     </div>
   );
 }
