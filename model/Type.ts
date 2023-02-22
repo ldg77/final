@@ -49,6 +49,8 @@ export const create = async (obj: any) => {
   try {
     const type = await Type.create(obj);
     await userPatch(type.user, { type: type._id });
+    await User.findByIdAndUpdate(type.user, { $unset: { layout: "" } });
+
     return {
       approved: true,
       data: type,
@@ -138,6 +140,7 @@ export const findByIdAndNameAndUpdate = async (
       ...type.data.layoutitem,
       [name]: { ...obj },
     };
+    console.log(updated);
 
     return {
       approved: true,

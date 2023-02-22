@@ -8,7 +8,7 @@ function Colors({ children }: any) {
   const { data, error, isLoading } = useSWR(
     `/api/user/path/${session?.user?.email}/maincolor`,
     fetcher,
-    { refreshInterval: 1000 }
+    { refreshInterval: 10000 }
   );
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;

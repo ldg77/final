@@ -83,7 +83,7 @@ function Form(props: params) {
         <p className="text-2xl uppercase">{slogan}</p>
       </div>
       <form
-        className={`space-y-3 flex flex-col  p-1 md:gap-3 md:p-2 rounded max-w-lg`}
+        className={`space-y-3 flex flex-col  p-1 md:gap-3 md:p-2 rounded max-w-lg text-black`}
         onSubmit={handleSubmit}
       >
         {Object.keys(fields).map((el) =>

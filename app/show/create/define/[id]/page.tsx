@@ -1,4 +1,3 @@
-"use client";
 import LayoutItemColor from "@/components/Layout/LayoutItemParts/LayoutItemColor";
 import AddItem from "@/components/Shop/AddItem";
 

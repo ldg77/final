@@ -1,16 +1,7 @@
 "use client";
 
-import Input from "@/components/Form/Input";
-import getLayout from "@/lib/getLayout";
-import updateLayoutItem from "@/lib/updateLayoutItem";
 import { useSession } from "next-auth/react";
-import {
-  ChangeEvent,
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useState,
-} from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 type Prop = {
   path: string;
@@ -33,7 +24,8 @@ function LayoutItemColor({ path }: Prop) {
     e.preventDefault();
     const typeRes = await fetch(`/api/user/path/${session?.user?.email}/type`);
     const type = await typeRes.json();
-
+    console.log(type.data.type._id);
+    console.log(path);
     const updateTypeRes = await fetch(
       `/api/type/${type.data.type._id}/${path}`,
       {
@@ -45,6 +37,9 @@ function LayoutItemColor({ path }: Prop) {
       }
     );
     const updateType = await updateTypeRes.json();
+
+    console.log(updateType);
+
     setData(INITIAL);
   };
   return (

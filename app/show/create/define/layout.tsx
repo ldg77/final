@@ -11,7 +11,7 @@ function layout({ children }: { children: React.ReactNode }) {
         </div>
         <div className="flex-1 flex flex-col">
           {children}
-          <div className="frame flex-1">
+          <div className="frame hidden sm:block sm:h-[300px] lg:min-h-screen">
             <Iframe
               url="http://localhost:3000/show/page"
               width="100%"

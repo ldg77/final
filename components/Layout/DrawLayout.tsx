@@ -20,12 +20,20 @@ function DrawLayout() {
     getWindowDimention()
   );
   const { data: session } = useSession();
-  const { data, error, isLoading } = useSWR(
-    `/api/user/path/${session?.user?.email}/layout`,
-    fetcher
+  const {
+    data: dataLayout,
+    error,
+    isLoading,
+  } = useSWR(`/api/user/path/${session?.user?.email}/layout`, fetcher, {
+    refreshInterval: 10000,
+  });
+  const { data: dataLayoutItem } = useSWR(
+    `/api/user/path/${session?.user?.email}/type`,
+    fetcher,
+    {
+      refreshInterval: 10000,
+    }
   );
-  console.log(data);
-
   useEffect(() => {
     function handleResize() {
       setWindowDimentions(getWindowDimention());
@@ -49,15 +57,20 @@ function DrawLayout() {
         },1fr)`,
         gridAutoRows: "min(1fr, 20px)",
         gridAutoColumns: "100px",
-        gap: "2px",
+        gap: "",
       }}
     >
-      {data?.data?.layout.layouts &&
-        (data?.data?.layout.layouts as any)[
-          (getBreackpoints as any)[getSize]
-        ]?.map((el: any) => {
-          return <DrawLayoutItem key={el.i} params={el} />;
-        })}
+      {(dataLayout?.data?.layout.layouts as any)[
+        (getBreackpoints as any)[getSize]
+      ]?.map((el: any) => {
+        return (
+          <DrawLayoutItem
+            key={el.i}
+            params={el}
+            data={dataLayoutItem?.data?.type.layoutitem[el.i]}
+          />
+        );
+      })}
     </div>
   );
 }

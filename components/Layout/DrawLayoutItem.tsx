@@ -1,46 +1,31 @@
-import { useSession } from "next-auth/react";
 import AvatarItem from "./DrawFrontItems/AvatarItem";
 import CopyrightItem from "./DrawFrontItems/CopyrightItem";
 import PageNameItem from "./DrawFrontItems/PageNameItem";
 import SloganItem from "./DrawFrontItems/SloganItem";
-import fetcher from "@/lib/fetcher";
-import useSWR from "swr";
 import FooterItem from "./DrawFrontItems/FooterItem";
 import ShopItem from "./DrawFrontItems/ShopItem";
 import BlogPartItem from "./DrawFrontItems/BlogPartItem";
 import UserInfoItem from "./DrawFrontItems/UserInfoItem";
 
-function DrawLayoutItem({ params }: any) {
-  const { data: session } = useSession();
-  const { data, error, isLoading } = useSWR(
-    `/api/user/path/${session?.user?.email}/layout`,
-    fetcher,
-    {
-      refreshInterval: 1000,
-    }
-  );
-
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
-
+function DrawLayoutItem({ params, data }: any) {
   const getPart = (type: string) => {
     switch (type) {
       case "avatar":
-        return <AvatarItem itemdata={data.type?.layoutitem[type]} />;
+        return <AvatarItem itemdata={data} />;
       case "pagename":
-        return <PageNameItem itemdata={data.type?.layoutitem[type]} />;
+        return <PageNameItem itemdata={data} />;
       case "slogan":
-        return <SloganItem itemdata={data.type?.layoutitem[type]} />;
+        return <SloganItem itemdata={data} />;
       case "copyright":
-        return <CopyrightItem itemdata={data.type?.layoutitem[type]} />;
+        return <CopyrightItem itemdata={data} />;
       case "footer":
-        return <FooterItem itemdata={data.type?.layoutitem[type]} />;
+        return <FooterItem itemdata={data} />;
       case "shopmain":
-        return <ShopItem itemdata={data.type?.layoutitem[type]} />;
+        return <ShopItem itemdata={data} />;
       case "blogpart":
-        return <BlogPartItem itemdata={data.type?.layoutitem[type]} />;
+        return <BlogPartItem itemdata={data} />;
       case "userinfo":
-        return <UserInfoItem itemdata={data.type?.layoutitem[type]} />;
+        return <UserInfoItem itemdata={data.data?.type?.layoutitem[type]} />;
       default:
         break;
     }
