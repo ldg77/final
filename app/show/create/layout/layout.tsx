@@ -1,7 +1,8 @@
+import Footer from "@/components/Footer";
 import React from "react";
 import Iframe from "react-iframe";
-import Footer from "../Footer";
-function LayoutDesign({ children }: any) {
+
+function layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col">
       <div className="info">
@@ -22,4 +23,4 @@ function LayoutDesign({ children }: any) {
   );
 }
 
-export default LayoutDesign;
+export default layout;

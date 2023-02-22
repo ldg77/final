@@ -1,9 +1,10 @@
 import Footer from "@/components/Footer";
-import Pagename from "@/components/Pagename/Pagename";
+import Pagename from "./Pagename";
 
 function page() {
   return (
     <div className="h-full flex flex-col backdrop-blur-md">
+      {/* @ts-ignore */}
       <Pagename />
       <Footer prev={"type"} next={"maincolors"} />
     </div>

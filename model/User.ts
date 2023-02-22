@@ -73,11 +73,7 @@ export const findById = async (id: string) => {
 };
 
 export const findByEmail = async (email: string) => {
-  return await User.findOne({ email })
-    .populate({ path: "layout", model: Layout })
-    .populate({ path: "maincolor", model: MainColor })
-    .populate({ path: "pagename", model: PageName })
-    .populate({ path: "type", model: Type });
+  return await User.findOne({ email });
 };
 
 export const findByIdUpdatePost = async (id: string, obj: object) => {

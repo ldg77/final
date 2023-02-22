@@ -1,5 +1,5 @@
 import Footer from "@/components/Footer";
-import Type from "@/components/Type/Type";
+import Type from "./Type";
 
 function page() {
   return (
