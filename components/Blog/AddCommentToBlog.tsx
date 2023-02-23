@@ -9,6 +9,7 @@ function AddCommentToBlog({ blog, setShow }: Prop) {
   const formInfo = {
     fields: {
       name: "text",
+      avatar: "file",
       message: "textarea",
     },
     userpath: "comment",
@@ -17,7 +18,7 @@ function AddCommentToBlog({ blog, setShow }: Prop) {
     dispatch: setShow,
   };
   return (
-    <div>
+    <div className="absolute right-8 z-20 bg-slate-900 rounded">
       {" "}
       <div>
         <Form formInfo={formInfo} />

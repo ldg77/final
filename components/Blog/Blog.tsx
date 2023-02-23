@@ -9,7 +9,8 @@ function Blog({ data }: Prop) {
   const [show, setShow] = useState(false);
 
   return (
-    <div className=" relative">
+    <div className="relative">
+      {show && <AddCommentToBlog blog={data._id} setShow={setShow} />}
       <button
         className="comment absolute  right-2"
         onClick={() => setShow(!show)}
@@ -25,7 +26,6 @@ function Blog({ data }: Prop) {
           <Comment key={comment._id} data={comment} />
         ))}
       </div>
-      {show && <AddCommentToBlog blog={data._id} setShow={setShow} />}
     </div>
   );
 }

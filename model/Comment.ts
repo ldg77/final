@@ -6,6 +6,8 @@ const CommentSchema = new Schema(
   {
     name: { type: String, required: true },
     message: { type: String, required: true },
+    avatar: { type: String },
+
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
