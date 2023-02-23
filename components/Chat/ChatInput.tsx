@@ -1,15 +1,33 @@
 "use client";
+
+import { useSession } from "next-auth/react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { BiSend } from "react-icons/bi";
+import getSessionUser from "@/lib/getSessionUser";
+import { toast } from "react-hot-toast";
 
 function ChatInput() {
   const INITIAL = { question: "" };
+  const { data: session } = useSession();
   const [formData, setFormData] = useState(INITIAL);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("i am here");
+
+    const send = toast.loading("chat is thinking....");
+    const user = await getSessionUser(session);
+    await fetch(`/api/chat/message/${user.chat}`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    toast.success("messege recived", { id: send });
+    setFormData(INITIAL);
   };
 
   return (

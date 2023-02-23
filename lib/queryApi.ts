@@ -5,7 +5,7 @@ const query = async (prompt: string, chatId: string) => {
     .createCompletion({
       model: "text-davinci-003",
       prompt,
-      temperature: 0.5,
+      temperature: 0.9,
       max_tokens: 1000,
       top_p: 1,
       frequency_penalty: 0,
