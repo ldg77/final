@@ -4,11 +4,11 @@ import { signOut, useSession } from "next-auth/react";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useState } from "react";
-import Chat from "../../../components/Chat";
+import Chat from "../../../components/Chat/Chat";
 
 function Nav() {
   const { data: session } = useSession();
-  const [showChat, setShowChat] = useState(false);
+  const [showChat, setShowChat] = useState(true);
 
   return (
     <div className="text-xl bg-slate-800/20 p-3 flex justify-between items-center ">
@@ -18,7 +18,7 @@ function Nav() {
       </div>
       <div className="flex justify-center items-center gap-2 ">
         {showChat && <Chat setShowChat={setShowChat} />}
-        <p className=" sm:flex items-center gap-3 font-thin hidden text-xs">
+        <p className=" sm:flex items-center gap-3  hidden text-lg">
           Any question?
         </p>
         <div
@@ -28,17 +28,15 @@ function Nav() {
         >
           <ChatBubbleBottomCenterIcon className="h-8 w-8 animate-pulse text-green-900/30 hover:cursor-pointer" />
         </div>
-        <div
-          className="logout flex justify-center items-center gap-3"
-          onClick={() => signOut()}
-        >
+
+        <Link href="/">
           <img
             src={session?.user?.image!}
             alt=""
-            className="w-10 aspect-square rounded-full"
+            className="w-10 aspect-square rounded-full hover:animate-pulse"
+            onClick={() => signOut()}
           />
-          <Link href="/">Logout</Link>
-        </div>
+        </Link>
       </div>
     </div>
   );
