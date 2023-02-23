@@ -16,9 +16,11 @@ function AvatarItem({ itemdata }: Prop) {
   if (isLoading) return <div>loading...</div>;
 
   return (
-    <div className="flex" style={{ ...itemdata }}>
-      <img src={data.data.pagename.avatar} className="bg-cover aspect-square" />
-    </div>
+    <img
+      src={data.data.pagename.avatar}
+      className="bg-cover aspect-square"
+      style={{ ...itemdata }}
+    />
   );
 }
 

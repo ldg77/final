@@ -4,6 +4,7 @@ import getSessionUser from "@/lib/getSessionUser";
 import { useSession } from "next-auth/react";
 import React from "react";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 type Prop = {
   selected: string;
@@ -11,6 +12,7 @@ type Prop = {
 
 function SelectedType({ selected }: Prop) {
   const { data: session } = useSession();
+  const router = useRouter();
   const items: any = {
     blog: ["avatar", "pagename", "slogan", "blogpart", "footer", "copyright"],
     shop: [
@@ -54,8 +56,6 @@ function SelectedType({ selected }: Prop) {
     });
     const data = await res.json();
     if (data.approved) {
-      console.log(data.approved);
-
       const layoutsTemplate = generateLayoutTemplate(items[selected]);
       console.log(layoutsTemplate);
 
@@ -71,6 +71,7 @@ function SelectedType({ selected }: Prop) {
       });
 
       toast.success(`${str} stored`, { duration: 1000 });
+      router.push("/show/create/pagename");
     } else {
       toast.error(`${str} not stored`, { duration: 1000 });
     }

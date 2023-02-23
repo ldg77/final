@@ -51,6 +51,10 @@ const UserSchema: any = new Schema(
         ref: "ShopItem",
       },
     ],
+    chat: {
+      type: Schema.Types.ObjectId,
+      ref: "Chat",
+    },
   },
   { timestamps: true }
 );

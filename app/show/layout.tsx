@@ -5,7 +5,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import LogIn from "@/components/LogIn";
 
 async function getUser(params: string) {
-  const resUser = await fetch("http://localhost:3000/api/user/email/" + params);
+  const resUser = await fetch(`${process.env.HOST}/api/user/email/` + params);
   const loggeduser = await resUser.json();
   return loggeduser;
 }
@@ -19,7 +19,7 @@ export default async function RootLayout({
   if (session) {
     const loggeduser = await getUser(session?.user?.email!);
     if (!loggeduser) {
-      const resUser = await fetch("http://localhost:3000/api/user/handler", {
+      await fetch(`${process.env.HOST}/api/user/handler`, {
         method: "POST",
         body: JSON.stringify({
           ...session.user,
@@ -28,8 +28,10 @@ export default async function RootLayout({
           "Content-type": "application/json; charset=UTF-8",
         },
       });
-      const user = await resUser.json();
     }
+    await fetch(`${process.env.HOST}/api/chat/user/${loggeduser.email}`, {
+      method: "POST",
+    });
   }
 
   return (

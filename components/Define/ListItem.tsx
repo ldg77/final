@@ -41,9 +41,9 @@ function ListItem() {
     <div className="flex flex-col gap-2 ">
       {(data as any)[(getBreackpoints as any)[getSize]]?.map((item: any) => (
         <Link key={item.i} href={`/show/create/define/${item.i}`} className="">
-          <button>
+          <button className="text-2xl">
             Item :{" "}
-            <span className="capitalize font-mono hover:animate-pulse">
+            <span className="capitalize  font-mono hover:animate-pulse">
               {item.i}
             </span>
           </button>
