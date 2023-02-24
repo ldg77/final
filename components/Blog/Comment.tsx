@@ -11,8 +11,6 @@ function Comment({ id }: Prop) {
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
-  console.log(data);
-
   const created = new Date(data.createdAt);
   return (
     <div className="px-5">
