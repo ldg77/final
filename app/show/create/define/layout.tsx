@@ -13,7 +13,7 @@ function layout({ children }: { children: React.ReactNode }) {
           {children}
           <div className="frame hidden sm:block sm:h-[300px] lg:min-h-screen">
             <Iframe
-              url="http://localhost:3000/show/page"
+              url={`${process.env.HOST}/show/page`}
               width="100%"
               height="100%"
               className="rounded"
