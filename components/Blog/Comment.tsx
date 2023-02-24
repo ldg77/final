@@ -1,9 +1,18 @@
+import fetcher from "@/lib/fetcher";
+import useSWR from "swr";
 import React, { Dispatch, SetStateAction } from "react";
 import Form from "../Form/Form";
 type Prop = {
-  data: any;
+  id: any;
 };
-function Comment({ data }: Prop) {
+
+function Comment({ id }: Prop) {
+  const { data, error, isLoading } = useSWR(`/api/comment/${id}`, fetcher);
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
+
+  console.log(data);
+
   const created = new Date(data.createdAt);
   return (
     <div className="px-5">

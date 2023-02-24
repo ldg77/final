@@ -15,8 +15,6 @@ function ChatInput() {
   };
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("i am here");
-
     const send = toast.loading("chat is thinking....");
     const user = await getSessionUser(session);
     await fetch(`/api/chat/message/${user.chat}`, {

@@ -13,12 +13,10 @@ function ChatList() {
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
-  console.log(data?.data?.chat.messages);
-
   return (
     <div className="flex-1">
       {data?.data?.chat.messages.map((item: any) => (
-        <ChatItem data={item} />
+        <ChatItem key={item._id} data={item} />
       ))}
     </div>
   );

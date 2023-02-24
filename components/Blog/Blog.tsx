@@ -7,7 +7,6 @@ type Prop = {
 };
 function Blog({ data }: Prop) {
   const [show, setShow] = useState(false);
-  console.log(data);
 
   return (
     <div className="relative">
@@ -24,7 +23,7 @@ function Blog({ data }: Prop) {
       <p>Message: {data.message}</p>
       <div className="comments border-b-2 py-2 ">
         {data.comments.map((comment: any) => (
-          <Comment key={comment._id} data={comment} />
+          <Comment key={comment._id} id={comment} />
         ))}
       </div>
     </div>
