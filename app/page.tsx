@@ -18,15 +18,17 @@ export default async function Home() {
             <p className="text-4xl md:text-8xl">comes to life</p>
           </div>
           <p className="text-2xl md:text-4xl text-slate-100/50">
-            My website build Your website
+            My website build your website
           </p>
         </div>
-        <div className="meta absolute bottom-14 text-white w-full flex justify-center items-center text-2xl md:text-4xl ">
+        <div className="meta absolute bottom-14 text-white w-full flex justify-center items-center text-2xl md:text-4xl flex-col gap-3">
           <Link href="/show" className="flex justify-center items-center gap-5">
             <BsFillArrowRightCircleFill className="animate-pulse" />
             <p>Meta_Manager</p>
           </Link>
+          <p className="font-thin text-lg">created by Dumitru Gurduza</p>
         </div>
+
         <div className="social absolute bottom-6 text-white w-full text-xl  flex gap-5 justify-center items-center">
           <Link
             href={"https://www.facebook.com/dumitru.gurduza"}

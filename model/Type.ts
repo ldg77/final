@@ -140,7 +140,6 @@ export const findByIdAndNameAndUpdate = async (
       ...type.data.layoutitem,
       [name]: { ...obj },
     };
-    console.log(updated);
 
     return {
       approved: true,
