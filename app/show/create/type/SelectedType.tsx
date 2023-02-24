@@ -79,7 +79,7 @@ function SelectedType({ selected }: Prop) {
   return (
     <div>
       <button
-        className={`blog p-10 bg-[#555] text-white transition `}
+        className={`blog p-10 bg-[#555] text-white transition`}
         onClick={() => {
           handleSelect(selected);
           toast.success(`selected ${selected}`, { duration: 1000 });

@@ -7,6 +7,7 @@ type Prop = {
 };
 function Blog({ data }: Prop) {
   const [show, setShow] = useState(false);
+  console.log(data);
 
   return (
     <div className="relative">

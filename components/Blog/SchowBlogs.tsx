@@ -4,13 +4,18 @@ import AddBlog from "./AddBlog";
 import fetcher from "@/lib/fetcher";
 import useSWR from "swr";
 import Blog from "./Blog";
+import { useSession } from "next-auth/react";
 function SchowBlogs() {
   const [show, setShow] = useState(false);
-  const { data, error, isLoading } = useSWR("/api/blog/handler", fetcher, {
-    refreshInterval: 10000,
-  });
+  const { data: session } = useSession();
+  const { data, error, isLoading } = useSWR(
+    `/api/user/path/${session?.user?.email}/blog`,
+    fetcher,
+    { refreshInterval: 10000 }
+  );
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
+  console.log(data);
 
   return (
     <div className="relative ">
@@ -23,7 +28,7 @@ function SchowBlogs() {
       </button>
       {show && <AddBlog setShow={setShow} />}
       <div className="blogs flex flex-col space-y-6">
-        {data?.map((el: any) => {
+        {data?.data?.blog.map((el: any) => {
           return <Blog key={el._id} data={el} />;
         })}
       </div>
