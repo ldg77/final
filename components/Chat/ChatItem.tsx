@@ -13,7 +13,7 @@ function ChatItem({ data }: any) {
         />
         <p className="flex-1">{data.question}</p>
       </div>
-      <div className="answer flex  gap-2 w-full items-end ">
+      <div className="answer flex  gap-2 w-full items-end text-end">
         <p className="flex-1">{data.answer}</p>
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1024px-ChatGPT_logo.svg.png"
