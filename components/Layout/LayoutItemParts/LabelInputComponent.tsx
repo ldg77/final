@@ -17,7 +17,7 @@ function LabelInputComponent({ value, handleChange, data, type, name }: Prop) {
   const handleClick = () => {
     const message = toast.loading("we look for a answer...");
 
-    getAnswerFromGPT(name, session?.user?.name!).then((text) => {
+    getAnswerFromGPT(name, session).then((text) => {
       toast.success("answer ready :) ", { id: message });
       setChatData({ show: true, answer: text });
     });
