@@ -78,7 +78,7 @@ function Form(props: params) {
 
   return (
     <div
-      className={`flex flex-col items-${position} md:gap-6 w-full bg-inherit lg:p-5`}
+      className={`flex flex-col items-${position} md:gap-6 bg-inherit lg:p-5`}
     >
       <div className="p-3 font-extrabold">
         <p className="text-2xl uppercase">{slogan}</p>

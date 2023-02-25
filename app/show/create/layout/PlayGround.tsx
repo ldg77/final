@@ -1,6 +1,5 @@
 "use client";
 import getBreackpoints from "@/lib/getBreackpoints";
-import getDataonPath from "@/lib/getDataOnPath";
 import { useEffect, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import { toast } from "react-hot-toast";
@@ -17,6 +16,7 @@ function PlayGround(data: any) {
     .find((el) => windowDimentions.width! >= +el)!;
 
   const layoutsTemplate = data?.data?.layout?.layouts;
+  console.log(layoutsTemplate);
 
   const [layouts, setLayouts] = useState(layoutsTemplate);
   const [items, setItems] = useState(

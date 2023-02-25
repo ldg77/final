@@ -18,7 +18,7 @@ function Nav() {
       </div>
       <div className="flex justify-center items-center gap-2 ">
         {showChat && <Chat setShowChat={setShowChat} />}
-        <p className=" sm:flex items-center gap-3  hidden text-lg">
+        <p className=" sm:flex items-center gap-3  hidden text-xl uppercase">
           Any question?
         </p>
         <div
@@ -26,7 +26,7 @@ function Nav() {
             setShowChat((prev) => (prev = !prev));
           }}
         >
-          <ChatBubbleBottomCenterIcon className="h-8 w-8 animate-pulse text-green-900/30 hover:cursor-pointer" />
+          <ChatBubbleBottomCenterIcon className="w-12 animate-pulse text-slate-900/90 hover:cursor-pointer" />
         </div>
 
         <Link href="/">

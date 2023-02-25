@@ -1,4 +1,5 @@
 import { Schema, model, models } from "mongoose";
+import Blog from "./Blog";
 import Chat from "./Chat";
 import Layout from "./Layout";
 import MainColor from "./MainColors";
@@ -69,16 +70,27 @@ export const create = async (obj: any) => {
   try {
     const newUser = await User.create(obj);
     await Chat.create({ user: newUser._id });
+
     return newUser;
   } catch (error) {}
 };
 
 export const findById = async (id: string) => {
-  return await User.findById(id);
+  return await User.findById(id)
+    .populate({ path: "chat", model: Chat })
+    .populate({ path: "type", model: Type })
+    .populate({ path: "pagename", model: PageName })
+    .populate({ path: "maincolor", model: MainColor })
+    .populate({ path: "layout", model: Layout })
+    .populate({ path: "blog", model: Blog });
 };
 
 export const findByEmail = async (email: string) => {
   return await User.findOne({ email });
+  // .populate({ path: "chat", model: Chat })
+  // .populate({ path: "type", model: Type })
+  // .populate({ path: "pagename", model: PageName })
+  // .populate({ path: "maincolor", model: MainColor });
 };
 
 export const findByIdUpdatePost = async (id: string, obj: object) => {
@@ -103,7 +115,9 @@ export const findByEmailAndPath = async (email: string, pathname: string) => {
     } else {
       return { approved: false, message: `${pathname} not found` };
     }
-  } catch (error) {}
+  } catch (error) {
+    return { approved: false, message: `error: ${error} ` };
+  }
 };
 
 export default User;

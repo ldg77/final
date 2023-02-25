@@ -16,13 +16,25 @@ function PreviewPagename() {
   if (isLoading) return <div>loading...</div>;
   return (
     <div className="res text-white h-1/2 md:h-5/6 md:my-auto md:w-1/2 flex flex-col justify-center items-center gap-4 font-extrabold md:rounded-l-xl">
+      <p>
+        <span>pagename:</span>
+        <span className="text-2xl font-bold text-white/90">
+          {" "}
+          {data?.data?.pagename?.pagename}
+        </span>
+      </p>
+      <p>
+        <span>slogan:</span>{" "}
+        <span className="text-2xl font-bold text-white/90">
+          {data?.data?.pagename?.slogan}
+        </span>
+      </p>
+      <p>avatar</p>
       <img
         src={data?.data?.pagename?.avatar}
         alt=""
-        className="w-1/3 rounded "
+        className="w-1/3 rounded"
       />
-      <p>{data?.data?.pagename?.pagename}</p>
-      <p>{data?.data?.pagename?.slogan}</p>
     </div>
   );
 }
