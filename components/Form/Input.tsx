@@ -1,5 +1,7 @@
-import { DocumentIcon } from "@heroicons/react/24/solid";
-import { Dispatch, SetStateAction } from "react";
+import { DocumentIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
+import { useSession } from "next-auth/react";
+import { Dispatch, SetStateAction, useState } from "react";
+import ChatResponse from "./ChatResponse";
 
 type props = {
   state: {
@@ -10,31 +12,59 @@ type props = {
   value?: string;
 };
 function Input({ state, setData, value }: props) {
+  const { data: session } = useSession();
+  const [chatData, setChatData] = useState({ show: false, answer: "" });
+  const handleClick = () => {
+    fetch(`/api/chat/message/getOne`, {
+      method: "POST",
+      body: JSON.stringify({
+        question: `Hi, my Name is ${session?.user?.name},I need a new ${state.name}`,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.text())
+      .then((text) => setChatData({ show: true, answer: text }));
+  };
   return (
-    <label className="flex justify-between items-center gap-1 p-1 md:gap-5 md:p-3 ">
-      {state.name}
-      <input
-        onChange={(e) =>
-          setData(
-            (prev) =>
-              (prev = {
-                ...prev,
-                [e.target.name]:
-                  state.name === "avatar" ? e.target.files![0] : e.target.value,
-              })
-          )
-        }
-        value={value}
-        name={state.name}
-        type={state.type}
-        className={`border-b border-slate-400  rounded outline-none text-black  ${
-          state.type === "file" && "hidden"
-        }`}
-      />
-      {state.type === "file" && (
-        <DocumentIcon className="w-10 h-10 hover:cursor-pointer text-white" />
+    <div className="flex justify-between items-center relative">
+      <label className="flex justify-between w-full gap-1 p-1 md:gap-5 md:p-3 ">
+        {state.name}
+        <input
+          onChange={(e) =>
+            setData(
+              (prev) =>
+                (prev = {
+                  ...prev,
+                  [e.target.name]:
+                    state.name === "avatar"
+                      ? e.target.files![0]
+                      : e.target.value,
+                })
+            )
+          }
+          value={value}
+          name={state.name}
+          type={state.type}
+          className={`border-b border-slate-400  rounded outline-none text-black  ${
+            state.type === "file" && "hidden"
+          }`}
+        />
+        {state.type === "file" && (
+          <DocumentIcon className="w-10 h-10 hover:cursor-pointer text-white" />
+        )}
+      </label>
+      <div className="relative hover:cursor-pointer">
+        <InformationCircleIcon
+          className="w-4 lg:w-6 text-white"
+          onClick={handleClick}
+        />
+      </div>
+      {chatData.show && (
+        <ChatResponse setChatData={setChatData} chatData={chatData} />
       )}
-    </label>
+    </div>
   );
 }
 

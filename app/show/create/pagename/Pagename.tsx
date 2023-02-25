@@ -15,7 +15,6 @@ const getPageName = async () => {
 
 async function Pagename() {
   const pagename = await getPageName();
-  console.log(pagename);
 
   const formInfo = {
     fields: {

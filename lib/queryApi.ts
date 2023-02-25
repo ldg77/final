@@ -1,6 +1,6 @@
 import openai from "./chatgpt";
 
-const query = async (prompt: string, chatId: string) => {
+const query = async (prompt: string, chatId: string | null) => {
   const res = await openai
     .createCompletion({
       model: "text-davinci-003",
