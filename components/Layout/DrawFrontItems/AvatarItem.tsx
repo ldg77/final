@@ -18,7 +18,7 @@ function AvatarItem({ itemdata }: Prop) {
   return (
     <img
       src={data.data.pagename.avatar}
-      className="bg-cover aspect-square"
+      className="bg-cover aspect-square object-scale-down"
       style={{ ...itemdata }}
     />
   );
