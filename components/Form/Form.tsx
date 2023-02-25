@@ -96,7 +96,7 @@ function Form(props: params) {
                 setData({ ...data, [e.target.name]: e.target.value })
               }
               placeholder={el}
-              className="outline-none rounded resize-none px-1"
+              className="outline-none rounded resize-none px-1 text-black"
               value={data[el]}
             />
           ) : el !== "avatar" ? (

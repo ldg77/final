@@ -1,4 +1,5 @@
 import { Schema, model, models } from "mongoose";
+import Chat from "./Chat";
 import Layout from "./Layout";
 import MainColor from "./MainColors";
 import PageName from "./PageName";
@@ -65,15 +66,15 @@ export const getAll = async () => {
   return await User.find({});
 };
 export const create = async (obj: any) => {
-  return await User.create(obj);
+  try {
+    const newUser = await User.create(obj);
+    await Chat.create({ user: newUser._id });
+    return newUser;
+  } catch (error) {}
 };
 
 export const findById = async (id: string) => {
-  return await User.findById(id)
-    .populate({ path: "layout", model: Layout })
-    .populate({ path: "maincolor", model: MainColor })
-    .populate({ path: "pagename", model: PageName })
-    .populate({ path: "type", model: Type });
+  return await User.findById(id);
 };
 
 export const findByEmail = async (email: string) => {

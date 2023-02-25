@@ -28,10 +28,17 @@ export default async function RootLayout({
           "Content-type": "application/json; charset=UTF-8",
         },
       });
+      await fetch(
+        `${process.env.HOST}/api/chat/user/${session?.user?.email!}`,
+        {
+          method: "POST",
+        }
+      );
+    } else {
+      await fetch(`${process.env.HOST}/api/chat/user/${loggeduser.email}`, {
+        method: "POST",
+      });
     }
-    await fetch(`${process.env.HOST}/api/chat/user/${loggeduser.email}`, {
-      method: "POST",
-    });
   }
 
   return (

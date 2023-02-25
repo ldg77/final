@@ -79,3 +79,5 @@ export const pushOneMessage = async (id: string, obj: object) => {
     };
   }
 };
+
+export default Chat;
