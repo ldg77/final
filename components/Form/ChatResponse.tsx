@@ -12,6 +12,10 @@ type Prop = {
 };
 
 function ChatResponse({ setChatData, chatData }: Prop) {
+  setTimeout(() => {
+    setChatData({ show: false, answer: "" });
+  }, 1000 * 10);
+
   return (
     <div className="absolute top-100 shadow-2xl z-20 bg-slate-900 py-3 px-5 w-full rounded">
       <XMarkIcon

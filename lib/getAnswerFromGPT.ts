@@ -1,5 +1,3 @@
-import { useSession } from "next-auth/react";
-
 async function getAnswerFromGPT(what: string, person: string) {
   const res = await fetch(`/api/chat/message/getOne`, {
     method: "POST",

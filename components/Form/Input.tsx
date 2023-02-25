@@ -2,6 +2,7 @@ import getAnswerFromGPT from "@/lib/getAnswerFromGPT";
 import { DocumentIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction, useState } from "react";
+import { toast } from "react-hot-toast";
 import ChatResponse from "./ChatResponse";
 
 type props = {
@@ -16,9 +17,12 @@ function Input({ state, setData, value }: props) {
   const { data: session } = useSession();
   const [chatData, setChatData] = useState({ show: false, answer: "" });
   const handleClick = () => {
-    getAnswerFromGPT(state.name, session?.user?.name!).then((text) =>
-      setChatData({ show: true, answer: text })
-    );
+    const message = toast.loading("we look for a answer...");
+
+    getAnswerFromGPT(state.name, session?.user?.name!).then((text) => {
+      toast.success("answer ready :) ", { id: message });
+      setChatData({ show: true, answer: text });
+    });
   };
   return (
     <div className="flex justify-between items-center relative">
