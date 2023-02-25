@@ -1,3 +1,4 @@
+import getAnswerFromGPT from "@/lib/getAnswerFromGPT";
 import { DocumentIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -15,17 +16,9 @@ function Input({ state, setData, value }: props) {
   const { data: session } = useSession();
   const [chatData, setChatData] = useState({ show: false, answer: "" });
   const handleClick = () => {
-    fetch(`/api/chat/message/getOne`, {
-      method: "POST",
-      body: JSON.stringify({
-        question: `Hi, my Name is ${session?.user?.name},I need a new ${state.name}`,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.text())
-      .then((text) => setChatData({ show: true, answer: text }));
+    getAnswerFromGPT(state.name, session?.user?.name!).then((text) =>
+      setChatData({ show: true, answer: text })
+    );
   };
   return (
     <div className="flex justify-between items-center relative">

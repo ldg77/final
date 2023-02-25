@@ -26,7 +26,12 @@ function Nav() {
             setShowChat((prev) => (prev = !prev));
           }}
         >
-          <ChatBubbleBottomCenterIcon className="w-12 animate-pulse text-slate-900/90 hover:cursor-pointer" />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1024px-ChatGPT_logo.svg.png"
+            className="w-12 rounded-full animate-pulse"
+            alt="chatIco"
+          />
+          {/* <ChatBubbleBottomCenterIcon className="w-12 animate-pulse text-slate-900/90 hover:cursor-pointer" /> */}
         </div>
 
         <Link href="/">
