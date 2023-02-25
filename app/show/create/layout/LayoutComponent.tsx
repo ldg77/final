@@ -14,9 +14,6 @@ const checkLayout = async () => {
 async function LayoutComponent() {
   const session = await getServerSession(authOptions);
   const layoutData = await checkLayout();
-
-  console.log(layoutData);
-
   return <PlayGround data={layoutData.data} />;
 }
 

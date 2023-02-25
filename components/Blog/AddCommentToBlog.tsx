@@ -16,9 +16,10 @@ function AddCommentToBlog({ blog, setShow }: Prop) {
     slogan: "add a comment",
     options: { blog },
     dispatch: setShow,
+    color: "white",
   };
   return (
-    <div className="absolute right-8 z-20 bg-slate-900 rounded">
+    <div className="absolute right-8 z-20 bg-slate-900 rounded text-white">
       {" "}
       <div>
         <Form formInfo={formInfo} />

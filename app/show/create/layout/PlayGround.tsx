@@ -16,7 +16,6 @@ function PlayGround(data: any) {
     .find((el) => windowDimentions.width! >= +el)!;
 
   const layoutsTemplate = data?.data?.layout?.layouts;
-  console.log(layoutsTemplate);
 
   const [layouts, setLayouts] = useState(layoutsTemplate);
   const [items, setItems] = useState(
