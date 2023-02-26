@@ -9,7 +9,6 @@ const ShopItemSchema = new Schema(
     },
     quantity: {
       type: Number,
-      required: true,
     },
     avatar: String,
     price: Number,

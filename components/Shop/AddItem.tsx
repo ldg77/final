@@ -16,7 +16,6 @@ function AddItem() {
   const formInfoItem = {
     fields: {
       productName: "text",
-      quantity: "number",
       avatar: "file",
       price: "number",
     },
