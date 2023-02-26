@@ -10,7 +10,7 @@ function layout({ children }: { children: React.ReactNode }) {
         now={{ first: "define", second: "page", step: 5 }}
         next={{ first: "PAGE", step: 6 }}
       />
-      <div className="wrapper flex flex-col sm:flex-row flex-1 p-5 rounded">
+      <div className="wrapper flex flex-col justify-center items-center sm:items-start sm:flex-row flex-1 p-5 rounded">
         <div className="layoutsList p-5">
           <ListItem />
         </div>

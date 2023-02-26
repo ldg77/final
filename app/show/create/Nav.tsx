@@ -18,7 +18,7 @@ function Nav() {
         <Link href="/">Main</Link>
         <Link href="/show/page">Page</Link>
       </div>
-      <div className="flex justify-center items-center gap-2 relative">
+      <div className="flex justify-center items-center gap-2">
         {showChat && <Chat setShowChat={setShowChat} />}
         <p className=" sm:flex items-center gap-3  hidden text-xl uppercase">
           Any question?
