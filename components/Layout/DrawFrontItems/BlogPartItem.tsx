@@ -5,8 +5,6 @@ type Prop = {
   itemdata: any;
 };
 function BlogPartItem({ itemdata }: Prop) {
-  console.log(itemdata);
-
   return (
     <div style={{ ...itemdata }} className="h-full">
       <SchowBlogs />

@@ -15,6 +15,13 @@ const pathname = async (req: NextApiRequest, res: NextApiResponse) => {
           await user.findByEmailAndPath(email as string, pathname as string)
         );
       break;
+    case "PATCH":
+      res
+        .status(200)
+        .json(
+          await user.findByEmailAndClear(email as string, pathname as string)
+        );
+      break;
 
     default:
       break;

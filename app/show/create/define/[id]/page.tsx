@@ -1,3 +1,4 @@
+import ClearButtonOnPath from "@/components/ClearButtonOnPath";
 import LayoutItemColor from "@/components/Layout/LayoutItemParts/LayoutItemColor";
 import AddItem from "@/components/Shop/AddItem";
 
@@ -19,6 +20,9 @@ function page({ params: { id } }: Props) {
       </p>
       <LayoutItemColor path={id} />
       {id === "shopmain" && <AddItem />}
+      {id === "blogpart" && (
+        <ClearButtonOnPath path="blog" submit="clear content" />
+      )}
     </div>
   );
 }

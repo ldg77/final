@@ -87,10 +87,6 @@ export const findById = async (id: string) => {
 
 export const findByEmail = async (email: string) => {
   return await User.findOne({ email });
-  // .populate({ path: "chat", model: Chat })
-  // .populate({ path: "type", model: Type })
-  // .populate({ path: "pagename", model: PageName })
-  // .populate({ path: "maincolor", model: MainColor });
 };
 
 export const findByIdUpdatePost = async (id: string, obj: object) => {
@@ -110,6 +106,26 @@ export const findByEmailAndPath = async (email: string, pathname: string) => {
       return {
         approved: true,
         data: await User.findOne({ email }, [pathname]).populate(`${pathname}`),
+        message: `${pathname} found`,
+      };
+    } else {
+      return { approved: false, message: `${pathname} not found` };
+    }
+  } catch (error) {
+    return { approved: false, message: `error: ${error} ` };
+  }
+};
+
+export const findByEmailAndClear = async (email: string, pathname: string) => {
+  try {
+    const user = await User.findOne({ email });
+    if (user[pathname]) {
+      return {
+        approved: true,
+        data: await User.findOneAndUpdate(
+          { email },
+          { $unset: { [pathname]: [] } }
+        ),
         message: `${pathname} found`,
       };
     } else {

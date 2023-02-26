@@ -13,10 +13,6 @@ function SchowBlogs() {
     fetcher,
     { refreshInterval: 10000 }
   );
-  // if (error) return <div>failed to load</div>;
-  // if (isLoading) return <div>loading...</div>;
-  // console.log(data);
-  console.log(data);
 
   return (
     <div className="relative ">

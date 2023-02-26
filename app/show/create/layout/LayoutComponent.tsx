@@ -12,7 +12,7 @@ const checkLayout = async () => {
 };
 
 async function LayoutComponent() {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
   const layoutData = await checkLayout();
   return <PlayGround data={layoutData.data} />;
 }
