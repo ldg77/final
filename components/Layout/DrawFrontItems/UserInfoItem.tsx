@@ -18,7 +18,7 @@ function UserInfoItem({ itemdata }: Prop) {
 
   return (
     <div style={{ ...itemdata }} className="h-full">
-      {data.data.shopitem
+      {data?.data?.shopitem
         .filter((el: any) => el.selected)
         .map((el: any) => (
           <p key={el._id}>

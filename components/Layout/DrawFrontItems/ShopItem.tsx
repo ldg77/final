@@ -27,7 +27,7 @@ function ShopItem({ itemdata }: Prop) {
       style={{ ...itemdata }}
       className="h-full flex flex-col sm:flex-row gap-2 flex-wrap content-center"
     >
-      {data?.data.shopitem.map((item: any) => (
+      {data?.data?.shopitem.map((item: any) => (
         <div className="flex flex-col mx-auto">
           <img src={item.avatar} alt="avatar" className="w-24 aspect-square" />
           <div className="">
