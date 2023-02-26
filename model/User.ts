@@ -4,6 +4,7 @@ import Chat from "./Chat";
 import Layout from "./Layout";
 import MainColor from "./MainColors";
 import PageName from "./PageName";
+import ShopItem from "./ShopItem";
 import Type from "./Type";
 
 const UserSchema: any = new Schema(
@@ -82,7 +83,8 @@ export const findById = async (id: string) => {
     .populate({ path: "pagename", model: PageName })
     .populate({ path: "maincolor", model: MainColor })
     .populate({ path: "layout", model: Layout })
-    .populate({ path: "blog", model: Blog });
+    .populate({ path: "blog", model: Blog })
+    .populate({ path: "shopitem", model: ShopItem });
 };
 
 export const findByEmail = async (email: string) => {

@@ -41,7 +41,7 @@ function ListItem() {
     .find((el) => getWindowSize().width >= +el)!;
 
   return (
-    <ul className="w-64 text-sm font-medium text-gray-900 bg-gray-300/50 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+    <ul className="w-64 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
       {(data as any)[(getBreackpoints as any)[getSize]]?.map((item: any) => (
         <li
           key={item.i}

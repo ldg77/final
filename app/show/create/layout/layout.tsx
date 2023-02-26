@@ -8,8 +8,8 @@ function layout({ children }: { children: React.ReactNode }) {
     <div className="info flex-1 flex flex-col">
       <InfoComponents
         prev={{ first: "maincolor", second: "page" }}
-        now={{ first: "layout", second: "page", step: 2 }}
-        next={{ first: "define", step: 3 }}
+        now={{ first: "layout", second: "page", step: 5 }}
+        next={{ first: "define", step: 5 }}
       />
       {children}
       <div className="frame hidden sm:block sm:h-[300px] lg:min-h-screen">

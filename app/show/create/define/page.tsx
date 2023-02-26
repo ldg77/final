@@ -7,7 +7,6 @@ function page() {
       <p className="text-center p-3 ">Step 5 / 5 : Define every layout item </p>
       <p>You can define individual Items here</p>
       <p>Select a item to start</p>
-      <Footer prev={"layout"} next={"page"} />
     </div>
   );
 }

@@ -24,6 +24,7 @@ function layout({ children }: { children: React.ReactNode }) {
               className="rounded"
             />
           </div>
+          <Footer prev={"layout"} next={"page"} />
         </div>
       </div>
     </div>

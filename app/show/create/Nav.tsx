@@ -42,7 +42,7 @@ function Nav() {
           onClick={() => setShowLogOut(!showLogout)}
           data-dropdown-placement="bottom-start"
           id="avatarButton"
-          data-dropdown-toggle="userDropdown"
+          // data-dropdown-toggle="userDropdown"
         />
         {showLogout && <Logout />}
       </div>

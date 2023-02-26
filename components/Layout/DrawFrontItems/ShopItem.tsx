@@ -13,6 +13,7 @@ function ShopItem({ itemdata }: Prop) {
   );
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
+  console.log(data);
 
   return (
     <div style={{ ...itemdata }} className="">

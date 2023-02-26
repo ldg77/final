@@ -31,7 +31,7 @@ function LabelInputComponent({ value, handleChange, data, type, name }: Prop) {
           value={data[name]}
           onChange={handleChange}
           name={name}
-          className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          className="px-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
           pattern="^\d*(\.\d{0,2})?$"
         />
       </label>
