@@ -13,10 +13,9 @@ function ShopItem({ itemdata }: Prop) {
   );
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
-  console.log(data);
 
   return (
-    <div style={{ ...itemdata }} className="">
+    <div style={{ ...itemdata }} className=" flex gap-3 flex-wrap ">
       {data?.data?.shopitem.map((item: any) => (
         <Card key={item._id} item={item} />
       ))}
