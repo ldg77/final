@@ -16,12 +16,11 @@ type Prop = {
 };
 
 function DetailCard({ setCard, card, id }: Prop) {
-  console.log(id);
-
+  // check if patch
   const addtoCart = async (id: string) => {
     await fetch(`/api/shopitem/${id}`, {
-      method: "POST",
-      body: JSON.stringify({ selected: true }),
+      method: "PATCH",
+      body: JSON.stringify({ selected: true, quantity: card.times }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },

@@ -12,13 +12,11 @@ function Card({ item }: Prop) {
   const [card, setCard] = useState({ show: false, times: 0 });
 
   return (
-    <div className="group [perspective:1000px]">
+    <div className="group">
       <div
-        className={`w-max h-full relative shadow-xl shadow-black/50 rounded-xl [transform-style:preserve-3d] ${
-          card.show && "group-hover:[transform:rotateY(180)]"
-        }`}
+        className={`w-max h-full relative shadow-xl shadow-black/50 rounded-xl`}
       >
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700  ">
+        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
           <img
             className="p-2 w-24 aspect-auto rounded-t-lg"
             src={item.avatar}
