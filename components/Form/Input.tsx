@@ -25,39 +25,49 @@ function Input({ state, setData, value }: props) {
     });
   };
   return (
-    <div className="flex justify-between items-center relative">
-      <label className="block mb-2 text-sm font-medium text-slate-300 dark:text-white flex-1">
-        {state.name}
-        <input
-          onChange={(e) =>
-            setData(
-              (prev) =>
-                (prev = {
-                  ...prev,
-                  [e.target.name]:
-                    state.name === "avatar"
-                      ? e.target.files![0]
-                      : e.target.value,
-                })
-            )
-          }
-          value={value}
-          name={state.name}
-          type={state.type}
-          aria-describedby="user_avatar_help"
-          className={`block px-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400`}
-        />
-      </label>
-      <div className="relative hover:cursor-pointer">
-        <InformationCircleIcon
-          className="w-8 text-white"
-          onClick={handleClick}
-        />
+    <>
+      <div className="flex justify-between items-center relative">
+        <label className="block mb-2 text-sm font-medium text-slate-300 dark:text-white flex-1">
+          {state.name}
+          <input
+            onChange={(e) =>
+              setData(
+                (prev) =>
+                  (prev = {
+                    ...prev,
+                    [e.target.name]:
+                      state.name === "avatar"
+                        ? e.target.files![0]
+                        : e.target.value,
+                  })
+              )
+            }
+            value={value}
+            name={state.name}
+            type={state.type}
+            aria-describedby="user_avatar_help"
+            className={`block px-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400`}
+          />
+        </label>
+        <div className="relative hover:cursor-pointer">
+          <InformationCircleIcon
+            className="w-8 text-white"
+            onClick={handleClick}
+          />
+        </div>
+        {chatData.show && (
+          <ChatResponse setChatData={setChatData} chatData={chatData} />
+        )}
       </div>
-      {chatData.show && (
-        <ChatResponse setChatData={setChatData} chatData={chatData} />
+      {state.name === "avatar" && (
+        <p
+          className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+          id="file_input_help"
+        >
+          SVG, PNG, JPG or GIF (MAX. 800x400px).
+        </p>
       )}
-    </div>
+    </>
   );
 }
 
