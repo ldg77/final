@@ -21,7 +21,7 @@ function ClearButtonOnPath({ path, submit }: Prop) {
   return (
     <button
       onClick={clearItems}
-      className=" w-1/3 mx-auto p-3 bg-black border border-b-white text-white rounded-xl uppercase transition hover:opacity-50 hover:scale-95 hover:translate-y-1"
+      className="w-1/3 mx-auto p-3 bg-black border border-b-white text-white rounded-xl uppercase transition hover:opacity-50 hover:scale-95 hover:translate-y-1"
     >
       {submit}
     </button>

@@ -3,7 +3,7 @@ import Type from "./Type";
 
 function page() {
   return (
-    <div className="h-full flex flex-col backdrop-blur-md">
+    <div className=" flex-1 flex flex-col backdrop-blur-md">
       {/* @ts-ignore */}
       <Type />
       <Footer prev={""} next={"pagename"} />

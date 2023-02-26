@@ -24,25 +24,23 @@ function LabelInputComponent({ value, handleChange, data, type, name }: Prop) {
   };
   return (
     <div className="flex justify-between items-center relative">
-      <label className="flex justify-between w-full gap-1 p-1 md:gap-5 md:p-3 ">
-        <div className="flex-1 flex justify-between">
-          {name}
-          <input
-            type={type}
-            value={data[name]}
-            onChange={handleChange}
-            name={name}
-            className="rounded  text-black lg:w-1/4"
-            pattern="^\d*(\.\d{0,2})?$"
-          />
-        </div>
-        <div className="relative hover:cursor-pointer">
-          <InformationCircleIcon
-            className="w-4 lg:w-6 text-white"
-            onClick={handleClick}
-          />
-        </div>
+      <label className="block mb-2 text-sm font-medium text-slate-300 dark:text-white flex-1">
+        {name}
+        <input
+          type={type}
+          value={data[name]}
+          onChange={handleChange}
+          name={name}
+          className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          pattern="^\d*(\.\d{0,2})?$"
+        />
       </label>
+      <div className="relative hover:cursor-pointer">
+        <InformationCircleIcon
+          className="w-4 lg:w-6 text-white"
+          onClick={handleClick}
+        />
+      </div>
       {chatData.show && (
         <ChatResponse setChatData={setChatData} chatData={chatData} />
       )}

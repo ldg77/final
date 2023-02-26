@@ -1,3 +1,4 @@
+import Card from "@/components/Shop/Card";
 import fetcher from "@/lib/fetcher";
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
@@ -12,38 +13,11 @@ function ShopItem({ itemdata }: Prop) {
   );
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
-  console.log(data);
-  const addtoCart = async (id: string) => {
-    await fetch(`/api/shopitem/${id}`, {
-      method: "POST",
-      body: JSON.stringify({ selected: true }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    });
-  };
+
   return (
-    <div
-      style={{ ...itemdata }}
-      className="h-full flex flex-col sm:flex-row gap-2 flex-wrap content-center"
-    >
+    <div style={{ ...itemdata }} className="">
       {data?.data?.shopitem.map((item: any) => (
-        <div className="flex flex-col mx-auto">
-          <img src={item.avatar} alt="avatar" className="w-24 aspect-square" />
-          <div className="">
-            <p>{item.productName}</p>
-            <p>price: {item.price}€</p>
-            <button
-              className="bg-green-900 px-3 rounded text-white"
-              onClick={() => addtoCart(item._id)}
-            >
-              add
-            </button>
-            <button className="bg-red-900 px-3 rounded text-white">
-              remove
-            </button>
-          </div>
-        </div>
+        <Card key={item._id} item={item} />
       ))}
     </div>
   );

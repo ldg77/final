@@ -4,6 +4,7 @@ import getLayout from "@/lib/getLayout";
 
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -18,6 +19,8 @@ function getWindowSize() {
 function ListItem() {
   const { data: session } = useSession();
   const [data, setData] = useState({});
+  const pathname = usePathname();
+  console.log(pathname);
 
   useEffect(() => {
     getLayout(session?.user?.email!).then((res) => {
@@ -38,18 +41,23 @@ function ListItem() {
     .find((el) => getWindowSize().width >= +el)!;
 
   return (
-    <div className="flex flex-col gap-2 ">
+    <ul className="w-64 text-sm font-medium text-gray-900 bg-gray-300/50 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
       {(data as any)[(getBreackpoints as any)[getSize]]?.map((item: any) => (
-        <Link key={item.i} href={`/show/create/define/${item.i}`} className="">
-          <button className="text-2xl">
+        <li
+          key={item.i}
+          className={` w-full px-4 py-2 border-b border-gray-200  dark:border-gray-600 ${
+            pathname?.includes(item.i) && "active-link"
+          }`}
+        >
+          <Link href={`/show/create/define/${item.i}`}>
             Item :{" "}
             <span className="capitalize  font-mono hover:animate-pulse">
               {item.i}
             </span>
-          </button>
-        </Link>
+          </Link>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 

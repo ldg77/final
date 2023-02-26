@@ -1,10 +1,15 @@
 import ListItem from "@/components/Define/ListItem";
 import Footer from "@/components/Footer";
+import InfoComponents from "@/components/InfoComponents";
 import Iframe from "react-iframe";
 function layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-full flex-col backdrop-blur-md text-white">
-      <p className="text-center p-3 ">Step 5 / 5 : Define every layout item </p>
+    <div className="flex-1 flex flex-col text-white">
+      <InfoComponents
+        prev={{ first: "layout", second: "page" }}
+        now={{ first: "define", second: "page", step: 5 }}
+        next={{ first: "PAGE", step: 6 }}
+      />
       <div className="wrapper flex flex-col sm:flex-row flex-1 p-5 rounded">
         <div className="layoutsList p-5">
           <ListItem />
@@ -21,7 +26,6 @@ function layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </div>
-      <Footer prev={"layout"} next={"page"} />
     </div>
   );
 }

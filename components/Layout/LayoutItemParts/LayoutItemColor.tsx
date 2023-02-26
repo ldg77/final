@@ -135,7 +135,7 @@ function LayoutItemColor({ path }: Prop) {
       </div>
 
       <div className="btn flex justify-center items-center w-full">
-        <button className=" p-3 bg-black border border-b-white text-white rounded-xl uppercase transition hover:opacity-50 hover:scale-95 hover:translate-y-1">
+        <button className=" btn-form">
           {!Object.keys(data).findIndex((el) => (data as any)[el])
             ? "save"
             : "reset"}

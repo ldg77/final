@@ -58,7 +58,6 @@ function SelectedType({ selected }: Prop) {
 
     if (data.approved) {
       const layoutsTemplate = generateLayoutTemplate(items[selected]);
-      console.log(layoutsTemplate, user._id);
 
       const newLayoutRes = await fetch(`/api/layout/handler`, {
         method: "POST",

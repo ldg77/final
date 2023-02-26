@@ -13,7 +13,7 @@ async function getAnswerFromGPT(what: string, session: Session | null) {
       "Content-type": "application/json; charset=UTF-8",
     },
   });
-  return await res.text();
+  return await res.json();
 }
 
 export default getAnswerFromGPT;
