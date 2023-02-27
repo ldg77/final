@@ -46,7 +46,6 @@ export const getOne = async (id: string) => {
 };
 export const createOne = async (obj: any) => {
   try {
-    console.log(obj);
     const newComment = await Comment.create(obj);
     await Blog.findOneAndUpdate(
       { _id: obj.blog },

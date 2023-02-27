@@ -50,7 +50,6 @@ function LayoutItemColor({ path }: Prop) {
       }
     );
     const updateType = await updateTypeRes.json();
-    console.log(updateType);
 
     setData(INITIAL);
     toast.success("saving done", { id: save });

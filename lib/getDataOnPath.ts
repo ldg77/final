@@ -8,7 +8,6 @@ export default async function getDataOnPath(path: string) {
     { next: { revalidate: 10 } }
   );
   const data = await dataRes.json();
-  console.log(data);
 
   return data;
 }

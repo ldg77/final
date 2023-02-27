@@ -1,6 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: "2022-11-15",
+});
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,13 +12,15 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     try {
+      console.log(req.body);
+
       const session = await stripe.checkout.sessions.create({
         line_items: req.body,
         mode: "payment",
-        success_url: `${req.headers.origin}/?success=true`,
-        cancel_url: `${req.headers.origin}/?canceled=true`,
+        success_url: `${req.headers.origin}/show/page`,
+        cancel_url: `${req.headers.origin}/show/page`,
       });
-      res.redirect(303, session.url);
+      res.status(200).json(session.url!);
     } catch (err: any) {
       res.status(err.statusCode || 500).json(err.message);
     }

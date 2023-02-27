@@ -20,12 +20,9 @@ function ListItem() {
   const { data: session } = useSession();
   const [data, setData] = useState({});
   const pathname = usePathname();
-  console.log(pathname);
 
   useEffect(() => {
     getLayout(session?.user?.email!).then((res) => {
-      console.log(res);
-
       if (!res.approved) {
         toast.error("no layouts found", {
           duration: 2000,

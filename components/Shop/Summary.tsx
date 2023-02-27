@@ -1,3 +1,5 @@
+"use client";
+
 type Prop = {
   data: [{ productName: string; price: number; quantity: number; stripe: any }];
 };
@@ -11,6 +13,7 @@ function Summary({ data }: Prop) {
     const body = data.map((el) => {
       return { quantity: el.quantity, price: el.stripe.default_price };
     });
+
     const res = await fetch(`/api/checkout_sessions`, {
       method: "POST",
       body: JSON.stringify(body),
@@ -18,7 +21,8 @@ function Summary({ data }: Prop) {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
-    console.log(res);
+    const data1 = await res.json();
+    window.location.replace(data1);
   };
 
   return (

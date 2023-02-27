@@ -16,7 +16,7 @@ function Card({ item }: Prop) {
       <div
         className={`w-max h-full relative shadow-xl shadow-black/50 rounded-xl`}
       >
-        <div className="h-full max-w-lg bg-white border border-gray-200 rounded-lg shadow-black dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-between">
+        <div className="h-full w-36 lg:w-48 bg-white border border-gray-200 rounded-lg shadow-black dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-between">
           <img
             className="p-2 w-24 aspect-auto rounded-t-lg"
             src={item.avatar}
@@ -47,9 +47,9 @@ function Card({ item }: Prop) {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                   ></path>
                 </svg>
