@@ -6,7 +6,7 @@ function Logout() {
   return (
     <div
       id="userDropdown"
-      className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 absolute top-full right-0"
+      className="z-10 absolute top-20 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 right-5"
     >
       <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
         <div>{session?.user?.name}</div>
