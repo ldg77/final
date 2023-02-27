@@ -16,7 +16,7 @@ function Card({ item }: Prop) {
       <div
         className={`w-max h-full relative shadow-xl shadow-black/50 rounded-xl`}
       >
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+        <div className="h-full max-w-lg bg-white border border-gray-200 rounded-lg shadow-black dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-between">
           <img
             className="p-2 w-24 aspect-auto rounded-t-lg"
             src={item.avatar}

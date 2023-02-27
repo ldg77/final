@@ -1,7 +1,5 @@
 "use client";
-
-import { signOut, useSession } from "next-auth/react";
-import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/solid";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import Chat from "../../../components/Chat/Chat";
@@ -15,8 +13,12 @@ function Nav() {
   return (
     <div className="text-xl bg-slate-800/20 p-3 flex justify-between items-center ">
       <div className="menu flex  gap-3">
-        <Link href="/">Main</Link>
-        <Link href="/show/page">Page</Link>
+        <Link href="/" className="btn-form">
+          Main
+        </Link>
+        <Link href="/show/page" className="btn-form">
+          Page
+        </Link>
       </div>
       <div className="flex justify-center items-center gap-2">
         {showChat && <Chat setShowChat={setShowChat} />}
@@ -42,7 +44,6 @@ function Nav() {
           onClick={() => setShowLogOut(!showLogout)}
           data-dropdown-placement="bottom-start"
           id="avatarButton"
-          // data-dropdown-toggle="userDropdown"
         />
         {showLogout && <Logout />}
       </div>

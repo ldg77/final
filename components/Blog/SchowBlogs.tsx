@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BsFillFilePlusFill } from "react-icons/bs";
+import { BsFillFileMinusFill, BsFillFilePlusFill } from "react-icons/bs";
 import AddBlog from "./AddBlog";
 import fetcher from "@/lib/fetcher";
 import useSWR from "swr";
@@ -21,7 +21,11 @@ function SchowBlogs() {
         onClick={() => setShow(!show)}
       >
         Create new Discussion
-        <BsFillFilePlusFill className="text-3xl" />
+        {show ? (
+          <BsFillFileMinusFill className="text-3xl" />
+        ) : (
+          <BsFillFilePlusFill className="text-3xl" />
+        )}
       </button>
       {show && <AddBlog setShow={setShow} />}
       <div className="blogs flex flex-col space-y-6">

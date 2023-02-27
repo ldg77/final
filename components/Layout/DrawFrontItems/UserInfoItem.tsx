@@ -17,17 +17,13 @@ function UserInfoItem({ itemdata }: Prop) {
   );
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
-  const filtered = data.data.shopitem.filter((item: any) => item.selected);
+  const filtered = data.data.shopitem.filter(
+    (item: any) => item.selected && item.quantity !== 0
+  );
 
   return (
     <div style={{ ...itemdata }} className="h-full">
       <Summary data={filtered} />
-
-      {/* {data?.data?.shopitem
-        .filter((el: any) => el.selected)
-        .map((el: any) => (
-   
-        ))} */}
     </div>
   );
 }

@@ -26,8 +26,8 @@ function Input({ state, setData, value }: props) {
   };
   return (
     <>
-      <div className="flex justify-between items-center relative">
-        <label className="block mb-2 text-sm font-medium text-slate-300 dark:text-white flex-1">
+      <div className="flex justify-between items-center  dark:bg-gray-800 text-white">
+        <label className=" flex-1 text-sm font-medium ">
           {state.name}
           <input
             onChange={(e) =>
@@ -46,14 +46,11 @@ function Input({ state, setData, value }: props) {
             name={state.name}
             type={state.type}
             aria-describedby="user_avatar_help"
-            className={`block px-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400`}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </label>
         <div className="relative hover:cursor-pointer">
-          <InformationCircleIcon
-            className="w-8 text-white"
-            onClick={handleClick}
-          />
+          <InformationCircleIcon className="w-6" onClick={handleClick} />
         </div>
         {chatData.show && (
           <ChatResponse setChatData={setChatData} chatData={chatData} />
