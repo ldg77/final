@@ -1,5 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import User, { findByIdUpdatePatch as userPatch } from "./User";
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const ShopItemSchema = new Schema(
   {
@@ -18,6 +19,7 @@ const ShopItemSchema = new Schema(
       required: true,
     },
     selected: { type: Boolean, default: false },
+    stripe: {},
   },
   { timestamps: true }
 );
@@ -48,7 +50,14 @@ export const getAll = async () => {
 };
 export const create = async (obj: any) => {
   try {
-    const shopitem = await ShopItem.create(obj);
+    const product = await stripe.products.create({
+      name: obj.productName,
+      default_price_data: {
+        currency: "eur",
+        unit_amount: +obj.price * 100,
+      },
+    });
+    const shopitem = await ShopItem.create({ ...obj, stripe: product });
     await User.findByIdAndUpdate(shopitem.user, {
       $push: { shopitem: shopitem._id },
     });
