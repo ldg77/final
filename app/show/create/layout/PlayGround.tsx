@@ -49,16 +49,16 @@ function PlayGround(data: any) {
     return () => window.removeEventListener("resize", handleResize);
   });
   return (
-    <div className="flex-1">
+    <div className="flex-1 flex flex-col">
       <button
-        className="border px-3 py-1 rounded text-white capitalize mx-auto"
+        className="btn-form mx-auto ring-white ring-2 uppercase"
         onClick={handleSaveLayout}
       >
         save
       </button>
 
       <ResponsiveReactGridLayout
-        className="layout mx-auto "
+        className="layout"
         cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 1 }}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
         rowHeight={100}

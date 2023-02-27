@@ -17,7 +17,7 @@ function ChatResponse({ setChatData, chatData }: Prop) {
   }, 1000 * 10);
 
   return (
-    <div className="absolute top-100 shadow-2xl z-20 bg-slate-900 py-3 px-5 w-full rounded">
+    <div className="absolute max-w-lg top-100 shadow-2xl z-20 bg-slate-900 py-3 px-5 w-full rounded">
       <XMarkIcon
         className="w-6 absolute right-0 top-0 hover:cursor-pointer"
         onClick={() => setChatData({ show: false, answer: "" })}
