@@ -23,6 +23,11 @@ function Summary({ data }: Prop) {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
+
+    data.forEach(async (el: any) => {
+      await handleRemove(el._id);
+    });
+
     const data1 = await res.json();
     window.location.replace(data1);
   };

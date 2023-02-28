@@ -18,7 +18,7 @@ function AddBlog({ setShow }: Prop) {
   };
 
   return (
-    <div className=" absolute -right-1/2 z-20 bg-slate-900 rounded-2xl text-white ">
+    <div className="absolute top-5 right-5 z-20 bg-slate-900 rounded-2xl text-white">
       <Form formInfo={formInfo} />
     </div>
   );

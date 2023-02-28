@@ -2,7 +2,7 @@ import DrawLayout from "@/components/Layout/DrawLayout";
 import React from "react";
 async function page() {
   return (
-    <div>
+    <div className="scrollbar-hide">
       <DrawLayout />
     </div>
   );

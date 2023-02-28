@@ -11,11 +11,11 @@ function SchowBlogs() {
   const { data, error, isLoading } = useSWR(
     `/api/user/path/${session?.user?.email}/blog`,
     fetcher,
-    { refreshInterval: 10000 }
+    { refreshInterval: 1000 }
   );
 
   return (
-    <div className="relative ">
+    <div className="relative">
       <button
         className="add mx-auto right-0 flex flex-col justify-center items-center"
         onClick={() => setShow(!show)}
