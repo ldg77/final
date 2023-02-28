@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 function page() {
   const router = useRouter();
   setTimeout(() => {
-    router.push(`${process.env.HOST}/show/page`);
-  }, 10000);
+    router.push(`/show/page`);
+  }, 5000);
   return (
     <div className="grid place-content-center h-screen">
       <div className="thanks  shadow-2xl shadow-black/50 p-10 rounded-xl text-center">
