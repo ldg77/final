@@ -9,7 +9,10 @@ function ShopItem({ itemdata }: Prop) {
   const { data: session } = useSession();
   const { data, error, isLoading } = useSWR(
     `/api/user/path/${session?.user?.email}/shopitem`,
-    fetcher
+    fetcher,
+    {
+      refreshInterval: 1000,
+    }
   );
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;

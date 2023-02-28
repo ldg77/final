@@ -74,6 +74,23 @@ export const create = async (obj: any) => {
   }
 };
 
+export const unselect = async (id: string) => {
+  try {
+    const userShopItemsArray = await User.findById(id);
+
+    return {
+      approved: true,
+      data: {},
+      message: `shopitem cleend`,
+    };
+  } catch (error: any) {
+    return {
+      approved: false,
+      message: error.message,
+    };
+  }
+};
+
 export const findById = async (id: string) => {
   return await ShopItem.findById(id);
 };
