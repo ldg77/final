@@ -17,7 +17,6 @@ type Prop = {
 };
 
 function DetailCard({ setCard, card, id }: Prop) {
-  // check if patch
   const addtoCart = async (id: string) => {
     const send = toast.loading("store to the card");
     await fetch(`/api/shopitem/${id}`, {
@@ -27,7 +26,7 @@ function DetailCard({ setCard, card, id }: Prop) {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
-    setCard({ ...card, show: false });
+    setCard({ times: 0, show: false });
     toast.success("card updated", { id: send });
   };
   return (
@@ -57,7 +56,7 @@ function DetailCard({ setCard, card, id }: Prop) {
         </button>
       </div>
       <button className="btn-form mx-auto" onClick={() => addtoCart(id)}>
-        add
+        {card.times ? "add" : "reset"}
       </button>
     </div>
   );

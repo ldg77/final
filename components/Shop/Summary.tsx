@@ -1,5 +1,7 @@
 "use client";
 
+import { toast } from "react-hot-toast";
+
 type Prop = {
   data: [{ productName: string; price: number; quantity: number; stripe: any }];
 };
@@ -24,7 +26,18 @@ function Summary({ data }: Prop) {
     const data1 = await res.json();
     window.location.replace(data1);
   };
+  const handleRemove = async (id: string) => {
+    const remove = toast.loading("deleting item...");
+    const res = await fetch(`/api/shopitem/${id}`, {
+      method: "POST",
+      body: JSON.stringify({ selected: false }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
 
+    toast.success("item deleted", { id: remove });
+  };
   return (
     <div className="w-full max-w-sm p-4 shadow-xl shadow-black/50  bg-white border border-gray-200 rounded-lg sm:p-8 dark:bg-gray-800 dark:border-gray-700">
       <h5 className="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">
@@ -35,7 +48,7 @@ function Summary({ data }: Prop) {
         <span className="text-3xl font-semibold"> € </span>
       </div>
       <ul role="list" className="space-y-5 my-7">
-        {data.map((el) => {
+        {data.map((el: any) => {
           return (
             <li key={el.stripe.id} className="flex space-x-3">
               <svg
@@ -53,8 +66,15 @@ function Summary({ data }: Prop) {
                 ></path>
               </svg>
               <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                {el.productName}:{el.price * el.quantity}€
+                <span className="font-mono">{el.quantity}</span> x{" "}
+                {el.productName} : {el.price * el.quantity}€{" "}
               </span>
+              <button
+                onClick={() => handleRemove(el._id)}
+                className="bg-pink-100 text-pink-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-pink-400 border border-pink-400"
+              >
+                remove
+              </button>
             </li>
           );
         })}
