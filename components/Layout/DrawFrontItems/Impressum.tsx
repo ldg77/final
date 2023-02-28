@@ -1,15 +1,29 @@
-import React from "react";
-
-function Impressum() {
+import {
+  ClockIcon,
+  LockClosedIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/solid";
+import React, { Dispatch, SetStateAction } from "react";
+type Prop = {
+  data: string;
+  setImpressum: Dispatch<
+    SetStateAction<{
+      show: boolean;
+      data: string;
+    }>
+  >;
+};
+function Impressum({ data, setImpressum }: Prop) {
   return (
-    <div className="absolute inset-1/3 border z-10">
+    <div className="absolute top-5 left-1/2 -translate-x-1/2 max-w-2xl border z-10 bg-slate-50 text-black/80 p-5 rounded shadow-lg shadow-black text-lg">
+      <button
+        className="absolute top-0 right-0"
+        onClick={() => setImpressum({ show: false, data: "" })}
+      >
+        <XMarkIcon className="w-6" />
+      </button>
       Impressum
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nisi qui
-        perferendis voluptatum repudiandae, facilis quidem consequatur ea
-        accusantium sed magni natus voluptate maiores repellendus asperiores
-        dicta accusamus harum ex.
-      </p>
+      <p>{data}</p>
     </div>
   );
 }
