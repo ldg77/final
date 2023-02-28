@@ -11,8 +11,8 @@ type Prop = {
 
 function LayoutItemColor({ path }: Prop) {
   const INITIAL = {
-    color: "#ffffff",
-    backgroundColor: "#000000",
+    color: "",
+    backgroundColor: "",
     fontSize: "",
     borderRadius: "",
     padding: "",
