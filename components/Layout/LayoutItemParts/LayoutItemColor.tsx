@@ -134,11 +134,7 @@ function LayoutItemColor({ path }: Prop) {
       </div>
 
       <div className="btn flex justify-center items-center w-full">
-        <button className=" btn-form">
-          {!Object.keys(data).findIndex((el) => (data as any)[el])
-            ? "save"
-            : "reset"}
-        </button>
+        <button className=" btn-form">save</button>
       </div>
     </form>
   );
