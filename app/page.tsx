@@ -15,7 +15,7 @@ export default async function Home() {
         <div className="slogan absolute left-16 bottom-1/4 text-white flex flex-col gap-10">
           <div>
             <p className="text-4xl md:text-8xl">Make your ideas </p>
-            <p className="text-4xl md:text-8xl">comes to life</p>
+            <p className="text-4xl md:text-8xl">come to life</p>
           </div>
           <p className="text-2xl md:text-4xl text-slate-100/50">
             My website build your website
